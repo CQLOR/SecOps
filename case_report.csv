@@ -1,0 +1,301 @@
+case_id,artifact_type,value,note,severity,status
+compute-10,container,compute-10,"Windows, staging, HR",MEDIUM,NEW
+compute-12,server,compute-12,"Windows, staging, Executive Administration",HIGH,NEW
+compute-13,laptop,compute-13,"macOS, prod, IT",HIGH,NEW
+compute-14,container,compute-14,"Linux, dev, HR",HIGH,NEW
+compute-14,firewall,compute-14,"Windows, prod, Engineering",HIGH,NEW
+compute-15,firewall,compute-15,"Linux, staging, IT",MEDIUM,NEW
+compute-15,firewall,compute-15,"Linux, dev, Executive Administration",MEDIUM,NEW
+compute-15,firewall,compute-15,"Linux, prod, Security",MEDIUM,NEW
+compute-16,server,compute-16,"Linux, dev, IT",LOW,NEW
+compute-18,firewall,compute-18,"macOS, prod, Engineering",LOW,NEW
+compute-2,laptop,compute-2,"Linux, staging, Executive Administration",HIGH,NEW
+compute-2,laptop,compute-2,"macOS, staging, IT",HIGH,NEW
+compute-21,server,compute-21,"Linux, prod, HR",MEDIUM,NEW
+compute-22,container,compute-22,"Windows, dev, Engineering",HIGH,NEW
+compute-24,container,compute-24,"macOS, staging, Security",MEDIUM,NEW
+compute-24,laptop,compute-24,"Linux, staging, Executive Administration",MEDIUM,NEW
+compute-24,firewall,compute-24,"Linux, dev, IT",MEDIUM,NEW
+compute-26,server,compute-26,"Windows, dev, Security",HIGH,NEW
+compute-28,server,compute-28,"Linux, staging, IT",MEDIUM,NEW
+compute-28,firewall,compute-28,"Windows, staging, Finance",MEDIUM,NEW
+compute-29,firewall,compute-29,"macOS, dev, IT",LOW,NEW
+compute-3,laptop,compute-3,"Linux, prod, Executive Administration",HIGH,NEW
+compute-3,container,compute-3,"Linux, prod, Finance",HIGH,NEW
+compute-30,container,compute-30,"Linux, prod, HR",LOW,NEW
+compute-31,firewall,compute-31,"macOS, dev, HR",LOW,NEW
+compute-31,laptop,compute-31,"Linux, dev, Executive Administration",LOW,NEW
+compute-32,firewall,compute-32,"Windows, prod, Engineering",HIGH,NEW
+compute-33,container,compute-33,"Linux, dev, Engineering",HIGH,NEW
+compute-34,firewall,compute-34,"macOS, prod, Engineering",HIGH,NEW
+compute-36,laptop,compute-36,"macOS, staging, Executive Administration",MEDIUM,NEW
+compute-36,laptop,compute-36,"Windows, staging, Engineering",MEDIUM,NEW
+compute-4,firewall,compute-4,"macOS, staging, Executive Administration",HIGH,NEW
+compute-4,firewall,compute-4,"macOS, prod, Finance",HIGH,NEW
+compute-43,server,compute-43,"Windows, staging, Security",MEDIUM,NEW
+compute-43,container,compute-43,"Windows, staging, Finance",MEDIUM,NEW
+compute-44,firewall,compute-44,"Linux, dev, Finance",HIGH,NEW
+compute-45,firewall,compute-45,"macOS, staging, Finance",MEDIUM,NEW
+compute-46,server,compute-46,"macOS, staging, IT",HIGH,NEW
+compute-47,container,compute-47,"Windows, dev, Executive Administration",LOW,NEW
+compute-47,server,compute-47,"macOS, prod, IT",LOW,NEW
+compute-48,firewall,compute-48,"macOS, staging, HR",LOW,NEW
+compute-49,firewall,compute-49,"Linux, staging, Executive Administration",MEDIUM,NEW
+compute-5,firewall,compute-5,"Windows, prod, Finance",MEDIUM,NEW
+compute-50,server,compute-50,"Linux, staging, Finance",MEDIUM,NEW
+compute-50,server,compute-50,"macOS, dev, Security",MEDIUM,NEW
+compute-7,server,compute-7,"Linux, dev, Engineering",HIGH,NEW
+compute-9,laptop,compute-9,"Linux, staging, Engineering",MEDIUM,NEW
+db-10,server,db-10,"Windows, staging, Executive Administration",HIGH,NEW
+db-10,container,db-10,"Linux, prod, HR",HIGH,NEW
+db-11,firewall,db-11,"macOS, dev, Executive Administration",MEDIUM,NEW
+db-12,firewall,db-12,"macOS, staging, Security",HIGH,NEW
+db-12,laptop,db-12,"Windows, staging, IT",HIGH,NEW
+db-13,firewall,db-13,"macOS, prod, Engineering",HIGH,NEW
+db-13,laptop,db-13,"Linux, staging, Security",HIGH,NEW
+db-15,laptop,db-15,"Linux, staging, Finance",HIGH,NEW
+db-16,firewall,db-16,"macOS, dev, Finance",LOW,NEW
+db-16,container,db-16,"Linux, prod, Engineering",LOW,NEW
+db-17,container,db-17,"Linux, staging, Engineering",MEDIUM,NEW
+db-19,laptop,db-19,"Windows, prod, Engineering",LOW,NEW
+db-2,firewall,db-2,"Windows, staging, IT",MEDIUM,NEW
+db-23,container,db-23,"Linux, dev, Executive Administration",HIGH,NEW
+db-23,container,db-23,"Linux, dev, Executive Administration",HIGH,NEW
+db-23,container,db-23,"macOS, staging, IT",HIGH,NEW
+db-24,container,db-24,"Linux, prod, Engineering",LOW,NEW
+db-29,container,db-29,"Linux, staging, Security",HIGH,NEW
+db-29,container,db-29,"Linux, dev, HR",HIGH,NEW
+db-3,server,db-3,"Windows, staging, HR",MEDIUM,NEW
+db-30,laptop,db-30,"macOS, prod, Finance",MEDIUM,NEW
+db-30,laptop,db-30,"Linux, staging, Security",MEDIUM,NEW
+db-31,firewall,db-31,"Linux, staging, Engineering",HIGH,NEW
+db-34,server,db-34,"Linux, prod, IT",LOW,NEW
+db-34,container,db-34,"macOS, staging, Executive Administration",LOW,NEW
+db-35,container,db-35,"Windows, dev, HR",HIGH,NEW
+db-37,firewall,db-37,"Linux, dev, Security",MEDIUM,NEW
+db-38,server,db-38,"Windows, prod, Security",HIGH,NEW
+db-39,firewall,db-39,"macOS, staging, IT",LOW,NEW
+db-4,container,db-4,"Windows, dev, Engineering",HIGH,NEW
+db-4,server,db-4,"macOS, prod, Finance",HIGH,NEW
+db-4,container,db-4,"Linux, dev, Security",HIGH,NEW
+db-41,container,db-41,"Linux, staging, Finance",HIGH,NEW
+db-41,server,db-41,"Windows, staging, Finance",HIGH,NEW
+db-41,container,db-41,"macOS, prod, Executive Administration",HIGH,NEW
+db-42,server,db-42,"macOS, dev, Executive Administration",LOW,NEW
+db-43,server,db-43,"Linux, dev, HR",HIGH,NEW
+db-46,server,db-46,"Windows, prod, Security",MEDIUM,NEW
+db-46,firewall,db-46,"Windows, dev, Executive Administration",MEDIUM,NEW
+db-47,server,db-47,"macOS, prod, Security",MEDIUM,NEW
+db-50,container,db-50,"macOS, prod, Finance",MEDIUM,NEW
+db-6,server,db-6,"macOS, prod, HR",MEDIUM,NEW
+db-6,server,db-6,"macOS, staging, Executive Administration",MEDIUM,NEW
+db-7,firewall,db-7,"Linux, dev, Executive Administration",HIGH,NEW
+eng-1,laptop,eng-1,"Windows, dev, Executive Administration",LOW,NEW
+eng-10,laptop,eng-10,"macOS, staging, HR",LOW,NEW
+eng-11,firewall,eng-11,"macOS, prod, IT",HIGH,NEW
+eng-13,laptop,eng-13,"Linux, dev, Engineering",MEDIUM,NEW
+eng-14,firewall,eng-14,"macOS, prod, Executive Administration",MEDIUM,NEW
+eng-15,container,eng-15,"macOS, staging, Engineering",MEDIUM,NEW
+eng-15,firewall,eng-15,"Linux, staging, IT",MEDIUM,NEW
+eng-16,firewall,eng-16,"macOS, dev, Executive Administration",MEDIUM,NEW
+eng-17,laptop,eng-17,"macOS, staging, Finance",MEDIUM,NEW
+eng-19,server,eng-19,"Linux, dev, Executive Administration",HIGH,NEW
+eng-21,container,eng-21,"Windows, dev, Executive Administration",HIGH,NEW
+eng-21,laptop,eng-21,"macOS, dev, Security",HIGH,NEW
+eng-22,server,eng-22,"Windows, prod, HR",HIGH,NEW
+eng-22,firewall,eng-22,"Linux, dev, Engineering",HIGH,NEW
+eng-24,firewall,eng-24,"Windows, prod, Executive Administration",MEDIUM,NEW
+eng-24,firewall,eng-24,"Windows, prod, HR",MEDIUM,NEW
+eng-25,server,eng-25,"macOS, prod, Engineering",LOW,NEW
+eng-28,server,eng-28,"Windows, staging, Security",MEDIUM,NEW
+eng-28,server,eng-28,"Linux, prod, IT",MEDIUM,NEW
+eng-28,container,eng-28,"Linux, dev, IT",MEDIUM,NEW
+eng-29,server,eng-29,"Linux, prod, Executive Administration",MEDIUM,NEW
+eng-29,laptop,eng-29,"Windows, prod, Finance",MEDIUM,NEW
+eng-30,container,eng-30,"macOS, prod, Finance",HIGH,NEW
+eng-30,server,eng-30,"macOS, staging, HR",HIGH,NEW
+eng-30,server,eng-30,"macOS, dev, Security",HIGH,NEW
+eng-31,laptop,eng-31,"macOS, staging, Engineering",HIGH,NEW
+eng-31,container,eng-31,"Windows, prod, Finance",HIGH,NEW
+eng-32,container,eng-32,"Windows, staging, Security",HIGH,NEW
+eng-33,server,eng-33,"macOS, dev, Executive Administration",HIGH,NEW
+eng-34,laptop,eng-34,"macOS, staging, HR",HIGH,NEW
+eng-34,container,eng-34,"Windows, dev, IT",HIGH,NEW
+eng-35,container,eng-35,"Windows, prod, IT",MEDIUM,NEW
+eng-36,firewall,eng-36,"Linux, staging, IT",MEDIUM,NEW
+eng-42,container,eng-42,"macOS, staging, Security",HIGH,NEW
+eng-46,laptop,eng-46,"macOS, dev, Finance",LOW,NEW
+eng-48,server,eng-48,"macOS, prod, Executive Administration",HIGH,NEW
+eng-48,server,eng-48,"macOS, prod, Security",HIGH,NEW
+eng-49,laptop,eng-49,"macOS, dev, Finance",HIGH,NEW
+eng-5,container,eng-5,"Linux, prod, Finance",LOW,NEW
+eng-50,laptop,eng-50,"Linux, dev, Executive Administration",MEDIUM,NEW
+eng-50,container,eng-50,"Windows, staging, Executive Administration",MEDIUM,NEW
+eng-6,firewall,eng-6,"Windows, prod, Engineering",MEDIUM,NEW
+eng-6,firewall,eng-6,"Windows, dev, Engineering",MEDIUM,NEW
+eng-6,container,eng-6,"macOS, dev, Finance",MEDIUM,NEW
+eng-7,server,eng-7,"macOS, staging, Engineering",LOW,NEW
+eng-7,server,eng-7,"macOS, dev, Finance",LOW,NEW
+eng-8,server,eng-8,"macOS, dev, Finance",HIGH,NEW
+eng-8,laptop,eng-8,"Linux, staging, Engineering",HIGH,NEW
+eng-8,server,eng-8,"Linux, dev, Security",HIGH,NEW
+finance-1,container,finance-1,"Windows, dev, Engineering",HIGH,NEW
+finance-1,firewall,finance-1,"Windows, staging, Engineering",HIGH,NEW
+finance-10,container,finance-10,"macOS, staging, HR",MEDIUM,NEW
+finance-13,container,finance-13,"Windows, prod, Finance",HIGH,NEW
+finance-14,container,finance-14,"macOS, dev, Executive Administration",HIGH,NEW
+finance-14,server,finance-14,"Windows, dev, IT",HIGH,NEW
+finance-14,server,finance-14,"macOS, staging, IT",HIGH,NEW
+finance-14,firewall,finance-14,"macOS, staging, HR",HIGH,NEW
+finance-15,laptop,finance-15,"macOS, staging, Security",HIGH,NEW
+finance-15,server,finance-15,"macOS, dev, Executive Administration",HIGH,NEW
+finance-16,container,finance-16,"Linux, prod, Finance",MEDIUM,NEW
+finance-18,server,finance-18,"Linux, staging, Executive Administration",HIGH,NEW
+finance-18,laptop,finance-18,"macOS, staging, Security",HIGH,NEW
+finance-20,firewall,finance-20,"Windows, dev, Engineering",HIGH,NEW
+finance-20,server,finance-20,"Linux, dev, Finance",HIGH,NEW
+finance-20,container,finance-20,"macOS, prod, Engineering",HIGH,NEW
+finance-21,server,finance-21,"Linux, prod, HR",LOW,NEW
+finance-22,container,finance-22,"macOS, prod, HR",HIGH,NEW
+finance-24,laptop,finance-24,"Linux, prod, HR",HIGH,NEW
+finance-24,server,finance-24,"macOS, staging, Finance",HIGH,NEW
+finance-25,laptop,finance-25,"Linux, dev, IT",LOW,NEW
+finance-28,container,finance-28,"Windows, staging, Engineering",HIGH,NEW
+finance-29,server,finance-29,"macOS, dev, Security",HIGH,NEW
+finance-29,firewall,finance-29,"Linux, prod, Finance",HIGH,NEW
+finance-29,server,finance-29,"Windows, staging, Engineering",HIGH,NEW
+finance-3,server,finance-3,"Windows, staging, IT",LOW,NEW
+finance-30,firewall,finance-30,"Linux, staging, Finance",HIGH,NEW
+finance-30,server,finance-30,"macOS, prod, Security",HIGH,NEW
+finance-30,laptop,finance-30,"Windows, staging, IT",HIGH,NEW
+finance-33,firewall,finance-33,"Windows, staging, Security",HIGH,NEW
+finance-35,laptop,finance-35,"macOS, prod, IT",HIGH,NEW
+finance-37,firewall,finance-37,"Linux, staging, HR",HIGH,NEW
+finance-37,firewall,finance-37,"Linux, staging, Executive Administration",HIGH,NEW
+finance-37,server,finance-37,"macOS, dev, Engineering",HIGH,NEW
+finance-38,firewall,finance-38,"Windows, prod, Executive Administration",LOW,NEW
+finance-39,container,finance-39,"Windows, staging, Engineering",HIGH,NEW
+finance-39,server,finance-39,"macOS, dev, Executive Administration",HIGH,NEW
+finance-4,firewall,finance-4,"Windows, staging, Finance",HIGH,NEW
+finance-4,laptop,finance-4,"Linux, dev, HR",HIGH,NEW
+finance-4,laptop,finance-4,"Windows, prod, HR",HIGH,NEW
+finance-40,firewall,finance-40,"Linux, prod, Security",HIGH,NEW
+finance-40,laptop,finance-40,"Linux, staging, Finance",HIGH,NEW
+finance-40,container,finance-40,"macOS, prod, Executive Administration",HIGH,NEW
+finance-41,laptop,finance-41,"macOS, dev, Executive Administration",HIGH,NEW
+finance-41,firewall,finance-41,"Linux, dev, IT",HIGH,NEW
+finance-42,firewall,finance-42,"Linux, dev, IT",LOW,NEW
+finance-45,firewall,finance-45,"Linux, dev, HR",LOW,NEW
+finance-46,container,finance-46,"Windows, prod, Security",HIGH,NEW
+finance-46,firewall,finance-46,"macOS, staging, Executive Administration",HIGH,NEW
+finance-47,laptop,finance-47,"Linux, prod, IT",HIGH,NEW
+finance-48,laptop,finance-48,"macOS, staging, IT",MEDIUM,NEW
+finance-48,container,finance-48,"Windows, prod, Engineering",MEDIUM,NEW
+finance-49,firewall,finance-49,"macOS, staging, Executive Administration",LOW,NEW
+finance-5,firewall,finance-5,"macOS, dev, Engineering",LOW,NEW
+finance-6,firewall,finance-6,"macOS, dev, IT",MEDIUM,NEW
+finance-8,container,finance-8,"Windows, dev, HR",HIGH,NEW
+hr-1,laptop,hr-1,"macOS, prod, Finance",LOW,NEW
+hr-10,laptop,hr-10,"Linux, prod, Security",HIGH,NEW
+hr-11,firewall,hr-11,"macOS, prod, IT",LOW,NEW
+hr-11,server,hr-11,"macOS, prod, HR",LOW,NEW
+hr-11,laptop,hr-11,"macOS, staging, HR",LOW,NEW
+hr-12,firewall,hr-12,"Linux, staging, HR",HIGH,NEW
+hr-14,server,hr-14,"Linux, prod, Security",LOW,NEW
+hr-16,laptop,hr-16,"Linux, staging, HR",HIGH,NEW
+hr-16,container,hr-16,"Windows, dev, Executive Administration",HIGH,NEW
+hr-17,container,hr-17,"Linux, dev, Executive Administration",LOW,NEW
+hr-18,server,hr-18,"Linux, prod, HR",LOW,NEW
+hr-19,container,hr-19,"Windows, prod, Security",HIGH,NEW
+hr-21,server,hr-21,"Windows, prod, Security",LOW,NEW
+hr-22,server,hr-22,"Windows, staging, Executive Administration",LOW,NEW
+hr-23,firewall,hr-23,"Windows, prod, Engineering",HIGH,NEW
+hr-24,server,hr-24,"Windows, prod, HR",LOW,NEW
+hr-25,server,hr-25,"Linux, prod, Security",MEDIUM,NEW
+hr-25,server,hr-25,"Windows, staging, Security",MEDIUM,NEW
+hr-26,container,hr-26,"macOS, prod, Finance",HIGH,NEW
+hr-26,server,hr-26,"Windows, prod, Security",HIGH,NEW
+hr-26,server,hr-26,"Linux, staging, Finance",HIGH,NEW
+hr-27,firewall,hr-27,"Windows, dev, IT",HIGH,NEW
+hr-27,container,hr-27,"Linux, staging, Finance",HIGH,NEW
+hr-28,firewall,hr-28,"macOS, prod, Finance",LOW,NEW
+hr-30,laptop,hr-30,"Linux, prod, Finance",MEDIUM,NEW
+hr-33,server,hr-33,"macOS, staging, Finance",HIGH,NEW
+hr-33,firewall,hr-33,"macOS, dev, IT",HIGH,NEW
+hr-33,server,hr-33,"Linux, prod, Engineering",HIGH,NEW
+hr-34,container,hr-34,"macOS, staging, Finance",HIGH,NEW
+hr-34,container,hr-34,"Windows, dev, Engineering",HIGH,NEW
+hr-37,laptop,hr-37,"Linux, prod, Finance",HIGH,NEW
+hr-38,container,hr-38,"Windows, staging, Finance",HIGH,NEW
+hr-39,server,hr-39,"macOS, dev, Security",HIGH,NEW
+hr-39,server,hr-39,"macOS, staging, Executive Administration",HIGH,NEW
+hr-39,server,hr-39,"Linux, dev, Executive Administration",HIGH,NEW
+hr-4,laptop,hr-4,"macOS, dev, IT",MEDIUM,NEW
+hr-4,container,hr-4,"macOS, prod, Engineering",MEDIUM,NEW
+hr-4,container,hr-4,"macOS, staging, Finance",MEDIUM,NEW
+hr-40,laptop,hr-40,"Linux, prod, Finance",HIGH,NEW
+hr-42,firewall,hr-42,"Linux, prod, HR",HIGH,NEW
+hr-44,server,hr-44,"Linux, prod, Engineering",HIGH,NEW
+hr-44,laptop,hr-44,"macOS, staging, HR",HIGH,NEW
+hr-45,firewall,hr-45,"Windows, prod, Security",LOW,NEW
+hr-46,server,hr-46,"macOS, dev, Executive Administration",LOW,NEW
+hr-46,laptop,hr-46,"macOS, dev, Engineering",LOW,NEW
+hr-48,firewall,hr-48,"macOS, prod, Engineering",LOW,NEW
+hr-49,server,hr-49,"Linux, staging, HR",HIGH,NEW
+hr-49,server,hr-49,"Linux, dev, HR",HIGH,NEW
+hr-5,server,hr-5,"Linux, dev, Security",LOW,NEW
+web-1,container,web-1,"Windows, staging, Executive Administration",LOW,NEW
+web-10,firewall,web-10,"Linux, dev, Finance",HIGH,NEW
+web-10,container,web-10,"Windows, dev, Executive Administration",HIGH,NEW
+web-12,laptop,web-12,"Windows, prod, IT",MEDIUM,NEW
+web-12,container,web-12,"Windows, staging, Executive Administration",MEDIUM,NEW
+web-12,laptop,web-12,"Linux, prod, IT",MEDIUM,NEW
+web-15,container,web-15,"macOS, staging, Engineering",HIGH,NEW
+web-15,server,web-15,"macOS, staging, HR",HIGH,NEW
+web-15,container,web-15,"Windows, staging, Engineering",HIGH,NEW
+web-16,server,web-16,"macOS, prod, IT",MEDIUM,NEW
+web-16,server,web-16,"Linux, prod, Finance",MEDIUM,NEW
+web-16,laptop,web-16,"Linux, prod, Finance",MEDIUM,NEW
+web-16,container,web-16,"Windows, staging, IT",MEDIUM,NEW
+web-19,firewall,web-19,"macOS, dev, IT",LOW,NEW
+web-2,firewall,web-2,"Linux, staging, Security",LOW,NEW
+web-20,firewall,web-20,"macOS, staging, Executive Administration",LOW,NEW
+web-20,server,web-20,"macOS, staging, HR",LOW,NEW
+web-22,container,web-22,"Linux, prod, Finance",LOW,NEW
+web-23,container,web-23,"Linux, prod, Executive Administration",LOW,NEW
+web-23,server,web-23,"Linux, prod, Security",LOW,NEW
+web-25,container,web-25,"Windows, dev, Executive Administration",HIGH,NEW
+web-26,laptop,web-26,"Linux, prod, Finance",HIGH,NEW
+web-26,container,web-26,"Linux, dev, Engineering",HIGH,NEW
+web-28,container,web-28,"Linux, prod, Executive Administration",MEDIUM,NEW
+web-28,container,web-28,"Windows, dev, Executive Administration",MEDIUM,NEW
+web-28,laptop,web-28,"Windows, dev, Executive Administration",MEDIUM,NEW
+web-29,firewall,web-29,"Linux, staging, Finance",LOW,NEW
+web-31,firewall,web-31,"Linux, prod, Finance",MEDIUM,NEW
+web-31,firewall,web-31,"macOS, dev, Engineering",MEDIUM,NEW
+web-32,firewall,web-32,"Linux, staging, Finance",MEDIUM,NEW
+web-33,container,web-33,"Linux, staging, IT",HIGH,NEW
+web-33,firewall,web-33,"macOS, dev, IT",HIGH,NEW
+web-35,laptop,web-35,"Linux, dev, Executive Administration",HIGH,NEW
+web-35,laptop,web-35,"macOS, dev, IT",HIGH,NEW
+web-36,server,web-36,"macOS, dev, IT",HIGH,NEW
+web-36,laptop,web-36,"Linux, prod, Finance",HIGH,NEW
+web-38,server,web-38,"Linux, staging, Engineering",HIGH,NEW
+web-39,laptop,web-39,"macOS, dev, Security",MEDIUM,NEW
+web-4,container,web-4,"Windows, prod, HR",LOW,NEW
+web-42,laptop,web-42,"Windows, dev, HR",HIGH,NEW
+web-42,firewall,web-42,"macOS, prod, Security",HIGH,NEW
+web-46,firewall,web-46,"Linux, staging, IT",HIGH,NEW
+web-47,server,web-47,"macOS, staging, IT",HIGH,NEW
+web-47,laptop,web-47,"macOS, prod, IT",HIGH,NEW
+web-48,laptop,web-48,"macOS, staging, IT",MEDIUM,NEW
+web-48,laptop,web-48,"Windows, prod, IT",MEDIUM,NEW
+web-48,laptop,web-48,"Windows, staging, HR",MEDIUM,NEW
+web-49,container,web-49,"Linux, staging, Finance",MEDIUM,NEW
+web-5,laptop,web-5,"macOS, staging, HR",HIGH,NEW
+web-50,laptop,web-50,"Linux, dev, Engineering",HIGH,NEW
+web-50,container,web-50,"Linux, staging, IT",HIGH,NEW
+web-7,container,web-7,"Windows, prod, Executive Administration",MEDIUM,NEW
+web-9,firewall,web-9,"Windows, prod, Finance",HIGH,NEW
+web-9,firewall,web-9,"Linux, prod, Executive Administration",HIGH,NEW
+web-9,server,web-9,"macOS, staging, Security",HIGH,NEW

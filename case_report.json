@@ -1,0 +1,6698 @@
+{
+  "generated": "2026-02-08 15:34:00",
+  "total_cases": 189,
+  "cases": [
+    {
+      "case_id": "compute-10",
+      "summary": "compute-10 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "compute-10",
+          "note": "Windows, staging, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 175,
+          "hostname": "compute-10",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "2/25/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-12",
+      "summary": "compute-12 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "compute-12",
+          "note": "Windows, staging, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 54,
+          "hostname": "compute-12",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "11/22/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-13",
+      "summary": "compute-13 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "compute-13",
+          "note": "macOS, prod, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 44,
+          "hostname": "compute-13",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "12/4/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-14",
+      "summary": "compute-14 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "compute-14",
+          "note": "Linux, dev, HR"
+        },
+        {
+          "type": "firewall",
+          "value": "compute-14",
+          "note": "Windows, prod, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 62,
+          "hostname": "compute-14",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "11/6/2025"
+        },
+        {
+          "asset_id": 237,
+          "hostname": "compute-14",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "4/8/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-15",
+      "summary": "compute-15 | NEW | MEDIUM | artifacts=3",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "compute-15",
+          "note": "Linux, staging, IT"
+        },
+        {
+          "type": "firewall",
+          "value": "compute-15",
+          "note": "Linux, dev, Executive Administration"
+        },
+        {
+          "type": "firewall",
+          "value": "compute-15",
+          "note": "Linux, prod, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 63,
+          "hostname": "compute-15",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "1/4/2025"
+        },
+        {
+          "asset_id": 141,
+          "hostname": "compute-15",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "10/3/2025"
+        },
+        {
+          "asset_id": 292,
+          "hostname": "compute-15",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "8/11/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-16",
+      "summary": "compute-16 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "compute-16",
+          "note": "Linux, dev, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 291,
+          "hostname": "compute-16",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "5/6/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-18",
+      "summary": "compute-18 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "compute-18",
+          "note": "macOS, prod, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 222,
+          "hostname": "compute-18",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "5/15/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-2",
+      "summary": "compute-2 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "compute-2",
+          "note": "Linux, staging, Executive Administration"
+        },
+        {
+          "type": "laptop",
+          "value": "compute-2",
+          "note": "macOS, staging, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 25,
+          "hostname": "compute-2",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "2/25/2025"
+        },
+        {
+          "asset_id": 157,
+          "hostname": "compute-2",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "4/3/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-21",
+      "summary": "compute-21 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "compute-21",
+          "note": "Linux, prod, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 267,
+          "hostname": "compute-21",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "4/19/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-22",
+      "summary": "compute-22 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "compute-22",
+          "note": "Windows, dev, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 195,
+          "hostname": "compute-22",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "9/22/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-24",
+      "summary": "compute-24 | NEW | MEDIUM | artifacts=3",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "compute-24",
+          "note": "macOS, staging, Security"
+        },
+        {
+          "type": "laptop",
+          "value": "compute-24",
+          "note": "Linux, staging, Executive Administration"
+        },
+        {
+          "type": "firewall",
+          "value": "compute-24",
+          "note": "Linux, dev, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 111,
+          "hostname": "compute-24",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "6/30/2025"
+        },
+        {
+          "asset_id": 255,
+          "hostname": "compute-24",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "5/5/2025"
+        },
+        {
+          "asset_id": 279,
+          "hostname": "compute-24",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "10/30/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-26",
+      "summary": "compute-26 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "compute-26",
+          "note": "Windows, dev, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 174,
+          "hostname": "compute-26",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "9/12/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-28",
+      "summary": "compute-28 | NEW | MEDIUM | artifacts=2",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "compute-28",
+          "note": "Linux, staging, IT"
+        },
+        {
+          "type": "firewall",
+          "value": "compute-28",
+          "note": "Windows, staging, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 49,
+          "hostname": "compute-28",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "2/28/2025"
+        },
+        {
+          "asset_id": 205,
+          "hostname": "compute-28",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "1/12/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-29",
+      "summary": "compute-29 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "compute-29",
+          "note": "macOS, dev, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 261,
+          "hostname": "compute-29",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "2/27/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-3",
+      "summary": "compute-3 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "compute-3",
+          "note": "Linux, prod, Executive Administration"
+        },
+        {
+          "type": "container",
+          "value": "compute-3",
+          "note": "Linux, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 154,
+          "hostname": "compute-3",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "10/2/2025"
+        },
+        {
+          "asset_id": 216,
+          "hostname": "compute-3",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "3/17/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-30",
+      "summary": "compute-30 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "compute-30",
+          "note": "Linux, prod, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 33,
+          "hostname": "compute-30",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "5/26/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-31",
+      "summary": "compute-31 | NEW | LOW | artifacts=2",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "compute-31",
+          "note": "macOS, dev, HR"
+        },
+        {
+          "type": "laptop",
+          "value": "compute-31",
+          "note": "Linux, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 9,
+          "hostname": "compute-31",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "6/15/2025"
+        },
+        {
+          "asset_id": 173,
+          "hostname": "compute-31",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "12/5/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-32",
+      "summary": "compute-32 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "compute-32",
+          "note": "Windows, prod, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 85,
+          "hostname": "compute-32",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "7/4/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-33",
+      "summary": "compute-33 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "compute-33",
+          "note": "Linux, dev, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 5,
+          "hostname": "compute-33",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "5/24/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-34",
+      "summary": "compute-34 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "compute-34",
+          "note": "macOS, prod, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 67,
+          "hostname": "compute-34",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "7/26/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-36",
+      "summary": "compute-36 | NEW | MEDIUM | artifacts=2",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "compute-36",
+          "note": "macOS, staging, Executive Administration"
+        },
+        {
+          "type": "laptop",
+          "value": "compute-36",
+          "note": "Windows, staging, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 92,
+          "hostname": "compute-36",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "3/19/2025"
+        },
+        {
+          "asset_id": 230,
+          "hostname": "compute-36",
+          "asset_type": "laptop",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "1/18/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-4",
+      "summary": "compute-4 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "compute-4",
+          "note": "macOS, staging, Executive Administration"
+        },
+        {
+          "type": "firewall",
+          "value": "compute-4",
+          "note": "macOS, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 138,
+          "hostname": "compute-4",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "6/17/2025"
+        },
+        {
+          "asset_id": 224,
+          "hostname": "compute-4",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "5/17/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-43",
+      "summary": "compute-43 | NEW | MEDIUM | artifacts=2",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "compute-43",
+          "note": "Windows, staging, Security"
+        },
+        {
+          "type": "container",
+          "value": "compute-43",
+          "note": "Windows, staging, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 47,
+          "hostname": "compute-43",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "1/11/2025"
+        },
+        {
+          "asset_id": 121,
+          "hostname": "compute-43",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "5/18/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-44",
+      "summary": "compute-44 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "compute-44",
+          "note": "Linux, dev, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 207,
+          "hostname": "compute-44",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "10/23/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-45",
+      "summary": "compute-45 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "compute-45",
+          "note": "macOS, staging, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 220,
+          "hostname": "compute-45",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "7/12/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-46",
+      "summary": "compute-46 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "compute-46",
+          "note": "macOS, staging, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 56,
+          "hostname": "compute-46",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "8/2/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-47",
+      "summary": "compute-47 | NEW | LOW | artifacts=2",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "compute-47",
+          "note": "Windows, dev, Executive Administration"
+        },
+        {
+          "type": "server",
+          "value": "compute-47",
+          "note": "macOS, prod, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 83,
+          "hostname": "compute-47",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "9/17/2025"
+        },
+        {
+          "asset_id": 166,
+          "hostname": "compute-47",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "10/22/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-48",
+      "summary": "compute-48 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "compute-48",
+          "note": "macOS, staging, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 185,
+          "hostname": "compute-48",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "3/7/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-49",
+      "summary": "compute-49 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "compute-49",
+          "note": "Linux, staging, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 244,
+          "hostname": "compute-49",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "5/21/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-5",
+      "summary": "compute-5 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "compute-5",
+          "note": "Windows, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 225,
+          "hostname": "compute-5",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "12/7/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-50",
+      "summary": "compute-50 | NEW | MEDIUM | artifacts=2",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "compute-50",
+          "note": "Linux, staging, Finance"
+        },
+        {
+          "type": "server",
+          "value": "compute-50",
+          "note": "macOS, dev, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 38,
+          "hostname": "compute-50",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "5/29/2025"
+        },
+        {
+          "asset_id": 142,
+          "hostname": "compute-50",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "3/10/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-7",
+      "summary": "compute-7 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "compute-7",
+          "note": "Linux, dev, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 296,
+          "hostname": "compute-7",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "12/4/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "compute-9",
+      "summary": "compute-9 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "compute-9",
+          "note": "Linux, staging, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 8,
+          "hostname": "compute-9",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "11/29/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-10",
+      "summary": "db-10 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "db-10",
+          "note": "Windows, staging, Executive Administration"
+        },
+        {
+          "type": "container",
+          "value": "db-10",
+          "note": "Linux, prod, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 184,
+          "hostname": "db-10",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "11/25/2025"
+        },
+        {
+          "asset_id": 227,
+          "hostname": "db-10",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "4/29/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-11",
+      "summary": "db-11 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "db-11",
+          "note": "macOS, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 192,
+          "hostname": "db-11",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "6/15/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-12",
+      "summary": "db-12 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "db-12",
+          "note": "macOS, staging, Security"
+        },
+        {
+          "type": "laptop",
+          "value": "db-12",
+          "note": "Windows, staging, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 75,
+          "hostname": "db-12",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "8/15/2025"
+        },
+        {
+          "asset_id": 177,
+          "hostname": "db-12",
+          "asset_type": "laptop",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "7/15/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-13",
+      "summary": "db-13 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "db-13",
+          "note": "macOS, prod, Engineering"
+        },
+        {
+          "type": "laptop",
+          "value": "db-13",
+          "note": "Linux, staging, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 2,
+          "hostname": "db-13",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "1/2/2026"
+        },
+        {
+          "asset_id": 97,
+          "hostname": "db-13",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "11/15/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-15",
+      "summary": "db-15 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "db-15",
+          "note": "Linux, staging, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 239,
+          "hostname": "db-15",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "10/31/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-16",
+      "summary": "db-16 | NEW | LOW | artifacts=2",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "db-16",
+          "note": "macOS, dev, Finance"
+        },
+        {
+          "type": "container",
+          "value": "db-16",
+          "note": "Linux, prod, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 34,
+          "hostname": "db-16",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "9/10/2025"
+        },
+        {
+          "asset_id": 163,
+          "hostname": "db-16",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "11/29/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-17",
+      "summary": "db-17 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "db-17",
+          "note": "Linux, staging, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 40,
+          "hostname": "db-17",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "8/26/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-19",
+      "summary": "db-19 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "db-19",
+          "note": "Windows, prod, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 285,
+          "hostname": "db-19",
+          "asset_type": "laptop",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "8/3/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-2",
+      "summary": "db-2 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "db-2",
+          "note": "Windows, staging, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 105,
+          "hostname": "db-2",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "2/2/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-23",
+      "summary": "db-23 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "db-23",
+          "note": "Linux, dev, Executive Administration"
+        },
+        {
+          "type": "container",
+          "value": "db-23",
+          "note": "Linux, dev, Executive Administration"
+        },
+        {
+          "type": "container",
+          "value": "db-23",
+          "note": "macOS, staging, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 115,
+          "hostname": "db-23",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "7/26/2025"
+        },
+        {
+          "asset_id": 218,
+          "hostname": "db-23",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "4/17/2025"
+        },
+        {
+          "asset_id": 294,
+          "hostname": "db-23",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "8/7/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-24",
+      "summary": "db-24 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "db-24",
+          "note": "Linux, prod, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 178,
+          "hostname": "db-24",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "10/7/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-29",
+      "summary": "db-29 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "db-29",
+          "note": "Linux, staging, Security"
+        },
+        {
+          "type": "container",
+          "value": "db-29",
+          "note": "Linux, dev, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 253,
+          "hostname": "db-29",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "3/23/2025"
+        },
+        {
+          "asset_id": 256,
+          "hostname": "db-29",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "10/6/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-3",
+      "summary": "db-3 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "db-3",
+          "note": "Windows, staging, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 1,
+          "hostname": "db-3",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "1/19/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-30",
+      "summary": "db-30 | NEW | MEDIUM | artifacts=2",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "db-30",
+          "note": "macOS, prod, Finance"
+        },
+        {
+          "type": "laptop",
+          "value": "db-30",
+          "note": "Linux, staging, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 204,
+          "hostname": "db-30",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "11/12/2025"
+        },
+        {
+          "asset_id": 274,
+          "hostname": "db-30",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "7/24/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-31",
+      "summary": "db-31 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "db-31",
+          "note": "Linux, staging, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 30,
+          "hostname": "db-31",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "10/26/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-34",
+      "summary": "db-34 | NEW | LOW | artifacts=2",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "db-34",
+          "note": "Linux, prod, IT"
+        },
+        {
+          "type": "container",
+          "value": "db-34",
+          "note": "macOS, staging, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 107,
+          "hostname": "db-34",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "3/5/2025"
+        },
+        {
+          "asset_id": 198,
+          "hostname": "db-34",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "4/1/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-35",
+      "summary": "db-35 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "db-35",
+          "note": "Windows, dev, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 241,
+          "hostname": "db-35",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "9/9/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-37",
+      "summary": "db-37 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "db-37",
+          "note": "Linux, dev, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 180,
+          "hostname": "db-37",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "1/16/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-38",
+      "summary": "db-38 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "db-38",
+          "note": "Windows, prod, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 152,
+          "hostname": "db-38",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "1/10/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-39",
+      "summary": "db-39 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "db-39",
+          "note": "macOS, staging, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 228,
+          "hostname": "db-39",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "11/4/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-4",
+      "summary": "db-4 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "db-4",
+          "note": "Windows, dev, Engineering"
+        },
+        {
+          "type": "server",
+          "value": "db-4",
+          "note": "macOS, prod, Finance"
+        },
+        {
+          "type": "container",
+          "value": "db-4",
+          "note": "Linux, dev, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 181,
+          "hostname": "db-4",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "12/19/2025"
+        },
+        {
+          "asset_id": 183,
+          "hostname": "db-4",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "1/20/2025"
+        },
+        {
+          "asset_id": 259,
+          "hostname": "db-4",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "12/15/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-41",
+      "summary": "db-41 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "db-41",
+          "note": "Linux, staging, Finance"
+        },
+        {
+          "type": "server",
+          "value": "db-41",
+          "note": "Windows, staging, Finance"
+        },
+        {
+          "type": "container",
+          "value": "db-41",
+          "note": "macOS, prod, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 24,
+          "hostname": "db-41",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "12/24/2025"
+        },
+        {
+          "asset_id": 125,
+          "hostname": "db-41",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "5/10/2025"
+        },
+        {
+          "asset_id": 134,
+          "hostname": "db-41",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "9/26/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-42",
+      "summary": "db-42 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "db-42",
+          "note": "macOS, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 281,
+          "hostname": "db-42",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "10/4/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-43",
+      "summary": "db-43 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "db-43",
+          "note": "Linux, dev, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 231,
+          "hostname": "db-43",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "8/14/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-46",
+      "summary": "db-46 | NEW | MEDIUM | artifacts=2",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "db-46",
+          "note": "Windows, prod, Security"
+        },
+        {
+          "type": "firewall",
+          "value": "db-46",
+          "note": "Windows, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 127,
+          "hostname": "db-46",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "4/29/2025"
+        },
+        {
+          "asset_id": 287,
+          "hostname": "db-46",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "12/5/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-47",
+      "summary": "db-47 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "db-47",
+          "note": "macOS, prod, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 248,
+          "hostname": "db-47",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "9/10/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-50",
+      "summary": "db-50 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "db-50",
+          "note": "macOS, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 133,
+          "hostname": "db-50",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "3/8/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-6",
+      "summary": "db-6 | NEW | MEDIUM | artifacts=2",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "db-6",
+          "note": "macOS, prod, HR"
+        },
+        {
+          "type": "server",
+          "value": "db-6",
+          "note": "macOS, staging, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 137,
+          "hostname": "db-6",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "7/27/2025"
+        },
+        {
+          "asset_id": 272,
+          "hostname": "db-6",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "5/28/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "db-7",
+      "summary": "db-7 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "db-7",
+          "note": "Linux, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 186,
+          "hostname": "db-7",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "12/18/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-1",
+      "summary": "eng-1 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "eng-1",
+          "note": "Windows, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 162,
+          "hostname": "eng-1",
+          "asset_type": "laptop",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "11/6/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-10",
+      "summary": "eng-10 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "eng-10",
+          "note": "macOS, staging, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 41,
+          "hostname": "eng-10",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "3/13/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-11",
+      "summary": "eng-11 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "eng-11",
+          "note": "macOS, prod, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 229,
+          "hostname": "eng-11",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "2/11/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-13",
+      "summary": "eng-13 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "eng-13",
+          "note": "Linux, dev, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 149,
+          "hostname": "eng-13",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "9/14/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-14",
+      "summary": "eng-14 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "eng-14",
+          "note": "macOS, prod, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 72,
+          "hostname": "eng-14",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "12/6/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-15",
+      "summary": "eng-15 | NEW | MEDIUM | artifacts=2",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "eng-15",
+          "note": "macOS, staging, Engineering"
+        },
+        {
+          "type": "firewall",
+          "value": "eng-15",
+          "note": "Linux, staging, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 55,
+          "hostname": "eng-15",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "8/27/2025"
+        },
+        {
+          "asset_id": 104,
+          "hostname": "eng-15",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "4/23/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-16",
+      "summary": "eng-16 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "eng-16",
+          "note": "macOS, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 22,
+          "hostname": "eng-16",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "12/27/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-17",
+      "summary": "eng-17 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "eng-17",
+          "note": "macOS, staging, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 81,
+          "hostname": "eng-17",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "8/13/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-19",
+      "summary": "eng-19 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "eng-19",
+          "note": "Linux, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 251,
+          "hostname": "eng-19",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "12/3/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-21",
+      "summary": "eng-21 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "eng-21",
+          "note": "Windows, dev, Executive Administration"
+        },
+        {
+          "type": "laptop",
+          "value": "eng-21",
+          "note": "macOS, dev, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 57,
+          "hostname": "eng-21",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "9/8/2025"
+        },
+        {
+          "asset_id": 268,
+          "hostname": "eng-21",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "2/7/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-22",
+      "summary": "eng-22 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "eng-22",
+          "note": "Windows, prod, HR"
+        },
+        {
+          "type": "firewall",
+          "value": "eng-22",
+          "note": "Linux, dev, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 37,
+          "hostname": "eng-22",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "1/1/2026"
+        },
+        {
+          "asset_id": 235,
+          "hostname": "eng-22",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "3/19/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-24",
+      "summary": "eng-24 | NEW | MEDIUM | artifacts=2",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "eng-24",
+          "note": "Windows, prod, Executive Administration"
+        },
+        {
+          "type": "firewall",
+          "value": "eng-24",
+          "note": "Windows, prod, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 10,
+          "hostname": "eng-24",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "10/6/2025"
+        },
+        {
+          "asset_id": 282,
+          "hostname": "eng-24",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "3/7/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-25",
+      "summary": "eng-25 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "eng-25",
+          "note": "macOS, prod, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 80,
+          "hostname": "eng-25",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "3/11/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-28",
+      "summary": "eng-28 | NEW | MEDIUM | artifacts=3",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "eng-28",
+          "note": "Windows, staging, Security"
+        },
+        {
+          "type": "server",
+          "value": "eng-28",
+          "note": "Linux, prod, IT"
+        },
+        {
+          "type": "container",
+          "value": "eng-28",
+          "note": "Linux, dev, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 29,
+          "hostname": "eng-28",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "5/8/2025"
+        },
+        {
+          "asset_id": 112,
+          "hostname": "eng-28",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "1/25/2025"
+        },
+        {
+          "asset_id": 188,
+          "hostname": "eng-28",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "6/1/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-29",
+      "summary": "eng-29 | NEW | MEDIUM | artifacts=2",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "eng-29",
+          "note": "Linux, prod, Executive Administration"
+        },
+        {
+          "type": "laptop",
+          "value": "eng-29",
+          "note": "Windows, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 61,
+          "hostname": "eng-29",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "6/24/2025"
+        },
+        {
+          "asset_id": 271,
+          "hostname": "eng-29",
+          "asset_type": "laptop",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "3/13/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-30",
+      "summary": "eng-30 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "eng-30",
+          "note": "macOS, prod, Finance"
+        },
+        {
+          "type": "server",
+          "value": "eng-30",
+          "note": "macOS, staging, HR"
+        },
+        {
+          "type": "server",
+          "value": "eng-30",
+          "note": "macOS, dev, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 120,
+          "hostname": "eng-30",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "1/12/2025"
+        },
+        {
+          "asset_id": 159,
+          "hostname": "eng-30",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "4/28/2025"
+        },
+        {
+          "asset_id": 167,
+          "hostname": "eng-30",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "9/16/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-31",
+      "summary": "eng-31 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "eng-31",
+          "note": "macOS, staging, Engineering"
+        },
+        {
+          "type": "container",
+          "value": "eng-31",
+          "note": "Windows, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 172,
+          "hostname": "eng-31",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "6/10/2025"
+        },
+        {
+          "asset_id": 201,
+          "hostname": "eng-31",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "3/12/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-32",
+      "summary": "eng-32 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "eng-32",
+          "note": "Windows, staging, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 65,
+          "hostname": "eng-32",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "7/8/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-33",
+      "summary": "eng-33 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "eng-33",
+          "note": "macOS, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 42,
+          "hostname": "eng-33",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "1/3/2026"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-34",
+      "summary": "eng-34 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "eng-34",
+          "note": "macOS, staging, HR"
+        },
+        {
+          "type": "container",
+          "value": "eng-34",
+          "note": "Windows, dev, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 11,
+          "hostname": "eng-34",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "4/23/2025"
+        },
+        {
+          "asset_id": 106,
+          "hostname": "eng-34",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "4/4/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-35",
+      "summary": "eng-35 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "eng-35",
+          "note": "Windows, prod, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 100,
+          "hostname": "eng-35",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "8/31/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-36",
+      "summary": "eng-36 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "eng-36",
+          "note": "Linux, staging, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 160,
+          "hostname": "eng-36",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "2/2/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-42",
+      "summary": "eng-42 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "eng-42",
+          "note": "macOS, staging, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 260,
+          "hostname": "eng-42",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "5/16/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-46",
+      "summary": "eng-46 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "eng-46",
+          "note": "macOS, dev, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 146,
+          "hostname": "eng-46",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "8/23/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-48",
+      "summary": "eng-48 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "eng-48",
+          "note": "macOS, prod, Executive Administration"
+        },
+        {
+          "type": "server",
+          "value": "eng-48",
+          "note": "macOS, prod, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 79,
+          "hostname": "eng-48",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "7/20/2025"
+        },
+        {
+          "asset_id": 126,
+          "hostname": "eng-48",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "8/10/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-49",
+      "summary": "eng-49 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "eng-49",
+          "note": "macOS, dev, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 247,
+          "hostname": "eng-49",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "3/19/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-5",
+      "summary": "eng-5 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "eng-5",
+          "note": "Linux, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 209,
+          "hostname": "eng-5",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "7/5/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-50",
+      "summary": "eng-50 | NEW | MEDIUM | artifacts=2",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "eng-50",
+          "note": "Linux, dev, Executive Administration"
+        },
+        {
+          "type": "container",
+          "value": "eng-50",
+          "note": "Windows, staging, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 15,
+          "hostname": "eng-50",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "1/1/2026"
+        },
+        {
+          "asset_id": 129,
+          "hostname": "eng-50",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "12/1/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-6",
+      "summary": "eng-6 | NEW | MEDIUM | artifacts=3",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "eng-6",
+          "note": "Windows, prod, Engineering"
+        },
+        {
+          "type": "firewall",
+          "value": "eng-6",
+          "note": "Windows, dev, Engineering"
+        },
+        {
+          "type": "container",
+          "value": "eng-6",
+          "note": "macOS, dev, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 169,
+          "hostname": "eng-6",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "5/16/2025"
+        },
+        {
+          "asset_id": 232,
+          "hostname": "eng-6",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "8/2/2025"
+        },
+        {
+          "asset_id": 299,
+          "hostname": "eng-6",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "11/22/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-7",
+      "summary": "eng-7 | NEW | LOW | artifacts=2",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "eng-7",
+          "note": "macOS, staging, Engineering"
+        },
+        {
+          "type": "server",
+          "value": "eng-7",
+          "note": "macOS, dev, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 86,
+          "hostname": "eng-7",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "12/15/2025"
+        },
+        {
+          "asset_id": 119,
+          "hostname": "eng-7",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "3/8/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "eng-8",
+      "summary": "eng-8 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "eng-8",
+          "note": "macOS, dev, Finance"
+        },
+        {
+          "type": "laptop",
+          "value": "eng-8",
+          "note": "Linux, staging, Engineering"
+        },
+        {
+          "type": "server",
+          "value": "eng-8",
+          "note": "Linux, dev, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 12,
+          "hostname": "eng-8",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "7/16/2025"
+        },
+        {
+          "asset_id": 236,
+          "hostname": "eng-8",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "9/24/2025"
+        },
+        {
+          "asset_id": 246,
+          "hostname": "eng-8",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "7/28/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-1",
+      "summary": "finance-1 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "finance-1",
+          "note": "Windows, dev, Engineering"
+        },
+        {
+          "type": "firewall",
+          "value": "finance-1",
+          "note": "Windows, staging, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 130,
+          "hostname": "finance-1",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "11/21/2025"
+        },
+        {
+          "asset_id": 212,
+          "hostname": "finance-1",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "6/5/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-10",
+      "summary": "finance-10 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "finance-10",
+          "note": "macOS, staging, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 242,
+          "hostname": "finance-10",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "2/7/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-13",
+      "summary": "finance-13 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "finance-13",
+          "note": "Windows, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 273,
+          "hostname": "finance-13",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "11/24/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-14",
+      "summary": "finance-14 | NEW | HIGH | artifacts=4",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "finance-14",
+          "note": "macOS, dev, Executive Administration"
+        },
+        {
+          "type": "server",
+          "value": "finance-14",
+          "note": "Windows, dev, IT"
+        },
+        {
+          "type": "server",
+          "value": "finance-14",
+          "note": "macOS, staging, IT"
+        },
+        {
+          "type": "firewall",
+          "value": "finance-14",
+          "note": "macOS, staging, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 28,
+          "hostname": "finance-14",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "4/16/2025"
+        },
+        {
+          "asset_id": 90,
+          "hostname": "finance-14",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "5/27/2025"
+        },
+        {
+          "asset_id": 147,
+          "hostname": "finance-14",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "11/20/2025"
+        },
+        {
+          "asset_id": 233,
+          "hostname": "finance-14",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "5/22/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-15",
+      "summary": "finance-15 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "finance-15",
+          "note": "macOS, staging, Security"
+        },
+        {
+          "type": "server",
+          "value": "finance-15",
+          "note": "macOS, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 288,
+          "hostname": "finance-15",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "7/31/2025"
+        },
+        {
+          "asset_id": 297,
+          "hostname": "finance-15",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "12/21/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-16",
+      "summary": "finance-16 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "finance-16",
+          "note": "Linux, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 189,
+          "hostname": "finance-16",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "9/16/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-18",
+      "summary": "finance-18 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "finance-18",
+          "note": "Linux, staging, Executive Administration"
+        },
+        {
+          "type": "laptop",
+          "value": "finance-18",
+          "note": "macOS, staging, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 70,
+          "hostname": "finance-18",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "7/3/2025"
+        },
+        {
+          "asset_id": 217,
+          "hostname": "finance-18",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "5/6/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-20",
+      "summary": "finance-20 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "finance-20",
+          "note": "Windows, dev, Engineering"
+        },
+        {
+          "type": "server",
+          "value": "finance-20",
+          "note": "Linux, dev, Finance"
+        },
+        {
+          "type": "container",
+          "value": "finance-20",
+          "note": "macOS, prod, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 164,
+          "hostname": "finance-20",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "1/8/2025"
+        },
+        {
+          "asset_id": 221,
+          "hostname": "finance-20",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "5/23/2025"
+        },
+        {
+          "asset_id": 243,
+          "hostname": "finance-20",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "9/8/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-21",
+      "summary": "finance-21 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "finance-21",
+          "note": "Linux, prod, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 210,
+          "hostname": "finance-21",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "9/27/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-22",
+      "summary": "finance-22 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "finance-22",
+          "note": "macOS, prod, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 48,
+          "hostname": "finance-22",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "4/8/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-24",
+      "summary": "finance-24 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "finance-24",
+          "note": "Linux, prod, HR"
+        },
+        {
+          "type": "server",
+          "value": "finance-24",
+          "note": "macOS, staging, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 17,
+          "hostname": "finance-24",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "11/13/2025"
+        },
+        {
+          "asset_id": 21,
+          "hostname": "finance-24",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "4/3/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-25",
+      "summary": "finance-25 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "finance-25",
+          "note": "Linux, dev, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 91,
+          "hostname": "finance-25",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "5/23/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-28",
+      "summary": "finance-28 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "finance-28",
+          "note": "Windows, staging, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 206,
+          "hostname": "finance-28",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "11/23/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-29",
+      "summary": "finance-29 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "finance-29",
+          "note": "macOS, dev, Security"
+        },
+        {
+          "type": "firewall",
+          "value": "finance-29",
+          "note": "Linux, prod, Finance"
+        },
+        {
+          "type": "server",
+          "value": "finance-29",
+          "note": "Windows, staging, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 46,
+          "hostname": "finance-29",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "3/31/2025"
+        },
+        {
+          "asset_id": 117,
+          "hostname": "finance-29",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "7/29/2025"
+        },
+        {
+          "asset_id": 215,
+          "hostname": "finance-29",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "7/26/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-3",
+      "summary": "finance-3 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "finance-3",
+          "note": "Windows, staging, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 110,
+          "hostname": "finance-3",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "5/9/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-30",
+      "summary": "finance-30 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "finance-30",
+          "note": "Linux, staging, Finance"
+        },
+        {
+          "type": "server",
+          "value": "finance-30",
+          "note": "macOS, prod, Security"
+        },
+        {
+          "type": "laptop",
+          "value": "finance-30",
+          "note": "Windows, staging, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 60,
+          "hostname": "finance-30",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "11/27/2025"
+        },
+        {
+          "asset_id": 191,
+          "hostname": "finance-30",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "2/24/2025"
+        },
+        {
+          "asset_id": 197,
+          "hostname": "finance-30",
+          "asset_type": "laptop",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "11/23/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-33",
+      "summary": "finance-33 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "finance-33",
+          "note": "Windows, staging, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 151,
+          "hostname": "finance-33",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "12/20/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-35",
+      "summary": "finance-35 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "finance-35",
+          "note": "macOS, prod, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 23,
+          "hostname": "finance-35",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "2/9/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-37",
+      "summary": "finance-37 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "finance-37",
+          "note": "Linux, staging, HR"
+        },
+        {
+          "type": "firewall",
+          "value": "finance-37",
+          "note": "Linux, staging, Executive Administration"
+        },
+        {
+          "type": "server",
+          "value": "finance-37",
+          "note": "macOS, dev, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 52,
+          "hostname": "finance-37",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "9/28/2025"
+        },
+        {
+          "asset_id": 124,
+          "hostname": "finance-37",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "12/12/2025"
+        },
+        {
+          "asset_id": 258,
+          "hostname": "finance-37",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "1/6/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-38",
+      "summary": "finance-38 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "finance-38",
+          "note": "Windows, prod, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 64,
+          "hostname": "finance-38",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "7/2/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-39",
+      "summary": "finance-39 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "finance-39",
+          "note": "Windows, staging, Engineering"
+        },
+        {
+          "type": "server",
+          "value": "finance-39",
+          "note": "macOS, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 58,
+          "hostname": "finance-39",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "9/1/2025"
+        },
+        {
+          "asset_id": 275,
+          "hostname": "finance-39",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "8/17/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-4",
+      "summary": "finance-4 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "finance-4",
+          "note": "Windows, staging, Finance"
+        },
+        {
+          "type": "laptop",
+          "value": "finance-4",
+          "note": "Linux, dev, HR"
+        },
+        {
+          "type": "laptop",
+          "value": "finance-4",
+          "note": "Windows, prod, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 45,
+          "hostname": "finance-4",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "10/9/2025"
+        },
+        {
+          "asset_id": 165,
+          "hostname": "finance-4",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "2/4/2025"
+        },
+        {
+          "asset_id": 300,
+          "hostname": "finance-4",
+          "asset_type": "laptop",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "11/22/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-40",
+      "summary": "finance-40 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "finance-40",
+          "note": "Linux, prod, Security"
+        },
+        {
+          "type": "laptop",
+          "value": "finance-40",
+          "note": "Linux, staging, Finance"
+        },
+        {
+          "type": "container",
+          "value": "finance-40",
+          "note": "macOS, prod, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 39,
+          "hostname": "finance-40",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "6/12/2025"
+        },
+        {
+          "asset_id": 182,
+          "hostname": "finance-40",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "11/11/2025"
+        },
+        {
+          "asset_id": 298,
+          "hostname": "finance-40",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "7/19/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-41",
+      "summary": "finance-41 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "finance-41",
+          "note": "macOS, dev, Executive Administration"
+        },
+        {
+          "type": "firewall",
+          "value": "finance-41",
+          "note": "Linux, dev, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 53,
+          "hostname": "finance-41",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "10/18/2025"
+        },
+        {
+          "asset_id": 156,
+          "hostname": "finance-41",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "5/3/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-42",
+      "summary": "finance-42 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "finance-42",
+          "note": "Linux, dev, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 51,
+          "hostname": "finance-42",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "8/26/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-45",
+      "summary": "finance-45 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "finance-45",
+          "note": "Linux, dev, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 245,
+          "hostname": "finance-45",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "4/7/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-46",
+      "summary": "finance-46 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "finance-46",
+          "note": "Windows, prod, Security"
+        },
+        {
+          "type": "firewall",
+          "value": "finance-46",
+          "note": "macOS, staging, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 73,
+          "hostname": "finance-46",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "7/15/2025"
+        },
+        {
+          "asset_id": 148,
+          "hostname": "finance-46",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "6/23/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-47",
+      "summary": "finance-47 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "finance-47",
+          "note": "Linux, prod, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 87,
+          "hostname": "finance-47",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "1/27/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-48",
+      "summary": "finance-48 | NEW | MEDIUM | artifacts=2",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "finance-48",
+          "note": "macOS, staging, IT"
+        },
+        {
+          "type": "container",
+          "value": "finance-48",
+          "note": "Windows, prod, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 103,
+          "hostname": "finance-48",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "9/1/2025"
+        },
+        {
+          "asset_id": 249,
+          "hostname": "finance-48",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "2/12/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-49",
+      "summary": "finance-49 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "finance-49",
+          "note": "macOS, staging, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 196,
+          "hostname": "finance-49",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "6/14/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-5",
+      "summary": "finance-5 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "finance-5",
+          "note": "macOS, dev, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 194,
+          "hostname": "finance-5",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "6/8/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-6",
+      "summary": "finance-6 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "finance-6",
+          "note": "macOS, dev, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 234,
+          "hostname": "finance-6",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "6/18/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "finance-8",
+      "summary": "finance-8 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "finance-8",
+          "note": "Windows, dev, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 211,
+          "hostname": "finance-8",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "12/30/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-1",
+      "summary": "hr-1 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "hr-1",
+          "note": "macOS, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 88,
+          "hostname": "hr-1",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "3/13/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-10",
+      "summary": "hr-10 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "hr-10",
+          "note": "Linux, prod, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 208,
+          "hostname": "hr-10",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "11/5/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-11",
+      "summary": "hr-11 | NEW | LOW | artifacts=3",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "hr-11",
+          "note": "macOS, prod, IT"
+        },
+        {
+          "type": "server",
+          "value": "hr-11",
+          "note": "macOS, prod, HR"
+        },
+        {
+          "type": "laptop",
+          "value": "hr-11",
+          "note": "macOS, staging, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 59,
+          "hostname": "hr-11",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "6/1/2025"
+        },
+        {
+          "asset_id": 93,
+          "hostname": "hr-11",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "4/21/2025"
+        },
+        {
+          "asset_id": 176,
+          "hostname": "hr-11",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "8/10/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-12",
+      "summary": "hr-12 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "hr-12",
+          "note": "Linux, staging, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 102,
+          "hostname": "hr-12",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "4/17/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-14",
+      "summary": "hr-14 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "hr-14",
+          "note": "Linux, prod, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 128,
+          "hostname": "hr-14",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "5/15/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-16",
+      "summary": "hr-16 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "hr-16",
+          "note": "Linux, staging, HR"
+        },
+        {
+          "type": "container",
+          "value": "hr-16",
+          "note": "Windows, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 4,
+          "hostname": "hr-16",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "10/12/2025"
+        },
+        {
+          "asset_id": 150,
+          "hostname": "hr-16",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "4/13/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-17",
+      "summary": "hr-17 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "hr-17",
+          "note": "Linux, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 171,
+          "hostname": "hr-17",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "12/13/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-18",
+      "summary": "hr-18 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "hr-18",
+          "note": "Linux, prod, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 98,
+          "hostname": "hr-18",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "11/14/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-19",
+      "summary": "hr-19 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "hr-19",
+          "note": "Windows, prod, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 118,
+          "hostname": "hr-19",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "10/14/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-21",
+      "summary": "hr-21 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "hr-21",
+          "note": "Windows, prod, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 77,
+          "hostname": "hr-21",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "3/14/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-22",
+      "summary": "hr-22 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "hr-22",
+          "note": "Windows, staging, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 226,
+          "hostname": "hr-22",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "11/7/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-23",
+      "summary": "hr-23 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "hr-23",
+          "note": "Windows, prod, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 283,
+          "hostname": "hr-23",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "11/10/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-24",
+      "summary": "hr-24 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "hr-24",
+          "note": "Windows, prod, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 168,
+          "hostname": "hr-24",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "4/19/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-25",
+      "summary": "hr-25 | NEW | MEDIUM | artifacts=2",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "hr-25",
+          "note": "Linux, prod, Security"
+        },
+        {
+          "type": "server",
+          "value": "hr-25",
+          "note": "Windows, staging, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 71,
+          "hostname": "hr-25",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "12/8/2025"
+        },
+        {
+          "asset_id": 187,
+          "hostname": "hr-25",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "12/6/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-26",
+      "summary": "hr-26 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "hr-26",
+          "note": "macOS, prod, Finance"
+        },
+        {
+          "type": "server",
+          "value": "hr-26",
+          "note": "Windows, prod, Security"
+        },
+        {
+          "type": "server",
+          "value": "hr-26",
+          "note": "Linux, staging, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 96,
+          "hostname": "hr-26",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "9/26/2025"
+        },
+        {
+          "asset_id": 143,
+          "hostname": "hr-26",
+          "asset_type": "server",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "11/4/2025"
+        },
+        {
+          "asset_id": 264,
+          "hostname": "hr-26",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "8/26/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-27",
+      "summary": "hr-27 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "hr-27",
+          "note": "Windows, dev, IT"
+        },
+        {
+          "type": "container",
+          "value": "hr-27",
+          "note": "Linux, staging, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 252,
+          "hostname": "hr-27",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "5/1/2025"
+        },
+        {
+          "asset_id": 266,
+          "hostname": "hr-27",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "2/26/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-28",
+      "summary": "hr-28 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "hr-28",
+          "note": "macOS, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 254,
+          "hostname": "hr-28",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "2/18/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-30",
+      "summary": "hr-30 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "hr-30",
+          "note": "Linux, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 108,
+          "hostname": "hr-30",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "2/26/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-33",
+      "summary": "hr-33 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "hr-33",
+          "note": "macOS, staging, Finance"
+        },
+        {
+          "type": "firewall",
+          "value": "hr-33",
+          "note": "macOS, dev, IT"
+        },
+        {
+          "type": "server",
+          "value": "hr-33",
+          "note": "Linux, prod, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 68,
+          "hostname": "hr-33",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "7/9/2025"
+        },
+        {
+          "asset_id": 199,
+          "hostname": "hr-33",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "5/11/2025"
+        },
+        {
+          "asset_id": 238,
+          "hostname": "hr-33",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "2/2/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-34",
+      "summary": "hr-34 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "hr-34",
+          "note": "macOS, staging, Finance"
+        },
+        {
+          "type": "container",
+          "value": "hr-34",
+          "note": "Windows, dev, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 109,
+          "hostname": "hr-34",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "6/29/2025"
+        },
+        {
+          "asset_id": 116,
+          "hostname": "hr-34",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "8/13/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-37",
+      "summary": "hr-37 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "hr-37",
+          "note": "Linux, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 190,
+          "hostname": "hr-37",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "10/10/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-38",
+      "summary": "hr-38 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "hr-38",
+          "note": "Windows, staging, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 276,
+          "hostname": "hr-38",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "12/18/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-39",
+      "summary": "hr-39 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "hr-39",
+          "note": "macOS, dev, Security"
+        },
+        {
+          "type": "server",
+          "value": "hr-39",
+          "note": "macOS, staging, Executive Administration"
+        },
+        {
+          "type": "server",
+          "value": "hr-39",
+          "note": "Linux, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 66,
+          "hostname": "hr-39",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "9/24/2025"
+        },
+        {
+          "asset_id": 140,
+          "hostname": "hr-39",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "12/24/2025"
+        },
+        {
+          "asset_id": 155,
+          "hostname": "hr-39",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "11/7/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-4",
+      "summary": "hr-4 | NEW | MEDIUM | artifacts=3",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "hr-4",
+          "note": "macOS, dev, IT"
+        },
+        {
+          "type": "container",
+          "value": "hr-4",
+          "note": "macOS, prod, Engineering"
+        },
+        {
+          "type": "container",
+          "value": "hr-4",
+          "note": "macOS, staging, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 84,
+          "hostname": "hr-4",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "10/14/2025"
+        },
+        {
+          "asset_id": 144,
+          "hostname": "hr-4",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "1/12/2025"
+        },
+        {
+          "asset_id": 293,
+          "hostname": "hr-4",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "6/29/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-40",
+      "summary": "hr-40 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "hr-40",
+          "note": "Linux, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 193,
+          "hostname": "hr-40",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "6/9/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-42",
+      "summary": "hr-42 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "hr-42",
+          "note": "Linux, prod, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 170,
+          "hostname": "hr-42",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "5/16/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-44",
+      "summary": "hr-44 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "hr-44",
+          "note": "Linux, prod, Engineering"
+        },
+        {
+          "type": "laptop",
+          "value": "hr-44",
+          "note": "macOS, staging, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 122,
+          "hostname": "hr-44",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "3/1/2025"
+        },
+        {
+          "asset_id": 202,
+          "hostname": "hr-44",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "5/21/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-45",
+      "summary": "hr-45 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "hr-45",
+          "note": "Windows, prod, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 3,
+          "hostname": "hr-45",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "9/22/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-46",
+      "summary": "hr-46 | NEW | LOW | artifacts=2",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "hr-46",
+          "note": "macOS, dev, Executive Administration"
+        },
+        {
+          "type": "laptop",
+          "value": "hr-46",
+          "note": "macOS, dev, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 35,
+          "hostname": "hr-46",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "12/23/2025"
+        },
+        {
+          "asset_id": 94,
+          "hostname": "hr-46",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "7/20/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-48",
+      "summary": "hr-48 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "hr-48",
+          "note": "macOS, prod, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 290,
+          "hostname": "hr-48",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "12/12/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-49",
+      "summary": "hr-49 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "hr-49",
+          "note": "Linux, staging, HR"
+        },
+        {
+          "type": "server",
+          "value": "hr-49",
+          "note": "Linux, dev, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 139,
+          "hostname": "hr-49",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "2/17/2025"
+        },
+        {
+          "asset_id": 270,
+          "hostname": "hr-49",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "9/6/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "hr-5",
+      "summary": "hr-5 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "hr-5",
+          "note": "Linux, dev, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 286,
+          "hostname": "hr-5",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "11/20/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-1",
+      "summary": "web-1 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "web-1",
+          "note": "Windows, staging, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 123,
+          "hostname": "web-1",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "10/7/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-10",
+      "summary": "web-10 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "web-10",
+          "note": "Linux, dev, Finance"
+        },
+        {
+          "type": "container",
+          "value": "web-10",
+          "note": "Windows, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 14,
+          "hostname": "web-10",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "4/11/2025"
+        },
+        {
+          "asset_id": 16,
+          "hostname": "web-10",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "7/31/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-12",
+      "summary": "web-12 | NEW | MEDIUM | artifacts=3",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "web-12",
+          "note": "Windows, prod, IT"
+        },
+        {
+          "type": "container",
+          "value": "web-12",
+          "note": "Windows, staging, Executive Administration"
+        },
+        {
+          "type": "laptop",
+          "value": "web-12",
+          "note": "Linux, prod, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 27,
+          "hostname": "web-12",
+          "asset_type": "laptop",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "8/4/2025"
+        },
+        {
+          "asset_id": 158,
+          "hostname": "web-12",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "9/20/2025"
+        },
+        {
+          "asset_id": 280,
+          "hostname": "web-12",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "12/18/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-15",
+      "summary": "web-15 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "web-15",
+          "note": "macOS, staging, Engineering"
+        },
+        {
+          "type": "server",
+          "value": "web-15",
+          "note": "macOS, staging, HR"
+        },
+        {
+          "type": "container",
+          "value": "web-15",
+          "note": "Windows, staging, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 6,
+          "hostname": "web-15",
+          "asset_type": "container",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "3/11/2025"
+        },
+        {
+          "asset_id": 7,
+          "hostname": "web-15",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "9/21/2025"
+        },
+        {
+          "asset_id": 18,
+          "hostname": "web-15",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "1/9/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-16",
+      "summary": "web-16 | NEW | MEDIUM | artifacts=4",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "web-16",
+          "note": "macOS, prod, IT"
+        },
+        {
+          "type": "server",
+          "value": "web-16",
+          "note": "Linux, prod, Finance"
+        },
+        {
+          "type": "laptop",
+          "value": "web-16",
+          "note": "Linux, prod, Finance"
+        },
+        {
+          "type": "container",
+          "value": "web-16",
+          "note": "Windows, staging, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 13,
+          "hostname": "web-16",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "10/31/2025"
+        },
+        {
+          "asset_id": 82,
+          "hostname": "web-16",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "3/13/2025"
+        },
+        {
+          "asset_id": 113,
+          "hostname": "web-16",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "1/26/2025"
+        },
+        {
+          "asset_id": 265,
+          "hostname": "web-16",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "4/2/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-19",
+      "summary": "web-19 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "web-19",
+          "note": "macOS, dev, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 32,
+          "hostname": "web-19",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "7/19/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-2",
+      "summary": "web-2 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "web-2",
+          "note": "Linux, staging, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 101,
+          "hostname": "web-2",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "3/31/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-20",
+      "summary": "web-20 | NEW | LOW | artifacts=2",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "web-20",
+          "note": "macOS, staging, Executive Administration"
+        },
+        {
+          "type": "server",
+          "value": "web-20",
+          "note": "macOS, staging, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 136,
+          "hostname": "web-20",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "9/4/2025"
+        },
+        {
+          "asset_id": 214,
+          "hostname": "web-20",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "3/26/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-22",
+      "summary": "web-22 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "web-22",
+          "note": "Linux, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 203,
+          "hostname": "web-22",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "1/12/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-23",
+      "summary": "web-23 | NEW | LOW | artifacts=2",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "web-23",
+          "note": "Linux, prod, Executive Administration"
+        },
+        {
+          "type": "server",
+          "value": "web-23",
+          "note": "Linux, prod, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 132,
+          "hostname": "web-23",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "10/20/2025"
+        },
+        {
+          "asset_id": 219,
+          "hostname": "web-23",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "9/6/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-25",
+      "summary": "web-25 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "web-25",
+          "note": "Windows, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 131,
+          "hostname": "web-25",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "3/1/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-26",
+      "summary": "web-26 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "web-26",
+          "note": "Linux, prod, Finance"
+        },
+        {
+          "type": "container",
+          "value": "web-26",
+          "note": "Linux, dev, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 19,
+          "hostname": "web-26",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "11/9/2025"
+        },
+        {
+          "asset_id": 95,
+          "hostname": "web-26",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "8/25/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-28",
+      "summary": "web-28 | NEW | MEDIUM | artifacts=3",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "web-28",
+          "note": "Linux, prod, Executive Administration"
+        },
+        {
+          "type": "container",
+          "value": "web-28",
+          "note": "Windows, dev, Executive Administration"
+        },
+        {
+          "type": "laptop",
+          "value": "web-28",
+          "note": "Windows, dev, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 89,
+          "hostname": "web-28",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "5/22/2025"
+        },
+        {
+          "asset_id": 114,
+          "hostname": "web-28",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "2/15/2025"
+        },
+        {
+          "asset_id": 200,
+          "hostname": "web-28",
+          "asset_type": "laptop",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "8/31/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-29",
+      "summary": "web-29 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "web-29",
+          "note": "Linux, staging, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 278,
+          "hostname": "web-29",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "12/26/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-31",
+      "summary": "web-31 | NEW | MEDIUM | artifacts=2",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "web-31",
+          "note": "Linux, prod, Finance"
+        },
+        {
+          "type": "firewall",
+          "value": "web-31",
+          "note": "macOS, dev, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 26,
+          "hostname": "web-31",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "8/21/2025"
+        },
+        {
+          "asset_id": 240,
+          "hostname": "web-31",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "5/20/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-32",
+      "summary": "web-32 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "web-32",
+          "note": "Linux, staging, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 262,
+          "hostname": "web-32",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "10/17/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-33",
+      "summary": "web-33 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "web-33",
+          "note": "Linux, staging, IT"
+        },
+        {
+          "type": "firewall",
+          "value": "web-33",
+          "note": "macOS, dev, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 20,
+          "hostname": "web-33",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "1/17/2025"
+        },
+        {
+          "asset_id": 257,
+          "hostname": "web-33",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "4/11/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-35",
+      "summary": "web-35 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "web-35",
+          "note": "Linux, dev, Executive Administration"
+        },
+        {
+          "type": "laptop",
+          "value": "web-35",
+          "note": "macOS, dev, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 78,
+          "hostname": "web-35",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Executive Administration",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "8/23/2025"
+        },
+        {
+          "asset_id": 99,
+          "hostname": "web-35",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "3/8/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-36",
+      "summary": "web-36 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "web-36",
+          "note": "macOS, dev, IT"
+        },
+        {
+          "type": "laptop",
+          "value": "web-36",
+          "note": "Linux, prod, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 43,
+          "hostname": "web-36",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "11/29/2025"
+        },
+        {
+          "asset_id": 76,
+          "hostname": "web-36",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "1/16/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-38",
+      "summary": "web-38 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "web-38",
+          "note": "Linux, staging, Engineering"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 31,
+          "hostname": "web-38",
+          "asset_type": "server",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "5/5/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-39",
+      "summary": "web-39 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "web-39",
+          "note": "macOS, dev, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 50,
+          "hostname": "web-39",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "dev",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "9/18/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-4",
+      "summary": "web-4 | NEW | LOW | artifacts=1",
+      "severity": "LOW",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "web-4",
+          "note": "Windows, prod, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 223,
+          "hostname": "web-4",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "medium",
+          "last_seen": "8/8/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-42",
+      "summary": "web-42 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "web-42",
+          "note": "Windows, dev, HR"
+        },
+        {
+          "type": "firewall",
+          "value": "web-42",
+          "note": "macOS, prod, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 250,
+          "hostname": "web-42",
+          "asset_type": "laptop",
+          "os": "Windows",
+          "environment": "dev",
+          "owner_team": "HR",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "4/3/2025"
+        },
+        {
+          "asset_id": 277,
+          "hostname": "web-42",
+          "asset_type": "firewall",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "Security",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "10/25/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-46",
+      "summary": "web-46 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "web-46",
+          "note": "Linux, staging, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 263,
+          "hostname": "web-46",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "5/28/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-47",
+      "summary": "web-47 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "server",
+          "value": "web-47",
+          "note": "macOS, staging, IT"
+        },
+        {
+          "type": "laptop",
+          "value": "web-47",
+          "note": "macOS, prod, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 69,
+          "hostname": "web-47",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "3/20/2025"
+        },
+        {
+          "asset_id": 74,
+          "hostname": "web-47",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "prod",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "9/4/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-48",
+      "summary": "web-48 | NEW | MEDIUM | artifacts=3",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "web-48",
+          "note": "macOS, staging, IT"
+        },
+        {
+          "type": "laptop",
+          "value": "web-48",
+          "note": "Windows, prod, IT"
+        },
+        {
+          "type": "laptop",
+          "value": "web-48",
+          "note": "Windows, staging, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 36,
+          "hostname": "web-48",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "3/24/2025"
+        },
+        {
+          "asset_id": 269,
+          "hostname": "web-48",
+          "asset_type": "laptop",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "IT",
+          "internet_exposed": false,
+          "criticality": "low",
+          "last_seen": "5/11/2025"
+        },
+        {
+          "asset_id": 289,
+          "hostname": "web-48",
+          "asset_type": "laptop",
+          "os": "Windows",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "medium",
+          "last_seen": "9/2/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-49",
+      "summary": "web-49 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "web-49",
+          "note": "Linux, staging, Finance"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 145,
+          "hostname": "web-49",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "8/23/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-5",
+      "summary": "web-5 | NEW | HIGH | artifacts=1",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "web-5",
+          "note": "macOS, staging, HR"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 153,
+          "hostname": "web-5",
+          "asset_type": "laptop",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "HR",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "10/22/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-50",
+      "summary": "web-50 | NEW | HIGH | artifacts=2",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "laptop",
+          "value": "web-50",
+          "note": "Linux, dev, Engineering"
+        },
+        {
+          "type": "container",
+          "value": "web-50",
+          "note": "Linux, staging, IT"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 135,
+          "hostname": "web-50",
+          "asset_type": "laptop",
+          "os": "Linux",
+          "environment": "dev",
+          "owner_team": "Engineering",
+          "internet_exposed": false,
+          "criticality": "high",
+          "last_seen": "4/27/2025"
+        },
+        {
+          "asset_id": 179,
+          "hostname": "web-50",
+          "asset_type": "container",
+          "os": "Linux",
+          "environment": "staging",
+          "owner_team": "IT",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "4/22/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-7",
+      "summary": "web-7 | NEW | MEDIUM | artifacts=1",
+      "severity": "MEDIUM",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "container",
+          "value": "web-7",
+          "note": "Windows, prod, Executive Administration"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 284,
+          "hostname": "web-7",
+          "asset_type": "container",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "6/13/2025"
+        }
+      ]
+    },
+    {
+      "case_id": "web-9",
+      "summary": "web-9 | NEW | HIGH | artifacts=3",
+      "severity": "HIGH",
+      "status": "NEW",
+      "artifacts": [
+        {
+          "type": "firewall",
+          "value": "web-9",
+          "note": "Windows, prod, Finance"
+        },
+        {
+          "type": "firewall",
+          "value": "web-9",
+          "note": "Linux, prod, Executive Administration"
+        },
+        {
+          "type": "server",
+          "value": "web-9",
+          "note": "macOS, staging, Security"
+        }
+      ],
+      "raw_records": [
+        {
+          "asset_id": 161,
+          "hostname": "web-9",
+          "asset_type": "firewall",
+          "os": "Windows",
+          "environment": "prod",
+          "owner_team": "Finance",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "3/25/2025"
+        },
+        {
+          "asset_id": 213,
+          "hostname": "web-9",
+          "asset_type": "firewall",
+          "os": "Linux",
+          "environment": "prod",
+          "owner_team": "Executive Administration",
+          "internet_exposed": true,
+          "criticality": "low",
+          "last_seen": "3/27/2025"
+        },
+        {
+          "asset_id": 295,
+          "hostname": "web-9",
+          "asset_type": "server",
+          "os": "macOS",
+          "environment": "staging",
+          "owner_team": "Security",
+          "internet_exposed": true,
+          "criticality": "high",
+          "last_seen": "1/3/2026"
+        }
+      ]
+    }
+  ],
+  "detected_domains": {},
+  "detected_hashes": {}
+}

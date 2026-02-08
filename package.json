@@ -1,0 +1,13 @@
+{
+    "name": "secops-analysis",
+    "version": "1.0.0",
+    "description": "SOC Case Builder and Reporting Server",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "node server.js"
+    },
+    "dependencies": {
+        "express": "^4.18.2"
+    }
+}

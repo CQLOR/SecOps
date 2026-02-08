@@ -1,0 +1,2794 @@
+<html><head><meta charset="utf-8"><title>SECOPS CASE REPORT</title><style>
+        :root { --accent: #2b6cb0; --muted: #6b7280; --bg: #ffffff; --card:#f9fafb; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin: 0; background: #f3f4f6; color: #111827; }
+        .container { max-width: 1100px; margin: 28px auto; background: var(--bg); padding: 24px 28px; box-shadow: 0 2px 8px rgba(15,23,42,0.06); border-radius: 8px; }
+        .title { text-align: center; font-size: 32px; font-weight: 700; letter-spacing: 1px; color: var(--accent); }
+        .meta { text-align: center; color: var(--muted); margin-bottom: 18px; }
+        .toc { margin: 18px 0 8px 0; padding: 12px; background: var(--card); border-radius: 6px; }
+        .toc ul { margin: 0; padding-left: 18px; }
+        .summary { margin: 18px 0; }
+        .indicator-list { display:flex; gap:16px; flex-wrap:wrap; }
+        .indicator { background:#fff; border:1px solid #e6e9ef; padding:8px 10px; border-radius:6px; font-size:14px; }
+        .cases { margin-top: 16px; }
+        .case { border:1px solid #e6e9ef; padding:14px; border-radius:8px; margin-bottom:12px; background:#fff }
+        .case h3 { margin: 0 0 10px 0; display:flex; justify-content:space-between; align-items:center; gap:12px }
+        .badge { padding:4px 8px; border-radius:999px; font-size:12px; color:#fff; font-weight:600 }
+        .badge-low { background: #10b981 }
+        .badge-medium { background: #f59e0b }
+        .badge-high { background: #ef4444 }
+        .artifacts ul { margin:6px 0 10px 18px }
+        table { border-collapse: collapse; width: 100%; font-size:13px }
+        th, td { border: 1px solid #eef2f7; padding: 8px; }
+        th { background: #f8fafc; text-align:left }
+        tr:nth-child(even) { background: #fbfdff }
+        .artifact { font-family: monospace; color:#0f172a }
+        .actions { text-align: center; margin-bottom: 20px; }
+        .btn { display: inline-block; padding: 8px 16px; background: var(--accent); color: white; text-decoration: none; border-radius: 4px; margin-right: 10px; font-weight: 500; transition: background 0.2s; }
+        .btn:hover { background-color: #1e4b8a; }
+        @media print { .container { box-shadow:none } .case { page-break-inside: avoid } .actions { display: none; } }
+        </style></head><body>
+<div class="container">
+<div class="title">SECOPS CASE REPORT</div>
+<div class="meta">Author: Lenny Coulter &nbsp;|&nbsp; Generated: 2026-02-08 15:34:00 &nbsp;|&nbsp; Total cases: 189 </div>
+<div class="actions">
+        <div style="margin-bottom:12px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+                <a href="/download/pdf" class="btn" data-download="/download/pdf">Download PDF</a>
+                <a href="/download/csv" class="btn" data-download="/download/csv">Download CSV</a>
+                <a href="/download/json" class="btn" data-download="/download/json">Download JSON</a>
+        </div>
+        <div style="display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap;">
+                <label><strong>Severity:</strong>
+                        <select id="filter-severity">
+                                <option value="">All</option>
+                                <option value="HIGH">HIGH</option>
+                                <option value="MEDIUM">MEDIUM</option>
+                                <option value="LOW">LOW</option>
+                        </select>
+                </label>
+                <label><strong>OS:</strong>
+                        <select id="filter-os">
+                                <option value="">All</option>
+                        </select>
+                </label>
+                <label><strong>Owner:</strong>
+                        <select id="filter-owner">
+                                <option value="">All</option>
+                        </select>
+                </label>
+                <label><strong>Hostname:</strong>
+                        <input id="search-hostname" placeholder="Search hostname" />
+                </label>
+                <button id="clear-filters" class="btn">Clear</button>
+        </div>
+</div>
+<script>
+// Enhanced client-side: downloads, filtering, sorting, pagination, visible counts
+(() => {
+        // Download helper
+        async function downloadUrl(url, btn) {
+                try {
+                        btn.disabled = true;
+                        const originalText = btn.textContent;
+                        btn.textContent = 'Downloading...';
+                        const resp = await fetch(url);
+                        if (!resp.ok) throw new Error('Network error');
+                        const blob = await resp.blob();
+                        const urlObj = window.URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = urlObj;
+                        const parts = url.split('/');
+                        link.download = parts[parts.length-1] || 'case_report';
+                        document.body.appendChild(link);
+                        link.click();
+                        link.remove();
+                        window.URL.revokeObjectURL(urlObj);
+                        btn.textContent = originalText;
+                        btn.disabled = false;
+                } catch (err) {
+                        alert('Download failed: ' + err.message);
+                        btn.disabled = false;
+                        btn.textContent = btn.getAttribute('data-label') || 'Download';
+                }
+        }
+
+        // Add click handler for download anchors
+        document.addEventListener('click', (e) => {
+                const a = e.target.closest('a[data-download]');
+                if (!a) return;
+                e.preventDefault();
+                if (!a.getAttribute('data-label')) a.setAttribute('data-label', a.textContent);
+                downloadUrl(a.getAttribute('data-download'), a);
+        });
+
+        // State
+        let cases = []; // {elem, caseId, severity, os, owner}
+        let filtered = [];
+        let currentPage = 1;
+        let pageSize = 25;
+        let currentSort = 'case_asc';
+
+        const severityRank = { 'HIGH': 3, 'MEDIUM': 2, 'LOW': 1 };
+
+        function buildCasesArray() {
+                cases = [];
+                document.querySelectorAll('.case').forEach(c => {
+                        const caseId = c.querySelector('h3 span')?.textContent?.trim() || '';
+                        const severity = (c.querySelector('.badge')?.textContent?.trim() || '').toUpperCase();
+                        const tr = c.querySelector('table tr:nth-child(2)');
+                        let os = '';
+                        let owner = '';
+                        if (tr) {
+                                const cells = tr.querySelectorAll('td');
+                                if (cells.length > 5) {
+                                        os = cells[3].textContent.trim();
+                                        owner = cells[5].textContent.trim();
+                                }
+                        }
+                        cases.push({ elem: c, caseId, severity, os, owner });
+                });
+        }
+
+        function gatherOptions() {
+                const osSet = new Set();
+                const ownerSet = new Set();
+                cases.forEach(c => { if (c.os) osSet.add(c.os); if (c.owner) ownerSet.add(c.owner); });
+                return { os: Array.from(osSet).sort(), owner: Array.from(ownerSet).sort() };
+        }
+
+        function populateFilterSelects() {
+                const opts = gatherOptions();
+                const osSel = document.getElementById('filter-os');
+                const ownerSel = document.getElementById('filter-owner');
+                while (osSel.options.length > 1) osSel.remove(1);
+                while (ownerSel.options.length > 1) ownerSel.remove(1);
+                opts.os.forEach(o => { const opt = document.createElement('option'); opt.value = o; opt.textContent = o; osSel.appendChild(opt); });
+                opts.owner.forEach(o => { const opt = document.createElement('option'); opt.value = o; opt.textContent = o; ownerSel.appendChild(opt); });
+        }
+
+        function applyFiltersAndSort() {
+                const sev = document.getElementById('filter-severity').value;
+                const osVal = document.getElementById('filter-os').value;
+                const ownerVal = document.getElementById('filter-owner').value;
+                const search = document.getElementById('search-hostname').value.trim().toLowerCase();
+
+                filtered = cases.filter(c => {
+                        if (sev && (c.severity || '').toUpperCase() !== sev) return false;
+                        if (osVal && c.os !== osVal) return false;
+                        if (ownerVal && c.owner !== ownerVal) return false;
+                        if (search && !c.caseId.toLowerCase().includes(search)) return false;
+                        return true;
+                });
+
+                sortFiltered();
+                currentPage = 1;
+                renderPage();
+        }
+
+        function sortFiltered() {
+                if (currentSort === 'case_asc') {
+                        filtered.sort((a,b) => a.caseId.localeCompare(b.caseId));
+                } else if (currentSort === 'case_desc') {
+                        filtered.sort((a,b) => b.caseId.localeCompare(a.caseId));
+                } else if (currentSort === 'severity_high_low') {
+                        filtered.sort((a,b) => (severityRank[b.severity]||0) - (severityRank[a.severity]||0));
+                } else if (currentSort === 'severity_low_high') {
+                        filtered.sort((a,b) => (severityRank[a.severity]||0) - (severityRank[b.severity]||0));
+                }
+        }
+
+        function renderPage() {
+                const total = cases.length;
+                const visibleCount = filtered.length;
+                const visibleCountEl = document.getElementById('visible-count');
+                if (visibleCountEl) visibleCountEl.textContent = `${visibleCount} visible / ${total} total`;
+
+                // pagination
+                const pageInfoEl = document.getElementById('page-info');
+                const prevBtn = document.getElementById('page-prev');
+                const nextBtn = document.getElementById('page-next');
+
+                let totalPages = 1;
+                if (pageSize > 0) totalPages = Math.max(1, Math.ceil(visibleCount / pageSize));
+
+                if (pageSize === 0) {
+                        // show all
+                        filtered.forEach(c => c.elem.style.display = '');
+                        // hide non-filtered
+                        const filteredSet = new Set(filtered.map(x=>x.elem));
+                        cases.forEach(c => { if (!filteredSet.has(c.elem)) c.elem.style.display = 'none'; });
+                        if (pageInfoEl) pageInfoEl.textContent = `1 / 1`;
+                        if (prevBtn) prevBtn.disabled = true;
+                        if (nextBtn) nextBtn.disabled = true;
+                        return;
+                }
+
+                if (currentPage < 1) currentPage = 1;
+                if (currentPage > totalPages) currentPage = totalPages;
+
+                const start = (currentPage -1) * pageSize;
+                const end = start + pageSize;
+
+                const toShow = new Set(filtered.slice(start, end).map(x=>x.elem));
+                cases.forEach(c => { c.elem.style.display = toShow.has(c.elem) ? '' : 'none'; });
+
+                if (pageInfoEl) pageInfoEl.textContent = `${currentPage} / ${totalPages}`;
+                if (prevBtn) prevBtn.disabled = currentPage <= 1;
+                if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+        }
+
+        // Build UI controls for sorting/pagination and visible count
+        function injectControls() {
+                const actions = document.querySelector('.actions');
+                if (!actions) return;
+                const container = document.createElement('div');
+                container.style.display = 'flex';
+                container.style.gap = '12px';
+                container.style.justifyContent = 'center';
+                container.style.alignItems = 'center';
+                container.style.flexWrap = 'wrap';
+
+                // sort select
+                const sortLabel = document.createElement('label');
+                sortLabel.innerHTML = '<strong>Sort:</strong> ';
+                const sortSel = document.createElement('select');
+                sortSel.id = 'sort-select';
+                [['case_asc','Case ↑'], ['case_desc','Case ↓'], ['severity_high_low','Severity ↓'], ['severity_low_high','Severity ↑']].forEach(([v,t])=>{ const o=document.createElement('option'); o.value=v; o.textContent=t; sortSel.appendChild(o);} );
+                sortLabel.appendChild(sortSel);
+                container.appendChild(sortLabel);
+
+                // page size
+                const sizeLabel = document.createElement('label');
+                sizeLabel.innerHTML = '<strong>Per page:</strong> ';
+                const sizeSel = document.createElement('select');
+                sizeSel.id = 'page-size';
+                [['10','10'],['25','25'],['50','50'],['100','100'],['all','All']].forEach(([v,t])=>{ const o=document.createElement('option'); o.value=v; o.textContent=t; sizeSel.appendChild(o);} );
+                sizeSel.value = String(pageSize);
+                sizeLabel.appendChild(sizeSel);
+                container.appendChild(sizeLabel);
+
+                // pagination buttons
+                const prevBtn = document.createElement('button'); prevBtn.id='page-prev'; prevBtn.className='btn'; prevBtn.textContent='Prev';
+                const pageInfo = document.createElement('span'); pageInfo.id='page-info'; pageInfo.style.margin='0 8px'; pageInfo.textContent='1 / 1';
+                const nextBtn = document.createElement('button'); nextBtn.id='page-next'; nextBtn.className='btn'; nextBtn.textContent='Next';
+                container.appendChild(prevBtn); container.appendChild(pageInfo); container.appendChild(nextBtn);
+
+                // visible count
+                const countSpan = document.createElement('span'); countSpan.id='visible-count'; countSpan.style.marginLeft='12px'; countSpan.textContent='0 visible';
+                container.appendChild(countSpan);
+
+                actions.appendChild(container);
+
+                // events
+                sortSel.addEventListener('change', () => { currentSort = sortSel.value; applyFiltersAndSort(); });
+                sizeSel.addEventListener('change', () => { pageSize = sizeSel.value === 'all' ? 0 : parseInt(sizeSel.value,10); currentPage = 1; renderPage(); });
+                prevBtn.addEventListener('click', () => { currentPage = Math.max(1, currentPage-1); renderPage(); });
+                nextBtn.addEventListener('click', () => { currentPage = currentPage+1; renderPage(); });
+        }
+
+        // Wire up filter inputs
+        function wireFilters() {
+                document.getElementById('filter-severity').addEventListener('change', applyFiltersAndSort);
+                document.getElementById('filter-os').addEventListener('change', applyFiltersAndSort);
+                document.getElementById('filter-owner').addEventListener('change', applyFiltersAndSort);
+                document.getElementById('search-hostname').addEventListener('input', () => { currentPage = 1; applyFiltersAndSort(); });
+                document.getElementById('clear-filters').addEventListener('click', function(){
+                        document.getElementById('filter-severity').value = '';
+                        document.getElementById('filter-os').value = '';
+                        document.getElementById('filter-owner').value = '';
+                        document.getElementById('search-hostname').value = '';
+                        applyFiltersAndSort();
+                });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+                buildCasesArray();
+                populateFilterSelects();
+                injectControls();
+                wireFilters();
+                applyFiltersAndSort();
+        });
+
+})();
+</script>
+<div class="toc"><strong>Contents</strong>
+<ul>
+<li><a href="#case-compute-10">compute-10 — compute-10 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-compute-12">compute-12 — compute-12 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-compute-13">compute-13 — compute-13 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-compute-14">compute-14 — compute-14 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-compute-15">compute-15 — compute-15 | NEW | MEDIUM | artifacts=3</a></li>
+<li><a href="#case-compute-16">compute-16 — compute-16 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-compute-18">compute-18 — compute-18 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-compute-2">compute-2 — compute-2 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-compute-21">compute-21 — compute-21 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-compute-22">compute-22 — compute-22 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-compute-24">compute-24 — compute-24 | NEW | MEDIUM | artifacts=3</a></li>
+<li><a href="#case-compute-26">compute-26 — compute-26 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-compute-28">compute-28 — compute-28 | NEW | MEDIUM | artifacts=2</a></li>
+<li><a href="#case-compute-29">compute-29 — compute-29 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-compute-3">compute-3 — compute-3 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-compute-30">compute-30 — compute-30 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-compute-31">compute-31 — compute-31 | NEW | LOW | artifacts=2</a></li>
+<li><a href="#case-compute-32">compute-32 — compute-32 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-compute-33">compute-33 — compute-33 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-compute-34">compute-34 — compute-34 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-compute-36">compute-36 — compute-36 | NEW | MEDIUM | artifacts=2</a></li>
+<li><a href="#case-compute-4">compute-4 — compute-4 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-compute-43">compute-43 — compute-43 | NEW | MEDIUM | artifacts=2</a></li>
+<li><a href="#case-compute-44">compute-44 — compute-44 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-compute-45">compute-45 — compute-45 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-compute-46">compute-46 — compute-46 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-compute-47">compute-47 — compute-47 | NEW | LOW | artifacts=2</a></li>
+<li><a href="#case-compute-48">compute-48 — compute-48 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-compute-49">compute-49 — compute-49 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-compute-5">compute-5 — compute-5 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-compute-50">compute-50 — compute-50 | NEW | MEDIUM | artifacts=2</a></li>
+<li><a href="#case-compute-7">compute-7 — compute-7 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-compute-9">compute-9 — compute-9 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-db-10">db-10 — db-10 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-db-11">db-11 — db-11 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-db-12">db-12 — db-12 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-db-13">db-13 — db-13 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-db-15">db-15 — db-15 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-db-16">db-16 — db-16 | NEW | LOW | artifacts=2</a></li>
+<li><a href="#case-db-17">db-17 — db-17 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-db-19">db-19 — db-19 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-db-2">db-2 — db-2 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-db-23">db-23 — db-23 | NEW | HIGH | artifacts=3</a></li>
+<li><a href="#case-db-24">db-24 — db-24 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-db-29">db-29 — db-29 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-db-3">db-3 — db-3 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-db-30">db-30 — db-30 | NEW | MEDIUM | artifacts=2</a></li>
+<li><a href="#case-db-31">db-31 — db-31 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-db-34">db-34 — db-34 | NEW | LOW | artifacts=2</a></li>
+<li><a href="#case-db-35">db-35 — db-35 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-db-37">db-37 — db-37 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-db-38">db-38 — db-38 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-db-39">db-39 — db-39 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-db-4">db-4 — db-4 | NEW | HIGH | artifacts=3</a></li>
+<li><a href="#case-db-41">db-41 — db-41 | NEW | HIGH | artifacts=3</a></li>
+<li><a href="#case-db-42">db-42 — db-42 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-db-43">db-43 — db-43 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-db-46">db-46 — db-46 | NEW | MEDIUM | artifacts=2</a></li>
+<li><a href="#case-db-47">db-47 — db-47 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-db-50">db-50 — db-50 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-db-6">db-6 — db-6 | NEW | MEDIUM | artifacts=2</a></li>
+<li><a href="#case-db-7">db-7 — db-7 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-eng-1">eng-1 — eng-1 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-eng-10">eng-10 — eng-10 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-eng-11">eng-11 — eng-11 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-eng-13">eng-13 — eng-13 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-eng-14">eng-14 — eng-14 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-eng-15">eng-15 — eng-15 | NEW | MEDIUM | artifacts=2</a></li>
+<li><a href="#case-eng-16">eng-16 — eng-16 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-eng-17">eng-17 — eng-17 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-eng-19">eng-19 — eng-19 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-eng-21">eng-21 — eng-21 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-eng-22">eng-22 — eng-22 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-eng-24">eng-24 — eng-24 | NEW | MEDIUM | artifacts=2</a></li>
+<li><a href="#case-eng-25">eng-25 — eng-25 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-eng-28">eng-28 — eng-28 | NEW | MEDIUM | artifacts=3</a></li>
+<li><a href="#case-eng-29">eng-29 — eng-29 | NEW | MEDIUM | artifacts=2</a></li>
+<li><a href="#case-eng-30">eng-30 — eng-30 | NEW | HIGH | artifacts=3</a></li>
+<li><a href="#case-eng-31">eng-31 — eng-31 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-eng-32">eng-32 — eng-32 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-eng-33">eng-33 — eng-33 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-eng-34">eng-34 — eng-34 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-eng-35">eng-35 — eng-35 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-eng-36">eng-36 — eng-36 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-eng-42">eng-42 — eng-42 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-eng-46">eng-46 — eng-46 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-eng-48">eng-48 — eng-48 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-eng-49">eng-49 — eng-49 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-eng-5">eng-5 — eng-5 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-eng-50">eng-50 — eng-50 | NEW | MEDIUM | artifacts=2</a></li>
+<li><a href="#case-eng-6">eng-6 — eng-6 | NEW | MEDIUM | artifacts=3</a></li>
+<li><a href="#case-eng-7">eng-7 — eng-7 | NEW | LOW | artifacts=2</a></li>
+<li><a href="#case-eng-8">eng-8 — eng-8 | NEW | HIGH | artifacts=3</a></li>
+<li><a href="#case-finance-1">finance-1 — finance-1 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-finance-10">finance-10 — finance-10 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-finance-13">finance-13 — finance-13 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-finance-14">finance-14 — finance-14 | NEW | HIGH | artifacts=4</a></li>
+<li><a href="#case-finance-15">finance-15 — finance-15 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-finance-16">finance-16 — finance-16 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-finance-18">finance-18 — finance-18 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-finance-20">finance-20 — finance-20 | NEW | HIGH | artifacts=3</a></li>
+<li><a href="#case-finance-21">finance-21 — finance-21 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-finance-22">finance-22 — finance-22 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-finance-24">finance-24 — finance-24 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-finance-25">finance-25 — finance-25 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-finance-28">finance-28 — finance-28 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-finance-29">finance-29 — finance-29 | NEW | HIGH | artifacts=3</a></li>
+<li><a href="#case-finance-3">finance-3 — finance-3 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-finance-30">finance-30 — finance-30 | NEW | HIGH | artifacts=3</a></li>
+<li><a href="#case-finance-33">finance-33 — finance-33 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-finance-35">finance-35 — finance-35 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-finance-37">finance-37 — finance-37 | NEW | HIGH | artifacts=3</a></li>
+<li><a href="#case-finance-38">finance-38 — finance-38 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-finance-39">finance-39 — finance-39 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-finance-4">finance-4 — finance-4 | NEW | HIGH | artifacts=3</a></li>
+<li><a href="#case-finance-40">finance-40 — finance-40 | NEW | HIGH | artifacts=3</a></li>
+<li><a href="#case-finance-41">finance-41 — finance-41 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-finance-42">finance-42 — finance-42 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-finance-45">finance-45 — finance-45 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-finance-46">finance-46 — finance-46 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-finance-47">finance-47 — finance-47 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-finance-48">finance-48 — finance-48 | NEW | MEDIUM | artifacts=2</a></li>
+<li><a href="#case-finance-49">finance-49 — finance-49 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-finance-5">finance-5 — finance-5 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-finance-6">finance-6 — finance-6 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-finance-8">finance-8 — finance-8 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-hr-1">hr-1 — hr-1 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-hr-10">hr-10 — hr-10 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-hr-11">hr-11 — hr-11 | NEW | LOW | artifacts=3</a></li>
+<li><a href="#case-hr-12">hr-12 — hr-12 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-hr-14">hr-14 — hr-14 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-hr-16">hr-16 — hr-16 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-hr-17">hr-17 — hr-17 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-hr-18">hr-18 — hr-18 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-hr-19">hr-19 — hr-19 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-hr-21">hr-21 — hr-21 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-hr-22">hr-22 — hr-22 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-hr-23">hr-23 — hr-23 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-hr-24">hr-24 — hr-24 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-hr-25">hr-25 — hr-25 | NEW | MEDIUM | artifacts=2</a></li>
+<li><a href="#case-hr-26">hr-26 — hr-26 | NEW | HIGH | artifacts=3</a></li>
+<li><a href="#case-hr-27">hr-27 — hr-27 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-hr-28">hr-28 — hr-28 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-hr-30">hr-30 — hr-30 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-hr-33">hr-33 — hr-33 | NEW | HIGH | artifacts=3</a></li>
+<li><a href="#case-hr-34">hr-34 — hr-34 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-hr-37">hr-37 — hr-37 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-hr-38">hr-38 — hr-38 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-hr-39">hr-39 — hr-39 | NEW | HIGH | artifacts=3</a></li>
+<li><a href="#case-hr-4">hr-4 — hr-4 | NEW | MEDIUM | artifacts=3</a></li>
+<li><a href="#case-hr-40">hr-40 — hr-40 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-hr-42">hr-42 — hr-42 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-hr-44">hr-44 — hr-44 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-hr-45">hr-45 — hr-45 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-hr-46">hr-46 — hr-46 | NEW | LOW | artifacts=2</a></li>
+<li><a href="#case-hr-48">hr-48 — hr-48 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-hr-49">hr-49 — hr-49 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-hr-5">hr-5 — hr-5 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-web-1">web-1 — web-1 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-web-10">web-10 — web-10 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-web-12">web-12 — web-12 | NEW | MEDIUM | artifacts=3</a></li>
+<li><a href="#case-web-15">web-15 — web-15 | NEW | HIGH | artifacts=3</a></li>
+<li><a href="#case-web-16">web-16 — web-16 | NEW | MEDIUM | artifacts=4</a></li>
+<li><a href="#case-web-19">web-19 — web-19 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-web-2">web-2 — web-2 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-web-20">web-20 — web-20 | NEW | LOW | artifacts=2</a></li>
+<li><a href="#case-web-22">web-22 — web-22 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-web-23">web-23 — web-23 | NEW | LOW | artifacts=2</a></li>
+<li><a href="#case-web-25">web-25 — web-25 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-web-26">web-26 — web-26 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-web-28">web-28 — web-28 | NEW | MEDIUM | artifacts=3</a></li>
+<li><a href="#case-web-29">web-29 — web-29 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-web-31">web-31 — web-31 | NEW | MEDIUM | artifacts=2</a></li>
+<li><a href="#case-web-32">web-32 — web-32 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-web-33">web-33 — web-33 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-web-35">web-35 — web-35 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-web-36">web-36 — web-36 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-web-38">web-38 — web-38 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-web-39">web-39 — web-39 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-web-4">web-4 — web-4 | NEW | LOW | artifacts=1</a></li>
+<li><a href="#case-web-42">web-42 — web-42 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-web-46">web-46 — web-46 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-web-47">web-47 — web-47 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-web-48">web-48 — web-48 | NEW | MEDIUM | artifacts=3</a></li>
+<li><a href="#case-web-49">web-49 — web-49 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-web-5">web-5 — web-5 | NEW | HIGH | artifacts=1</a></li>
+<li><a href="#case-web-50">web-50 — web-50 | NEW | HIGH | artifacts=2</a></li>
+<li><a href="#case-web-7">web-7 — web-7 | NEW | MEDIUM | artifacts=1</a></li>
+<li><a href="#case-web-9">web-9 — web-9 | NEW | HIGH | artifacts=3</a></li>
+</ul></div>
+<div class="summary"><h2>Detected Indicators</h2>
+<div class="indicator-list">
+<div class="indicator">None</div>
+</div></div>
+<div class="cases">
+<div id="case-compute-10" class="case"><h3><span>compute-10</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>compute-10 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: compute-10 — Windows, staging, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>175</td><td>compute-10</td><td>container</td><td>Windows</td><td>staging</td><td>HR</td><td>True</td><td>low</td><td>2/25/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-12" class="case"><h3><span>compute-12</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>compute-12 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: compute-12 — Windows, staging, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>54</td><td>compute-12</td><td>server</td><td>Windows</td><td>staging</td><td>Executive Administration</td><td>True</td><td>high</td><td>11/22/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-13" class="case"><h3><span>compute-13</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>compute-13 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: compute-13 — macOS, prod, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>44</td><td>compute-13</td><td>laptop</td><td>macOS</td><td>prod</td><td>IT</td><td>False</td><td>high</td><td>12/4/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-14" class="case"><h3><span>compute-14</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>compute-14 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: compute-14 — Linux, dev, HR</li>
+<li class="artifact">firewall: compute-14 — Windows, prod, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>62</td><td>compute-14</td><td>container</td><td>Linux</td><td>dev</td><td>HR</td><td>True</td><td>low</td><td>11/6/2025</td></tr>
+<tr><td>237</td><td>compute-14</td><td>firewall</td><td>Windows</td><td>prod</td><td>Engineering</td><td>True</td><td>high</td><td>4/8/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-15" class="case"><h3><span>compute-15</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>compute-15 | NEW | MEDIUM | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: compute-15 — Linux, staging, IT</li>
+<li class="artifact">firewall: compute-15 — Linux, dev, Executive Administration</li>
+<li class="artifact">firewall: compute-15 — Linux, prod, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>63</td><td>compute-15</td><td>firewall</td><td>Linux</td><td>staging</td><td>IT</td><td>False</td><td>medium</td><td>1/4/2025</td></tr>
+<tr><td>141</td><td>compute-15</td><td>firewall</td><td>Linux</td><td>dev</td><td>Executive Administration</td><td>False</td><td>medium</td><td>10/3/2025</td></tr>
+<tr><td>292</td><td>compute-15</td><td>firewall</td><td>Linux</td><td>prod</td><td>Security</td><td>True</td><td>medium</td><td>8/11/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-16" class="case"><h3><span>compute-16</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>compute-16 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: compute-16 — Linux, dev, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>291</td><td>compute-16</td><td>server</td><td>Linux</td><td>dev</td><td>IT</td><td>False</td><td>low</td><td>5/6/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-18" class="case"><h3><span>compute-18</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>compute-18 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: compute-18 — macOS, prod, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>222</td><td>compute-18</td><td>firewall</td><td>macOS</td><td>prod</td><td>Engineering</td><td>False</td><td>medium</td><td>5/15/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-2" class="case"><h3><span>compute-2</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>compute-2 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: compute-2 — Linux, staging, Executive Administration</li>
+<li class="artifact">laptop: compute-2 — macOS, staging, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>25</td><td>compute-2</td><td>laptop</td><td>Linux</td><td>staging</td><td>Executive Administration</td><td>False</td><td>medium</td><td>2/25/2025</td></tr>
+<tr><td>157</td><td>compute-2</td><td>laptop</td><td>macOS</td><td>staging</td><td>IT</td><td>False</td><td>high</td><td>4/3/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-21" class="case"><h3><span>compute-21</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>compute-21 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: compute-21 — Linux, prod, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>267</td><td>compute-21</td><td>server</td><td>Linux</td><td>prod</td><td>HR</td><td>True</td><td>low</td><td>4/19/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-22" class="case"><h3><span>compute-22</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>compute-22 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: compute-22 — Windows, dev, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>195</td><td>compute-22</td><td>container</td><td>Windows</td><td>dev</td><td>Engineering</td><td>False</td><td>high</td><td>9/22/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-24" class="case"><h3><span>compute-24</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>compute-24 | NEW | MEDIUM | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: compute-24 — macOS, staging, Security</li>
+<li class="artifact">laptop: compute-24 — Linux, staging, Executive Administration</li>
+<li class="artifact">firewall: compute-24 — Linux, dev, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>111</td><td>compute-24</td><td>container</td><td>macOS</td><td>staging</td><td>Security</td><td>False</td><td>medium</td><td>6/30/2025</td></tr>
+<tr><td>255</td><td>compute-24</td><td>laptop</td><td>Linux</td><td>staging</td><td>Executive Administration</td><td>True</td><td>low</td><td>5/5/2025</td></tr>
+<tr><td>279</td><td>compute-24</td><td>firewall</td><td>Linux</td><td>dev</td><td>IT</td><td>False</td><td>medium</td><td>10/30/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-26" class="case"><h3><span>compute-26</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>compute-26 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: compute-26 — Windows, dev, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>174</td><td>compute-26</td><td>server</td><td>Windows</td><td>dev</td><td>Security</td><td>False</td><td>high</td><td>9/12/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-28" class="case"><h3><span>compute-28</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>compute-28 | NEW | MEDIUM | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: compute-28 — Linux, staging, IT</li>
+<li class="artifact">firewall: compute-28 — Windows, staging, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>49</td><td>compute-28</td><td>server</td><td>Linux</td><td>staging</td><td>IT</td><td>True</td><td>low</td><td>2/28/2025</td></tr>
+<tr><td>205</td><td>compute-28</td><td>firewall</td><td>Windows</td><td>staging</td><td>Finance</td><td>True</td><td>low</td><td>1/12/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-29" class="case"><h3><span>compute-29</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>compute-29 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: compute-29 — macOS, dev, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>261</td><td>compute-29</td><td>firewall</td><td>macOS</td><td>dev</td><td>IT</td><td>False</td><td>medium</td><td>2/27/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-3" class="case"><h3><span>compute-3</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>compute-3 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: compute-3 — Linux, prod, Executive Administration</li>
+<li class="artifact">container: compute-3 — Linux, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>154</td><td>compute-3</td><td>laptop</td><td>Linux</td><td>prod</td><td>Executive Administration</td><td>True</td><td>low</td><td>10/2/2025</td></tr>
+<tr><td>216</td><td>compute-3</td><td>container</td><td>Linux</td><td>prod</td><td>Finance</td><td>True</td><td>high</td><td>3/17/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-30" class="case"><h3><span>compute-30</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>compute-30 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: compute-30 — Linux, prod, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>33</td><td>compute-30</td><td>container</td><td>Linux</td><td>prod</td><td>HR</td><td>False</td><td>medium</td><td>5/26/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-31" class="case"><h3><span>compute-31</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>compute-31 | NEW | LOW | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: compute-31 — macOS, dev, HR</li>
+<li class="artifact">laptop: compute-31 — Linux, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>9</td><td>compute-31</td><td>firewall</td><td>macOS</td><td>dev</td><td>HR</td><td>False</td><td>medium</td><td>6/15/2025</td></tr>
+<tr><td>173</td><td>compute-31</td><td>laptop</td><td>Linux</td><td>dev</td><td>Executive Administration</td><td>False</td><td>medium</td><td>12/5/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-32" class="case"><h3><span>compute-32</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>compute-32 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: compute-32 — Windows, prod, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>85</td><td>compute-32</td><td>firewall</td><td>Windows</td><td>prod</td><td>Engineering</td><td>True</td><td>high</td><td>7/4/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-33" class="case"><h3><span>compute-33</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>compute-33 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: compute-33 — Linux, dev, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>5</td><td>compute-33</td><td>container</td><td>Linux</td><td>dev</td><td>Engineering</td><td>True</td><td>high</td><td>5/24/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-34" class="case"><h3><span>compute-34</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>compute-34 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: compute-34 — macOS, prod, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>67</td><td>compute-34</td><td>firewall</td><td>macOS</td><td>prod</td><td>Engineering</td><td>False</td><td>high</td><td>7/26/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-36" class="case"><h3><span>compute-36</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>compute-36 | NEW | MEDIUM | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: compute-36 — macOS, staging, Executive Administration</li>
+<li class="artifact">laptop: compute-36 — Windows, staging, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>92</td><td>compute-36</td><td>laptop</td><td>macOS</td><td>staging</td><td>Executive Administration</td><td>True</td><td>medium</td><td>3/19/2025</td></tr>
+<tr><td>230</td><td>compute-36</td><td>laptop</td><td>Windows</td><td>staging</td><td>Engineering</td><td>False</td><td>low</td><td>1/18/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-4" class="case"><h3><span>compute-4</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>compute-4 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: compute-4 — macOS, staging, Executive Administration</li>
+<li class="artifact">firewall: compute-4 — macOS, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>138</td><td>compute-4</td><td>firewall</td><td>macOS</td><td>staging</td><td>Executive Administration</td><td>False</td><td>high</td><td>6/17/2025</td></tr>
+<tr><td>224</td><td>compute-4</td><td>firewall</td><td>macOS</td><td>prod</td><td>Finance</td><td>True</td><td>medium</td><td>5/17/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-43" class="case"><h3><span>compute-43</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>compute-43 | NEW | MEDIUM | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: compute-43 — Windows, staging, Security</li>
+<li class="artifact">container: compute-43 — Windows, staging, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>47</td><td>compute-43</td><td>server</td><td>Windows</td><td>staging</td><td>Security</td><td>True</td><td>medium</td><td>1/11/2025</td></tr>
+<tr><td>121</td><td>compute-43</td><td>container</td><td>Windows</td><td>staging</td><td>Finance</td><td>False</td><td>medium</td><td>5/18/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-44" class="case"><h3><span>compute-44</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>compute-44 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: compute-44 — Linux, dev, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>207</td><td>compute-44</td><td>firewall</td><td>Linux</td><td>dev</td><td>Finance</td><td>True</td><td>high</td><td>10/23/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-45" class="case"><h3><span>compute-45</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>compute-45 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: compute-45 — macOS, staging, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>220</td><td>compute-45</td><td>firewall</td><td>macOS</td><td>staging</td><td>Finance</td><td>True</td><td>low</td><td>7/12/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-46" class="case"><h3><span>compute-46</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>compute-46 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: compute-46 — macOS, staging, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>56</td><td>compute-46</td><td>server</td><td>macOS</td><td>staging</td><td>IT</td><td>False</td><td>high</td><td>8/2/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-47" class="case"><h3><span>compute-47</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>compute-47 | NEW | LOW | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: compute-47 — Windows, dev, Executive Administration</li>
+<li class="artifact">server: compute-47 — macOS, prod, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>83</td><td>compute-47</td><td>container</td><td>Windows</td><td>dev</td><td>Executive Administration</td><td>False</td><td>low</td><td>9/17/2025</td></tr>
+<tr><td>166</td><td>compute-47</td><td>server</td><td>macOS</td><td>prod</td><td>IT</td><td>False</td><td>medium</td><td>10/22/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-48" class="case"><h3><span>compute-48</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>compute-48 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: compute-48 — macOS, staging, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>185</td><td>compute-48</td><td>firewall</td><td>macOS</td><td>staging</td><td>HR</td><td>False</td><td>medium</td><td>3/7/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-49" class="case"><h3><span>compute-49</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>compute-49 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: compute-49 — Linux, staging, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>244</td><td>compute-49</td><td>firewall</td><td>Linux</td><td>staging</td><td>Executive Administration</td><td>True</td><td>medium</td><td>5/21/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-5" class="case"><h3><span>compute-5</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>compute-5 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: compute-5 — Windows, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>225</td><td>compute-5</td><td>firewall</td><td>Windows</td><td>prod</td><td>Finance</td><td>True</td><td>medium</td><td>12/7/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-50" class="case"><h3><span>compute-50</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>compute-50 | NEW | MEDIUM | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: compute-50 — Linux, staging, Finance</li>
+<li class="artifact">server: compute-50 — macOS, dev, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>38</td><td>compute-50</td><td>server</td><td>Linux</td><td>staging</td><td>Finance</td><td>True</td><td>medium</td><td>5/29/2025</td></tr>
+<tr><td>142</td><td>compute-50</td><td>server</td><td>macOS</td><td>dev</td><td>Security</td><td>False</td><td>low</td><td>3/10/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-7" class="case"><h3><span>compute-7</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>compute-7 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: compute-7 — Linux, dev, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>296</td><td>compute-7</td><td>server</td><td>Linux</td><td>dev</td><td>Engineering</td><td>True</td><td>high</td><td>12/4/2025</td></tr>
+</table>
+</div>
+<div id="case-compute-9" class="case"><h3><span>compute-9</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>compute-9 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: compute-9 — Linux, staging, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>8</td><td>compute-9</td><td>laptop</td><td>Linux</td><td>staging</td><td>Engineering</td><td>True</td><td>medium</td><td>11/29/2025</td></tr>
+</table>
+</div>
+<div id="case-db-10" class="case"><h3><span>db-10</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>db-10 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: db-10 — Windows, staging, Executive Administration</li>
+<li class="artifact">container: db-10 — Linux, prod, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>184</td><td>db-10</td><td>server</td><td>Windows</td><td>staging</td><td>Executive Administration</td><td>False</td><td>high</td><td>11/25/2025</td></tr>
+<tr><td>227</td><td>db-10</td><td>container</td><td>Linux</td><td>prod</td><td>HR</td><td>True</td><td>medium</td><td>4/29/2025</td></tr>
+</table>
+</div>
+<div id="case-db-11" class="case"><h3><span>db-11</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>db-11 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: db-11 — macOS, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>192</td><td>db-11</td><td>firewall</td><td>macOS</td><td>dev</td><td>Executive Administration</td><td>True</td><td>medium</td><td>6/15/2025</td></tr>
+</table>
+</div>
+<div id="case-db-12" class="case"><h3><span>db-12</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>db-12 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: db-12 — macOS, staging, Security</li>
+<li class="artifact">laptop: db-12 — Windows, staging, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>75</td><td>db-12</td><td>firewall</td><td>macOS</td><td>staging</td><td>Security</td><td>True</td><td>high</td><td>8/15/2025</td></tr>
+<tr><td>177</td><td>db-12</td><td>laptop</td><td>Windows</td><td>staging</td><td>IT</td><td>False</td><td>medium</td><td>7/15/2025</td></tr>
+</table>
+</div>
+<div id="case-db-13" class="case"><h3><span>db-13</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>db-13 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: db-13 — macOS, prod, Engineering</li>
+<li class="artifact">laptop: db-13 — Linux, staging, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>2</td><td>db-13</td><td>firewall</td><td>macOS</td><td>prod</td><td>Engineering</td><td>False</td><td>low</td><td>1/2/2026</td></tr>
+<tr><td>97</td><td>db-13</td><td>laptop</td><td>Linux</td><td>staging</td><td>Security</td><td>True</td><td>high</td><td>11/15/2025</td></tr>
+</table>
+</div>
+<div id="case-db-15" class="case"><h3><span>db-15</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>db-15 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: db-15 — Linux, staging, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>239</td><td>db-15</td><td>laptop</td><td>Linux</td><td>staging</td><td>Finance</td><td>False</td><td>high</td><td>10/31/2025</td></tr>
+</table>
+</div>
+<div id="case-db-16" class="case"><h3><span>db-16</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>db-16 | NEW | LOW | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: db-16 — macOS, dev, Finance</li>
+<li class="artifact">container: db-16 — Linux, prod, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>34</td><td>db-16</td><td>firewall</td><td>macOS</td><td>dev</td><td>Finance</td><td>False</td><td>low</td><td>9/10/2025</td></tr>
+<tr><td>163</td><td>db-16</td><td>container</td><td>Linux</td><td>prod</td><td>Engineering</td><td>False</td><td>low</td><td>11/29/2025</td></tr>
+</table>
+</div>
+<div id="case-db-17" class="case"><h3><span>db-17</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>db-17 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: db-17 — Linux, staging, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>40</td><td>db-17</td><td>container</td><td>Linux</td><td>staging</td><td>Engineering</td><td>True</td><td>medium</td><td>8/26/2025</td></tr>
+</table>
+</div>
+<div id="case-db-19" class="case"><h3><span>db-19</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>db-19 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: db-19 — Windows, prod, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>285</td><td>db-19</td><td>laptop</td><td>Windows</td><td>prod</td><td>Engineering</td><td>False</td><td>medium</td><td>8/3/2025</td></tr>
+</table>
+</div>
+<div id="case-db-2" class="case"><h3><span>db-2</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>db-2 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: db-2 — Windows, staging, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>105</td><td>db-2</td><td>firewall</td><td>Windows</td><td>staging</td><td>IT</td><td>True</td><td>medium</td><td>2/2/2025</td></tr>
+</table>
+</div>
+<div id="case-db-23" class="case"><h3><span>db-23</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>db-23 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: db-23 — Linux, dev, Executive Administration</li>
+<li class="artifact">container: db-23 — Linux, dev, Executive Administration</li>
+<li class="artifact">container: db-23 — macOS, staging, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>115</td><td>db-23</td><td>container</td><td>Linux</td><td>dev</td><td>Executive Administration</td><td>False</td><td>medium</td><td>7/26/2025</td></tr>
+<tr><td>218</td><td>db-23</td><td>container</td><td>Linux</td><td>dev</td><td>Executive Administration</td><td>True</td><td>high</td><td>4/17/2025</td></tr>
+<tr><td>294</td><td>db-23</td><td>container</td><td>macOS</td><td>staging</td><td>IT</td><td>False</td><td>high</td><td>8/7/2025</td></tr>
+</table>
+</div>
+<div id="case-db-24" class="case"><h3><span>db-24</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>db-24 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: db-24 — Linux, prod, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>178</td><td>db-24</td><td>container</td><td>Linux</td><td>prod</td><td>Engineering</td><td>False</td><td>medium</td><td>10/7/2025</td></tr>
+</table>
+</div>
+<div id="case-db-29" class="case"><h3><span>db-29</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>db-29 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: db-29 — Linux, staging, Security</li>
+<li class="artifact">container: db-29 — Linux, dev, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>253</td><td>db-29</td><td>container</td><td>Linux</td><td>staging</td><td>Security</td><td>False</td><td>medium</td><td>3/23/2025</td></tr>
+<tr><td>256</td><td>db-29</td><td>container</td><td>Linux</td><td>dev</td><td>HR</td><td>True</td><td>high</td><td>10/6/2025</td></tr>
+</table>
+</div>
+<div id="case-db-3" class="case"><h3><span>db-3</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>db-3 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: db-3 — Windows, staging, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>1</td><td>db-3</td><td>server</td><td>Windows</td><td>staging</td><td>HR</td><td>True</td><td>low</td><td>1/19/2025</td></tr>
+</table>
+</div>
+<div id="case-db-30" class="case"><h3><span>db-30</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>db-30 | NEW | MEDIUM | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: db-30 — macOS, prod, Finance</li>
+<li class="artifact">laptop: db-30 — Linux, staging, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>204</td><td>db-30</td><td>laptop</td><td>macOS</td><td>prod</td><td>Finance</td><td>True</td><td>low</td><td>11/12/2025</td></tr>
+<tr><td>274</td><td>db-30</td><td>laptop</td><td>Linux</td><td>staging</td><td>Security</td><td>False</td><td>medium</td><td>7/24/2025</td></tr>
+</table>
+</div>
+<div id="case-db-31" class="case"><h3><span>db-31</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>db-31 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: db-31 — Linux, staging, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>30</td><td>db-31</td><td>firewall</td><td>Linux</td><td>staging</td><td>Engineering</td><td>True</td><td>high</td><td>10/26/2025</td></tr>
+</table>
+</div>
+<div id="case-db-34" class="case"><h3><span>db-34</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>db-34 | NEW | LOW | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: db-34 — Linux, prod, IT</li>
+<li class="artifact">container: db-34 — macOS, staging, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>107</td><td>db-34</td><td>server</td><td>Linux</td><td>prod</td><td>IT</td><td>False</td><td>low</td><td>3/5/2025</td></tr>
+<tr><td>198</td><td>db-34</td><td>container</td><td>macOS</td><td>staging</td><td>Executive Administration</td><td>False</td><td>low</td><td>4/1/2025</td></tr>
+</table>
+</div>
+<div id="case-db-35" class="case"><h3><span>db-35</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>db-35 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: db-35 — Windows, dev, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>241</td><td>db-35</td><td>container</td><td>Windows</td><td>dev</td><td>HR</td><td>True</td><td>high</td><td>9/9/2025</td></tr>
+</table>
+</div>
+<div id="case-db-37" class="case"><h3><span>db-37</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>db-37 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: db-37 — Linux, dev, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>180</td><td>db-37</td><td>firewall</td><td>Linux</td><td>dev</td><td>Security</td><td>True</td><td>medium</td><td>1/16/2025</td></tr>
+</table>
+</div>
+<div id="case-db-38" class="case"><h3><span>db-38</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>db-38 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: db-38 — Windows, prod, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>152</td><td>db-38</td><td>server</td><td>Windows</td><td>prod</td><td>Security</td><td>False</td><td>high</td><td>1/10/2025</td></tr>
+</table>
+</div>
+<div id="case-db-39" class="case"><h3><span>db-39</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>db-39 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: db-39 — macOS, staging, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>228</td><td>db-39</td><td>firewall</td><td>macOS</td><td>staging</td><td>IT</td><td>False</td><td>low</td><td>11/4/2025</td></tr>
+</table>
+</div>
+<div id="case-db-4" class="case"><h3><span>db-4</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>db-4 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: db-4 — Windows, dev, Engineering</li>
+<li class="artifact">server: db-4 — macOS, prod, Finance</li>
+<li class="artifact">container: db-4 — Linux, dev, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>181</td><td>db-4</td><td>container</td><td>Windows</td><td>dev</td><td>Engineering</td><td>True</td><td>low</td><td>12/19/2025</td></tr>
+<tr><td>183</td><td>db-4</td><td>server</td><td>macOS</td><td>prod</td><td>Finance</td><td>True</td><td>high</td><td>1/20/2025</td></tr>
+<tr><td>259</td><td>db-4</td><td>container</td><td>Linux</td><td>dev</td><td>Security</td><td>False</td><td>high</td><td>12/15/2025</td></tr>
+</table>
+</div>
+<div id="case-db-41" class="case"><h3><span>db-41</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>db-41 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: db-41 — Linux, staging, Finance</li>
+<li class="artifact">server: db-41 — Windows, staging, Finance</li>
+<li class="artifact">container: db-41 — macOS, prod, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>24</td><td>db-41</td><td>container</td><td>Linux</td><td>staging</td><td>Finance</td><td>False</td><td>high</td><td>12/24/2025</td></tr>
+<tr><td>125</td><td>db-41</td><td>server</td><td>Windows</td><td>staging</td><td>Finance</td><td>False</td><td>medium</td><td>5/10/2025</td></tr>
+<tr><td>134</td><td>db-41</td><td>container</td><td>macOS</td><td>prod</td><td>Executive Administration</td><td>True</td><td>high</td><td>9/26/2025</td></tr>
+</table>
+</div>
+<div id="case-db-42" class="case"><h3><span>db-42</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>db-42 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: db-42 — macOS, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>281</td><td>db-42</td><td>server</td><td>macOS</td><td>dev</td><td>Executive Administration</td><td>False</td><td>medium</td><td>10/4/2025</td></tr>
+</table>
+</div>
+<div id="case-db-43" class="case"><h3><span>db-43</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>db-43 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: db-43 — Linux, dev, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>231</td><td>db-43</td><td>server</td><td>Linux</td><td>dev</td><td>HR</td><td>False</td><td>high</td><td>8/14/2025</td></tr>
+</table>
+</div>
+<div id="case-db-46" class="case"><h3><span>db-46</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>db-46 | NEW | MEDIUM | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: db-46 — Windows, prod, Security</li>
+<li class="artifact">firewall: db-46 — Windows, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>127</td><td>db-46</td><td>server</td><td>Windows</td><td>prod</td><td>Security</td><td>True</td><td>medium</td><td>4/29/2025</td></tr>
+<tr><td>287</td><td>db-46</td><td>firewall</td><td>Windows</td><td>dev</td><td>Executive Administration</td><td>False</td><td>low</td><td>12/5/2025</td></tr>
+</table>
+</div>
+<div id="case-db-47" class="case"><h3><span>db-47</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>db-47 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: db-47 — macOS, prod, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>248</td><td>db-47</td><td>server</td><td>macOS</td><td>prod</td><td>Security</td><td>True</td><td>medium</td><td>9/10/2025</td></tr>
+</table>
+</div>
+<div id="case-db-50" class="case"><h3><span>db-50</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>db-50 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: db-50 — macOS, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>133</td><td>db-50</td><td>container</td><td>macOS</td><td>prod</td><td>Finance</td><td>True</td><td>low</td><td>3/8/2025</td></tr>
+</table>
+</div>
+<div id="case-db-6" class="case"><h3><span>db-6</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>db-6 | NEW | MEDIUM | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: db-6 — macOS, prod, HR</li>
+<li class="artifact">server: db-6 — macOS, staging, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>137</td><td>db-6</td><td>server</td><td>macOS</td><td>prod</td><td>HR</td><td>False</td><td>medium</td><td>7/27/2025</td></tr>
+<tr><td>272</td><td>db-6</td><td>server</td><td>macOS</td><td>staging</td><td>Executive Administration</td><td>True</td><td>medium</td><td>5/28/2025</td></tr>
+</table>
+</div>
+<div id="case-db-7" class="case"><h3><span>db-7</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>db-7 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: db-7 — Linux, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>186</td><td>db-7</td><td>firewall</td><td>Linux</td><td>dev</td><td>Executive Administration</td><td>True</td><td>high</td><td>12/18/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-1" class="case"><h3><span>eng-1</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>eng-1 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: eng-1 — Windows, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>162</td><td>eng-1</td><td>laptop</td><td>Windows</td><td>dev</td><td>Executive Administration</td><td>False</td><td>low</td><td>11/6/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-10" class="case"><h3><span>eng-10</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>eng-10 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: eng-10 — macOS, staging, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>41</td><td>eng-10</td><td>laptop</td><td>macOS</td><td>staging</td><td>HR</td><td>False</td><td>medium</td><td>3/13/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-11" class="case"><h3><span>eng-11</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>eng-11 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: eng-11 — macOS, prod, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>229</td><td>eng-11</td><td>firewall</td><td>macOS</td><td>prod</td><td>IT</td><td>True</td><td>high</td><td>2/11/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-13" class="case"><h3><span>eng-13</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>eng-13 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: eng-13 — Linux, dev, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>149</td><td>eng-13</td><td>laptop</td><td>Linux</td><td>dev</td><td>Engineering</td><td>True</td><td>low</td><td>9/14/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-14" class="case"><h3><span>eng-14</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>eng-14 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: eng-14 — macOS, prod, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>72</td><td>eng-14</td><td>firewall</td><td>macOS</td><td>prod</td><td>Executive Administration</td><td>True</td><td>low</td><td>12/6/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-15" class="case"><h3><span>eng-15</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>eng-15 | NEW | MEDIUM | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: eng-15 — macOS, staging, Engineering</li>
+<li class="artifact">firewall: eng-15 — Linux, staging, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>55</td><td>eng-15</td><td>container</td><td>macOS</td><td>staging</td><td>Engineering</td><td>True</td><td>low</td><td>8/27/2025</td></tr>
+<tr><td>104</td><td>eng-15</td><td>firewall</td><td>Linux</td><td>staging</td><td>IT</td><td>False</td><td>low</td><td>4/23/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-16" class="case"><h3><span>eng-16</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>eng-16 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: eng-16 — macOS, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>22</td><td>eng-16</td><td>firewall</td><td>macOS</td><td>dev</td><td>Executive Administration</td><td>True</td><td>low</td><td>12/27/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-17" class="case"><h3><span>eng-17</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>eng-17 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: eng-17 — macOS, staging, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>81</td><td>eng-17</td><td>laptop</td><td>macOS</td><td>staging</td><td>Finance</td><td>True</td><td>low</td><td>8/13/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-19" class="case"><h3><span>eng-19</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>eng-19 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: eng-19 — Linux, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>251</td><td>eng-19</td><td>server</td><td>Linux</td><td>dev</td><td>Executive Administration</td><td>False</td><td>high</td><td>12/3/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-21" class="case"><h3><span>eng-21</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>eng-21 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: eng-21 — Windows, dev, Executive Administration</li>
+<li class="artifact">laptop: eng-21 — macOS, dev, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>57</td><td>eng-21</td><td>container</td><td>Windows</td><td>dev</td><td>Executive Administration</td><td>False</td><td>high</td><td>9/8/2025</td></tr>
+<tr><td>268</td><td>eng-21</td><td>laptop</td><td>macOS</td><td>dev</td><td>Security</td><td>True</td><td>low</td><td>2/7/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-22" class="case"><h3><span>eng-22</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>eng-22 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: eng-22 — Windows, prod, HR</li>
+<li class="artifact">firewall: eng-22 — Linux, dev, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>37</td><td>eng-22</td><td>server</td><td>Windows</td><td>prod</td><td>HR</td><td>True</td><td>high</td><td>1/1/2026</td></tr>
+<tr><td>235</td><td>eng-22</td><td>firewall</td><td>Linux</td><td>dev</td><td>Engineering</td><td>True</td><td>medium</td><td>3/19/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-24" class="case"><h3><span>eng-24</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>eng-24 | NEW | MEDIUM | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: eng-24 — Windows, prod, Executive Administration</li>
+<li class="artifact">firewall: eng-24 — Windows, prod, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>10</td><td>eng-24</td><td>firewall</td><td>Windows</td><td>prod</td><td>Executive Administration</td><td>True</td><td>low</td><td>10/6/2025</td></tr>
+<tr><td>282</td><td>eng-24</td><td>firewall</td><td>Windows</td><td>prod</td><td>HR</td><td>True</td><td>low</td><td>3/7/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-25" class="case"><h3><span>eng-25</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>eng-25 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: eng-25 — macOS, prod, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>80</td><td>eng-25</td><td>server</td><td>macOS</td><td>prod</td><td>Engineering</td><td>False</td><td>low</td><td>3/11/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-28" class="case"><h3><span>eng-28</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>eng-28 | NEW | MEDIUM | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: eng-28 — Windows, staging, Security</li>
+<li class="artifact">server: eng-28 — Linux, prod, IT</li>
+<li class="artifact">container: eng-28 — Linux, dev, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>29</td><td>eng-28</td><td>server</td><td>Windows</td><td>staging</td><td>Security</td><td>True</td><td>medium</td><td>5/8/2025</td></tr>
+<tr><td>112</td><td>eng-28</td><td>server</td><td>Linux</td><td>prod</td><td>IT</td><td>False</td><td>low</td><td>1/25/2025</td></tr>
+<tr><td>188</td><td>eng-28</td><td>container</td><td>Linux</td><td>dev</td><td>IT</td><td>False</td><td>medium</td><td>6/1/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-29" class="case"><h3><span>eng-29</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>eng-29 | NEW | MEDIUM | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: eng-29 — Linux, prod, Executive Administration</li>
+<li class="artifact">laptop: eng-29 — Windows, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>61</td><td>eng-29</td><td>server</td><td>Linux</td><td>prod</td><td>Executive Administration</td><td>False</td><td>medium</td><td>6/24/2025</td></tr>
+<tr><td>271</td><td>eng-29</td><td>laptop</td><td>Windows</td><td>prod</td><td>Finance</td><td>True</td><td>low</td><td>3/13/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-30" class="case"><h3><span>eng-30</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>eng-30 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: eng-30 — macOS, prod, Finance</li>
+<li class="artifact">server: eng-30 — macOS, staging, HR</li>
+<li class="artifact">server: eng-30 — macOS, dev, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>120</td><td>eng-30</td><td>container</td><td>macOS</td><td>prod</td><td>Finance</td><td>False</td><td>high</td><td>1/12/2025</td></tr>
+<tr><td>159</td><td>eng-30</td><td>server</td><td>macOS</td><td>staging</td><td>HR</td><td>False</td><td>high</td><td>4/28/2025</td></tr>
+<tr><td>167</td><td>eng-30</td><td>server</td><td>macOS</td><td>dev</td><td>Security</td><td>False</td><td>low</td><td>9/16/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-31" class="case"><h3><span>eng-31</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>eng-31 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: eng-31 — macOS, staging, Engineering</li>
+<li class="artifact">container: eng-31 — Windows, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>172</td><td>eng-31</td><td>laptop</td><td>macOS</td><td>staging</td><td>Engineering</td><td>True</td><td>high</td><td>6/10/2025</td></tr>
+<tr><td>201</td><td>eng-31</td><td>container</td><td>Windows</td><td>prod</td><td>Finance</td><td>False</td><td>low</td><td>3/12/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-32" class="case"><h3><span>eng-32</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>eng-32 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: eng-32 — Windows, staging, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>65</td><td>eng-32</td><td>container</td><td>Windows</td><td>staging</td><td>Security</td><td>True</td><td>high</td><td>7/8/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-33" class="case"><h3><span>eng-33</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>eng-33 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: eng-33 — macOS, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>42</td><td>eng-33</td><td>server</td><td>macOS</td><td>dev</td><td>Executive Administration</td><td>True</td><td>high</td><td>1/3/2026</td></tr>
+</table>
+</div>
+<div id="case-eng-34" class="case"><h3><span>eng-34</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>eng-34 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: eng-34 — macOS, staging, HR</li>
+<li class="artifact">container: eng-34 — Windows, dev, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>11</td><td>eng-34</td><td>laptop</td><td>macOS</td><td>staging</td><td>HR</td><td>False</td><td>high</td><td>4/23/2025</td></tr>
+<tr><td>106</td><td>eng-34</td><td>container</td><td>Windows</td><td>dev</td><td>IT</td><td>True</td><td>medium</td><td>4/4/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-35" class="case"><h3><span>eng-35</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>eng-35 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: eng-35 — Windows, prod, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>100</td><td>eng-35</td><td>container</td><td>Windows</td><td>prod</td><td>IT</td><td>True</td><td>low</td><td>8/31/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-36" class="case"><h3><span>eng-36</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>eng-36 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: eng-36 — Linux, staging, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>160</td><td>eng-36</td><td>firewall</td><td>Linux</td><td>staging</td><td>IT</td><td>True</td><td>low</td><td>2/2/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-42" class="case"><h3><span>eng-42</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>eng-42 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: eng-42 — macOS, staging, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>260</td><td>eng-42</td><td>container</td><td>macOS</td><td>staging</td><td>Security</td><td>True</td><td>high</td><td>5/16/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-46" class="case"><h3><span>eng-46</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>eng-46 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: eng-46 — macOS, dev, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>146</td><td>eng-46</td><td>laptop</td><td>macOS</td><td>dev</td><td>Finance</td><td>False</td><td>medium</td><td>8/23/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-48" class="case"><h3><span>eng-48</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>eng-48 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: eng-48 — macOS, prod, Executive Administration</li>
+<li class="artifact">server: eng-48 — macOS, prod, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>79</td><td>eng-48</td><td>server</td><td>macOS</td><td>prod</td><td>Executive Administration</td><td>True</td><td>high</td><td>7/20/2025</td></tr>
+<tr><td>126</td><td>eng-48</td><td>server</td><td>macOS</td><td>prod</td><td>Security</td><td>False</td><td>low</td><td>8/10/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-49" class="case"><h3><span>eng-49</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>eng-49 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: eng-49 — macOS, dev, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>247</td><td>eng-49</td><td>laptop</td><td>macOS</td><td>dev</td><td>Finance</td><td>False</td><td>high</td><td>3/19/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-5" class="case"><h3><span>eng-5</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>eng-5 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: eng-5 — Linux, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>209</td><td>eng-5</td><td>container</td><td>Linux</td><td>prod</td><td>Finance</td><td>False</td><td>low</td><td>7/5/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-50" class="case"><h3><span>eng-50</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>eng-50 | NEW | MEDIUM | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: eng-50 — Linux, dev, Executive Administration</li>
+<li class="artifact">container: eng-50 — Windows, staging, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>15</td><td>eng-50</td><td>laptop</td><td>Linux</td><td>dev</td><td>Executive Administration</td><td>False</td><td>medium</td><td>1/1/2026</td></tr>
+<tr><td>129</td><td>eng-50</td><td>container</td><td>Windows</td><td>staging</td><td>Executive Administration</td><td>True</td><td>low</td><td>12/1/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-6" class="case"><h3><span>eng-6</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>eng-6 | NEW | MEDIUM | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: eng-6 — Windows, prod, Engineering</li>
+<li class="artifact">firewall: eng-6 — Windows, dev, Engineering</li>
+<li class="artifact">container: eng-6 — macOS, dev, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>169</td><td>eng-6</td><td>firewall</td><td>Windows</td><td>prod</td><td>Engineering</td><td>False</td><td>medium</td><td>5/16/2025</td></tr>
+<tr><td>232</td><td>eng-6</td><td>firewall</td><td>Windows</td><td>dev</td><td>Engineering</td><td>True</td><td>low</td><td>8/2/2025</td></tr>
+<tr><td>299</td><td>eng-6</td><td>container</td><td>macOS</td><td>dev</td><td>Finance</td><td>True</td><td>medium</td><td>11/22/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-7" class="case"><h3><span>eng-7</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>eng-7 | NEW | LOW | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: eng-7 — macOS, staging, Engineering</li>
+<li class="artifact">server: eng-7 — macOS, dev, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>86</td><td>eng-7</td><td>server</td><td>macOS</td><td>staging</td><td>Engineering</td><td>False</td><td>medium</td><td>12/15/2025</td></tr>
+<tr><td>119</td><td>eng-7</td><td>server</td><td>macOS</td><td>dev</td><td>Finance</td><td>False</td><td>low</td><td>3/8/2025</td></tr>
+</table>
+</div>
+<div id="case-eng-8" class="case"><h3><span>eng-8</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>eng-8 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: eng-8 — macOS, dev, Finance</li>
+<li class="artifact">laptop: eng-8 — Linux, staging, Engineering</li>
+<li class="artifact">server: eng-8 — Linux, dev, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>12</td><td>eng-8</td><td>server</td><td>macOS</td><td>dev</td><td>Finance</td><td>False</td><td>high</td><td>7/16/2025</td></tr>
+<tr><td>236</td><td>eng-8</td><td>laptop</td><td>Linux</td><td>staging</td><td>Engineering</td><td>False</td><td>high</td><td>9/24/2025</td></tr>
+<tr><td>246</td><td>eng-8</td><td>server</td><td>Linux</td><td>dev</td><td>Security</td><td>False</td><td>medium</td><td>7/28/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-1" class="case"><h3><span>finance-1</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-1 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: finance-1 — Windows, dev, Engineering</li>
+<li class="artifact">firewall: finance-1 — Windows, staging, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>130</td><td>finance-1</td><td>container</td><td>Windows</td><td>dev</td><td>Engineering</td><td>False</td><td>medium</td><td>11/21/2025</td></tr>
+<tr><td>212</td><td>finance-1</td><td>firewall</td><td>Windows</td><td>staging</td><td>Engineering</td><td>True</td><td>high</td><td>6/5/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-10" class="case"><h3><span>finance-10</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>finance-10 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: finance-10 — macOS, staging, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>242</td><td>finance-10</td><td>container</td><td>macOS</td><td>staging</td><td>HR</td><td>True</td><td>low</td><td>2/7/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-13" class="case"><h3><span>finance-13</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-13 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: finance-13 — Windows, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>273</td><td>finance-13</td><td>container</td><td>Windows</td><td>prod</td><td>Finance</td><td>False</td><td>high</td><td>11/24/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-14" class="case"><h3><span>finance-14</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-14 | NEW | HIGH | artifacts=4</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: finance-14 — macOS, dev, Executive Administration</li>
+<li class="artifact">server: finance-14 — Windows, dev, IT</li>
+<li class="artifact">server: finance-14 — macOS, staging, IT</li>
+<li class="artifact">firewall: finance-14 — macOS, staging, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>28</td><td>finance-14</td><td>container</td><td>macOS</td><td>dev</td><td>Executive Administration</td><td>False</td><td>high</td><td>4/16/2025</td></tr>
+<tr><td>90</td><td>finance-14</td><td>server</td><td>Windows</td><td>dev</td><td>IT</td><td>False</td><td>medium</td><td>5/27/2025</td></tr>
+<tr><td>147</td><td>finance-14</td><td>server</td><td>macOS</td><td>staging</td><td>IT</td><td>True</td><td>high</td><td>11/20/2025</td></tr>
+<tr><td>233</td><td>finance-14</td><td>firewall</td><td>macOS</td><td>staging</td><td>HR</td><td>False</td><td>low</td><td>5/22/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-15" class="case"><h3><span>finance-15</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-15 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: finance-15 — macOS, staging, Security</li>
+<li class="artifact">server: finance-15 — macOS, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>288</td><td>finance-15</td><td>laptop</td><td>macOS</td><td>staging</td><td>Security</td><td>True</td><td>high</td><td>7/31/2025</td></tr>
+<tr><td>297</td><td>finance-15</td><td>server</td><td>macOS</td><td>dev</td><td>Executive Administration</td><td>False</td><td>high</td><td>12/21/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-16" class="case"><h3><span>finance-16</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>finance-16 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: finance-16 — Linux, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>189</td><td>finance-16</td><td>container</td><td>Linux</td><td>prod</td><td>Finance</td><td>True</td><td>medium</td><td>9/16/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-18" class="case"><h3><span>finance-18</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-18 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: finance-18 — Linux, staging, Executive Administration</li>
+<li class="artifact">laptop: finance-18 — macOS, staging, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>70</td><td>finance-18</td><td>server</td><td>Linux</td><td>staging</td><td>Executive Administration</td><td>False</td><td>high</td><td>7/3/2025</td></tr>
+<tr><td>217</td><td>finance-18</td><td>laptop</td><td>macOS</td><td>staging</td><td>Security</td><td>False</td><td>high</td><td>5/6/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-20" class="case"><h3><span>finance-20</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-20 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: finance-20 — Windows, dev, Engineering</li>
+<li class="artifact">server: finance-20 — Linux, dev, Finance</li>
+<li class="artifact">container: finance-20 — macOS, prod, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>164</td><td>finance-20</td><td>firewall</td><td>Windows</td><td>dev</td><td>Engineering</td><td>True</td><td>high</td><td>1/8/2025</td></tr>
+<tr><td>221</td><td>finance-20</td><td>server</td><td>Linux</td><td>dev</td><td>Finance</td><td>True</td><td>high</td><td>5/23/2025</td></tr>
+<tr><td>243</td><td>finance-20</td><td>container</td><td>macOS</td><td>prod</td><td>Engineering</td><td>False</td><td>medium</td><td>9/8/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-21" class="case"><h3><span>finance-21</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>finance-21 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: finance-21 — Linux, prod, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>210</td><td>finance-21</td><td>server</td><td>Linux</td><td>prod</td><td>HR</td><td>False</td><td>medium</td><td>9/27/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-22" class="case"><h3><span>finance-22</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-22 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: finance-22 — macOS, prod, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>48</td><td>finance-22</td><td>container</td><td>macOS</td><td>prod</td><td>HR</td><td>False</td><td>high</td><td>4/8/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-24" class="case"><h3><span>finance-24</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-24 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: finance-24 — Linux, prod, HR</li>
+<li class="artifact">server: finance-24 — macOS, staging, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>17</td><td>finance-24</td><td>laptop</td><td>Linux</td><td>prod</td><td>HR</td><td>True</td><td>high</td><td>11/13/2025</td></tr>
+<tr><td>21</td><td>finance-24</td><td>server</td><td>macOS</td><td>staging</td><td>Finance</td><td>False</td><td>medium</td><td>4/3/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-25" class="case"><h3><span>finance-25</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>finance-25 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: finance-25 — Linux, dev, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>91</td><td>finance-25</td><td>laptop</td><td>Linux</td><td>dev</td><td>IT</td><td>False</td><td>low</td><td>5/23/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-28" class="case"><h3><span>finance-28</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-28 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: finance-28 — Windows, staging, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>206</td><td>finance-28</td><td>container</td><td>Windows</td><td>staging</td><td>Engineering</td><td>True</td><td>high</td><td>11/23/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-29" class="case"><h3><span>finance-29</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-29 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: finance-29 — macOS, dev, Security</li>
+<li class="artifact">firewall: finance-29 — Linux, prod, Finance</li>
+<li class="artifact">server: finance-29 — Windows, staging, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>46</td><td>finance-29</td><td>server</td><td>macOS</td><td>dev</td><td>Security</td><td>False</td><td>high</td><td>3/31/2025</td></tr>
+<tr><td>117</td><td>finance-29</td><td>firewall</td><td>Linux</td><td>prod</td><td>Finance</td><td>True</td><td>medium</td><td>7/29/2025</td></tr>
+<tr><td>215</td><td>finance-29</td><td>server</td><td>Windows</td><td>staging</td><td>Engineering</td><td>False</td><td>high</td><td>7/26/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-3" class="case"><h3><span>finance-3</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>finance-3 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: finance-3 — Windows, staging, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>110</td><td>finance-3</td><td>server</td><td>Windows</td><td>staging</td><td>IT</td><td>False</td><td>low</td><td>5/9/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-30" class="case"><h3><span>finance-30</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-30 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: finance-30 — Linux, staging, Finance</li>
+<li class="artifact">server: finance-30 — macOS, prod, Security</li>
+<li class="artifact">laptop: finance-30 — Windows, staging, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>60</td><td>finance-30</td><td>firewall</td><td>Linux</td><td>staging</td><td>Finance</td><td>False</td><td>high</td><td>11/27/2025</td></tr>
+<tr><td>191</td><td>finance-30</td><td>server</td><td>macOS</td><td>prod</td><td>Security</td><td>False</td><td>medium</td><td>2/24/2025</td></tr>
+<tr><td>197</td><td>finance-30</td><td>laptop</td><td>Windows</td><td>staging</td><td>IT</td><td>True</td><td>medium</td><td>11/23/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-33" class="case"><h3><span>finance-33</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-33 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: finance-33 — Windows, staging, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>151</td><td>finance-33</td><td>firewall</td><td>Windows</td><td>staging</td><td>Security</td><td>True</td><td>high</td><td>12/20/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-35" class="case"><h3><span>finance-35</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-35 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: finance-35 — macOS, prod, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>23</td><td>finance-35</td><td>laptop</td><td>macOS</td><td>prod</td><td>IT</td><td>True</td><td>high</td><td>2/9/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-37" class="case"><h3><span>finance-37</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-37 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: finance-37 — Linux, staging, HR</li>
+<li class="artifact">firewall: finance-37 — Linux, staging, Executive Administration</li>
+<li class="artifact">server: finance-37 — macOS, dev, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>52</td><td>finance-37</td><td>firewall</td><td>Linux</td><td>staging</td><td>HR</td><td>False</td><td>high</td><td>9/28/2025</td></tr>
+<tr><td>124</td><td>finance-37</td><td>firewall</td><td>Linux</td><td>staging</td><td>Executive Administration</td><td>False</td><td>medium</td><td>12/12/2025</td></tr>
+<tr><td>258</td><td>finance-37</td><td>server</td><td>macOS</td><td>dev</td><td>Engineering</td><td>False</td><td>high</td><td>1/6/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-38" class="case"><h3><span>finance-38</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>finance-38 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: finance-38 — Windows, prod, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>64</td><td>finance-38</td><td>firewall</td><td>Windows</td><td>prod</td><td>Executive Administration</td><td>False</td><td>medium</td><td>7/2/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-39" class="case"><h3><span>finance-39</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-39 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: finance-39 — Windows, staging, Engineering</li>
+<li class="artifact">server: finance-39 — macOS, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>58</td><td>finance-39</td><td>container</td><td>Windows</td><td>staging</td><td>Engineering</td><td>False</td><td>medium</td><td>9/1/2025</td></tr>
+<tr><td>275</td><td>finance-39</td><td>server</td><td>macOS</td><td>dev</td><td>Executive Administration</td><td>True</td><td>high</td><td>8/17/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-4" class="case"><h3><span>finance-4</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-4 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: finance-4 — Windows, staging, Finance</li>
+<li class="artifact">laptop: finance-4 — Linux, dev, HR</li>
+<li class="artifact">laptop: finance-4 — Windows, prod, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>45</td><td>finance-4</td><td>firewall</td><td>Windows</td><td>staging</td><td>Finance</td><td>False</td><td>medium</td><td>10/9/2025</td></tr>
+<tr><td>165</td><td>finance-4</td><td>laptop</td><td>Linux</td><td>dev</td><td>HR</td><td>False</td><td>medium</td><td>2/4/2025</td></tr>
+<tr><td>300</td><td>finance-4</td><td>laptop</td><td>Windows</td><td>prod</td><td>HR</td><td>True</td><td>high</td><td>11/22/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-40" class="case"><h3><span>finance-40</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-40 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: finance-40 — Linux, prod, Security</li>
+<li class="artifact">laptop: finance-40 — Linux, staging, Finance</li>
+<li class="artifact">container: finance-40 — macOS, prod, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>39</td><td>finance-40</td><td>firewall</td><td>Linux</td><td>prod</td><td>Security</td><td>False</td><td>high</td><td>6/12/2025</td></tr>
+<tr><td>182</td><td>finance-40</td><td>laptop</td><td>Linux</td><td>staging</td><td>Finance</td><td>False</td><td>high</td><td>11/11/2025</td></tr>
+<tr><td>298</td><td>finance-40</td><td>container</td><td>macOS</td><td>prod</td><td>Executive Administration</td><td>False</td><td>medium</td><td>7/19/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-41" class="case"><h3><span>finance-41</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-41 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: finance-41 — macOS, dev, Executive Administration</li>
+<li class="artifact">firewall: finance-41 — Linux, dev, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>53</td><td>finance-41</td><td>laptop</td><td>macOS</td><td>dev</td><td>Executive Administration</td><td>True</td><td>high</td><td>10/18/2025</td></tr>
+<tr><td>156</td><td>finance-41</td><td>firewall</td><td>Linux</td><td>dev</td><td>IT</td><td>True</td><td>low</td><td>5/3/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-42" class="case"><h3><span>finance-42</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>finance-42 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: finance-42 — Linux, dev, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>51</td><td>finance-42</td><td>firewall</td><td>Linux</td><td>dev</td><td>IT</td><td>False</td><td>medium</td><td>8/26/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-45" class="case"><h3><span>finance-45</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>finance-45 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: finance-45 — Linux, dev, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>245</td><td>finance-45</td><td>firewall</td><td>Linux</td><td>dev</td><td>HR</td><td>False</td><td>medium</td><td>4/7/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-46" class="case"><h3><span>finance-46</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-46 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: finance-46 — Windows, prod, Security</li>
+<li class="artifact">firewall: finance-46 — macOS, staging, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>73</td><td>finance-46</td><td>container</td><td>Windows</td><td>prod</td><td>Security</td><td>False</td><td>low</td><td>7/15/2025</td></tr>
+<tr><td>148</td><td>finance-46</td><td>firewall</td><td>macOS</td><td>staging</td><td>Executive Administration</td><td>True</td><td>high</td><td>6/23/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-47" class="case"><h3><span>finance-47</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-47 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: finance-47 — Linux, prod, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>87</td><td>finance-47</td><td>laptop</td><td>Linux</td><td>prod</td><td>IT</td><td>False</td><td>high</td><td>1/27/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-48" class="case"><h3><span>finance-48</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>finance-48 | NEW | MEDIUM | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: finance-48 — macOS, staging, IT</li>
+<li class="artifact">container: finance-48 — Windows, prod, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>103</td><td>finance-48</td><td>laptop</td><td>macOS</td><td>staging</td><td>IT</td><td>True</td><td>medium</td><td>9/1/2025</td></tr>
+<tr><td>249</td><td>finance-48</td><td>container</td><td>Windows</td><td>prod</td><td>Engineering</td><td>False</td><td>low</td><td>2/12/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-49" class="case"><h3><span>finance-49</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>finance-49 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: finance-49 — macOS, staging, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>196</td><td>finance-49</td><td>firewall</td><td>macOS</td><td>staging</td><td>Executive Administration</td><td>False</td><td>low</td><td>6/14/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-5" class="case"><h3><span>finance-5</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>finance-5 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: finance-5 — macOS, dev, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>194</td><td>finance-5</td><td>firewall</td><td>macOS</td><td>dev</td><td>Engineering</td><td>False</td><td>medium</td><td>6/8/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-6" class="case"><h3><span>finance-6</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>finance-6 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: finance-6 — macOS, dev, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>234</td><td>finance-6</td><td>firewall</td><td>macOS</td><td>dev</td><td>IT</td><td>True</td><td>low</td><td>6/18/2025</td></tr>
+</table>
+</div>
+<div id="case-finance-8" class="case"><h3><span>finance-8</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>finance-8 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: finance-8 — Windows, dev, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>211</td><td>finance-8</td><td>container</td><td>Windows</td><td>dev</td><td>HR</td><td>False</td><td>high</td><td>12/30/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-1" class="case"><h3><span>hr-1</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>hr-1 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: hr-1 — macOS, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>88</td><td>hr-1</td><td>laptop</td><td>macOS</td><td>prod</td><td>Finance</td><td>False</td><td>low</td><td>3/13/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-10" class="case"><h3><span>hr-10</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-10 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: hr-10 — Linux, prod, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>208</td><td>hr-10</td><td>laptop</td><td>Linux</td><td>prod</td><td>Security</td><td>False</td><td>high</td><td>11/5/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-11" class="case"><h3><span>hr-11</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>hr-11 | NEW | LOW | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: hr-11 — macOS, prod, IT</li>
+<li class="artifact">server: hr-11 — macOS, prod, HR</li>
+<li class="artifact">laptop: hr-11 — macOS, staging, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>59</td><td>hr-11</td><td>firewall</td><td>macOS</td><td>prod</td><td>IT</td><td>False</td><td>low</td><td>6/1/2025</td></tr>
+<tr><td>93</td><td>hr-11</td><td>server</td><td>macOS</td><td>prod</td><td>HR</td><td>False</td><td>low</td><td>4/21/2025</td></tr>
+<tr><td>176</td><td>hr-11</td><td>laptop</td><td>macOS</td><td>staging</td><td>HR</td><td>False</td><td>low</td><td>8/10/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-12" class="case"><h3><span>hr-12</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-12 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: hr-12 — Linux, staging, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>102</td><td>hr-12</td><td>firewall</td><td>Linux</td><td>staging</td><td>HR</td><td>False</td><td>high</td><td>4/17/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-14" class="case"><h3><span>hr-14</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>hr-14 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: hr-14 — Linux, prod, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>128</td><td>hr-14</td><td>server</td><td>Linux</td><td>prod</td><td>Security</td><td>False</td><td>medium</td><td>5/15/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-16" class="case"><h3><span>hr-16</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-16 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: hr-16 — Linux, staging, HR</li>
+<li class="artifact">container: hr-16 — Windows, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>4</td><td>hr-16</td><td>laptop</td><td>Linux</td><td>staging</td><td>HR</td><td>False</td><td>low</td><td>10/12/2025</td></tr>
+<tr><td>150</td><td>hr-16</td><td>container</td><td>Windows</td><td>dev</td><td>Executive Administration</td><td>True</td><td>high</td><td>4/13/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-17" class="case"><h3><span>hr-17</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>hr-17 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: hr-17 — Linux, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>171</td><td>hr-17</td><td>container</td><td>Linux</td><td>dev</td><td>Executive Administration</td><td>False</td><td>medium</td><td>12/13/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-18" class="case"><h3><span>hr-18</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>hr-18 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: hr-18 — Linux, prod, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>98</td><td>hr-18</td><td>server</td><td>Linux</td><td>prod</td><td>HR</td><td>False</td><td>low</td><td>11/14/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-19" class="case"><h3><span>hr-19</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-19 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: hr-19 — Windows, prod, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>118</td><td>hr-19</td><td>container</td><td>Windows</td><td>prod</td><td>Security</td><td>False</td><td>high</td><td>10/14/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-21" class="case"><h3><span>hr-21</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>hr-21 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: hr-21 — Windows, prod, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>77</td><td>hr-21</td><td>server</td><td>Windows</td><td>prod</td><td>Security</td><td>False</td><td>low</td><td>3/14/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-22" class="case"><h3><span>hr-22</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>hr-22 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: hr-22 — Windows, staging, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>226</td><td>hr-22</td><td>server</td><td>Windows</td><td>staging</td><td>Executive Administration</td><td>False</td><td>medium</td><td>11/7/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-23" class="case"><h3><span>hr-23</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-23 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: hr-23 — Windows, prod, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>283</td><td>hr-23</td><td>firewall</td><td>Windows</td><td>prod</td><td>Engineering</td><td>False</td><td>high</td><td>11/10/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-24" class="case"><h3><span>hr-24</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>hr-24 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: hr-24 — Windows, prod, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>168</td><td>hr-24</td><td>server</td><td>Windows</td><td>prod</td><td>HR</td><td>False</td><td>medium</td><td>4/19/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-25" class="case"><h3><span>hr-25</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>hr-25 | NEW | MEDIUM | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: hr-25 — Linux, prod, Security</li>
+<li class="artifact">server: hr-25 — Windows, staging, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>71</td><td>hr-25</td><td>server</td><td>Linux</td><td>prod</td><td>Security</td><td>True</td><td>medium</td><td>12/8/2025</td></tr>
+<tr><td>187</td><td>hr-25</td><td>server</td><td>Windows</td><td>staging</td><td>Security</td><td>False</td><td>medium</td><td>12/6/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-26" class="case"><h3><span>hr-26</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-26 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: hr-26 — macOS, prod, Finance</li>
+<li class="artifact">server: hr-26 — Windows, prod, Security</li>
+<li class="artifact">server: hr-26 — Linux, staging, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>96</td><td>hr-26</td><td>container</td><td>macOS</td><td>prod</td><td>Finance</td><td>True</td><td>medium</td><td>9/26/2025</td></tr>
+<tr><td>143</td><td>hr-26</td><td>server</td><td>Windows</td><td>prod</td><td>Security</td><td>True</td><td>high</td><td>11/4/2025</td></tr>
+<tr><td>264</td><td>hr-26</td><td>server</td><td>Linux</td><td>staging</td><td>Finance</td><td>False</td><td>high</td><td>8/26/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-27" class="case"><h3><span>hr-27</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-27 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: hr-27 — Windows, dev, IT</li>
+<li class="artifact">container: hr-27 — Linux, staging, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>252</td><td>hr-27</td><td>firewall</td><td>Windows</td><td>dev</td><td>IT</td><td>True</td><td>high</td><td>5/1/2025</td></tr>
+<tr><td>266</td><td>hr-27</td><td>container</td><td>Linux</td><td>staging</td><td>Finance</td><td>False</td><td>medium</td><td>2/26/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-28" class="case"><h3><span>hr-28</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>hr-28 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: hr-28 — macOS, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>254</td><td>hr-28</td><td>firewall</td><td>macOS</td><td>prod</td><td>Finance</td><td>False</td><td>medium</td><td>2/18/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-30" class="case"><h3><span>hr-30</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>hr-30 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: hr-30 — Linux, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>108</td><td>hr-30</td><td>laptop</td><td>Linux</td><td>prod</td><td>Finance</td><td>True</td><td>low</td><td>2/26/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-33" class="case"><h3><span>hr-33</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-33 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: hr-33 — macOS, staging, Finance</li>
+<li class="artifact">firewall: hr-33 — macOS, dev, IT</li>
+<li class="artifact">server: hr-33 — Linux, prod, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>68</td><td>hr-33</td><td>server</td><td>macOS</td><td>staging</td><td>Finance</td><td>True</td><td>high</td><td>7/9/2025</td></tr>
+<tr><td>199</td><td>hr-33</td><td>firewall</td><td>macOS</td><td>dev</td><td>IT</td><td>True</td><td>medium</td><td>5/11/2025</td></tr>
+<tr><td>238</td><td>hr-33</td><td>server</td><td>Linux</td><td>prod</td><td>Engineering</td><td>True</td><td>low</td><td>2/2/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-34" class="case"><h3><span>hr-34</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-34 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: hr-34 — macOS, staging, Finance</li>
+<li class="artifact">container: hr-34 — Windows, dev, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>109</td><td>hr-34</td><td>container</td><td>macOS</td><td>staging</td><td>Finance</td><td>True</td><td>medium</td><td>6/29/2025</td></tr>
+<tr><td>116</td><td>hr-34</td><td>container</td><td>Windows</td><td>dev</td><td>Engineering</td><td>False</td><td>high</td><td>8/13/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-37" class="case"><h3><span>hr-37</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-37 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: hr-37 — Linux, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>190</td><td>hr-37</td><td>laptop</td><td>Linux</td><td>prod</td><td>Finance</td><td>True</td><td>high</td><td>10/10/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-38" class="case"><h3><span>hr-38</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-38 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: hr-38 — Windows, staging, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>276</td><td>hr-38</td><td>container</td><td>Windows</td><td>staging</td><td>Finance</td><td>True</td><td>high</td><td>12/18/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-39" class="case"><h3><span>hr-39</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-39 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: hr-39 — macOS, dev, Security</li>
+<li class="artifact">server: hr-39 — macOS, staging, Executive Administration</li>
+<li class="artifact">server: hr-39 — Linux, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>66</td><td>hr-39</td><td>server</td><td>macOS</td><td>dev</td><td>Security</td><td>False</td><td>low</td><td>9/24/2025</td></tr>
+<tr><td>140</td><td>hr-39</td><td>server</td><td>macOS</td><td>staging</td><td>Executive Administration</td><td>False</td><td>low</td><td>12/24/2025</td></tr>
+<tr><td>155</td><td>hr-39</td><td>server</td><td>Linux</td><td>dev</td><td>Executive Administration</td><td>True</td><td>high</td><td>11/7/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-4" class="case"><h3><span>hr-4</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>hr-4 | NEW | MEDIUM | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: hr-4 — macOS, dev, IT</li>
+<li class="artifact">container: hr-4 — macOS, prod, Engineering</li>
+<li class="artifact">container: hr-4 — macOS, staging, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>84</td><td>hr-4</td><td>laptop</td><td>macOS</td><td>dev</td><td>IT</td><td>True</td><td>low</td><td>10/14/2025</td></tr>
+<tr><td>144</td><td>hr-4</td><td>container</td><td>macOS</td><td>prod</td><td>Engineering</td><td>True</td><td>low</td><td>1/12/2025</td></tr>
+<tr><td>293</td><td>hr-4</td><td>container</td><td>macOS</td><td>staging</td><td>Finance</td><td>False</td><td>medium</td><td>6/29/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-40" class="case"><h3><span>hr-40</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-40 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: hr-40 — Linux, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>193</td><td>hr-40</td><td>laptop</td><td>Linux</td><td>prod</td><td>Finance</td><td>False</td><td>high</td><td>6/9/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-42" class="case"><h3><span>hr-42</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-42 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: hr-42 — Linux, prod, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>170</td><td>hr-42</td><td>firewall</td><td>Linux</td><td>prod</td><td>HR</td><td>False</td><td>high</td><td>5/16/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-44" class="case"><h3><span>hr-44</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-44 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: hr-44 — Linux, prod, Engineering</li>
+<li class="artifact">laptop: hr-44 — macOS, staging, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>122</td><td>hr-44</td><td>server</td><td>Linux</td><td>prod</td><td>Engineering</td><td>True</td><td>low</td><td>3/1/2025</td></tr>
+<tr><td>202</td><td>hr-44</td><td>laptop</td><td>macOS</td><td>staging</td><td>HR</td><td>False</td><td>high</td><td>5/21/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-45" class="case"><h3><span>hr-45</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>hr-45 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: hr-45 — Windows, prod, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>3</td><td>hr-45</td><td>firewall</td><td>Windows</td><td>prod</td><td>Security</td><td>False</td><td>medium</td><td>9/22/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-46" class="case"><h3><span>hr-46</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>hr-46 | NEW | LOW | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: hr-46 — macOS, dev, Executive Administration</li>
+<li class="artifact">laptop: hr-46 — macOS, dev, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>35</td><td>hr-46</td><td>server</td><td>macOS</td><td>dev</td><td>Executive Administration</td><td>False</td><td>low</td><td>12/23/2025</td></tr>
+<tr><td>94</td><td>hr-46</td><td>laptop</td><td>macOS</td><td>dev</td><td>Engineering</td><td>False</td><td>low</td><td>7/20/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-48" class="case"><h3><span>hr-48</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>hr-48 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: hr-48 — macOS, prod, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>290</td><td>hr-48</td><td>firewall</td><td>macOS</td><td>prod</td><td>Engineering</td><td>False</td><td>low</td><td>12/12/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-49" class="case"><h3><span>hr-49</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>hr-49 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: hr-49 — Linux, staging, HR</li>
+<li class="artifact">server: hr-49 — Linux, dev, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>139</td><td>hr-49</td><td>server</td><td>Linux</td><td>staging</td><td>HR</td><td>True</td><td>high</td><td>2/17/2025</td></tr>
+<tr><td>270</td><td>hr-49</td><td>server</td><td>Linux</td><td>dev</td><td>HR</td><td>False</td><td>medium</td><td>9/6/2025</td></tr>
+</table>
+</div>
+<div id="case-hr-5" class="case"><h3><span>hr-5</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>hr-5 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: hr-5 — Linux, dev, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>286</td><td>hr-5</td><td>server</td><td>Linux</td><td>dev</td><td>Security</td><td>False</td><td>low</td><td>11/20/2025</td></tr>
+</table>
+</div>
+<div id="case-web-1" class="case"><h3><span>web-1</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>web-1 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: web-1 — Windows, staging, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>123</td><td>web-1</td><td>container</td><td>Windows</td><td>staging</td><td>Executive Administration</td><td>False</td><td>medium</td><td>10/7/2025</td></tr>
+</table>
+</div>
+<div id="case-web-10" class="case"><h3><span>web-10</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>web-10 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: web-10 — Linux, dev, Finance</li>
+<li class="artifact">container: web-10 — Windows, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>14</td><td>web-10</td><td>firewall</td><td>Linux</td><td>dev</td><td>Finance</td><td>True</td><td>low</td><td>4/11/2025</td></tr>
+<tr><td>16</td><td>web-10</td><td>container</td><td>Windows</td><td>dev</td><td>Executive Administration</td><td>True</td><td>high</td><td>7/31/2025</td></tr>
+</table>
+</div>
+<div id="case-web-12" class="case"><h3><span>web-12</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>web-12 | NEW | MEDIUM | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: web-12 — Windows, prod, IT</li>
+<li class="artifact">container: web-12 — Windows, staging, Executive Administration</li>
+<li class="artifact">laptop: web-12 — Linux, prod, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>27</td><td>web-12</td><td>laptop</td><td>Windows</td><td>prod</td><td>IT</td><td>False</td><td>medium</td><td>8/4/2025</td></tr>
+<tr><td>158</td><td>web-12</td><td>container</td><td>Windows</td><td>staging</td><td>Executive Administration</td><td>False</td><td>medium</td><td>9/20/2025</td></tr>
+<tr><td>280</td><td>web-12</td><td>laptop</td><td>Linux</td><td>prod</td><td>IT</td><td>True</td><td>low</td><td>12/18/2025</td></tr>
+</table>
+</div>
+<div id="case-web-15" class="case"><h3><span>web-15</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>web-15 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: web-15 — macOS, staging, Engineering</li>
+<li class="artifact">server: web-15 — macOS, staging, HR</li>
+<li class="artifact">container: web-15 — Windows, staging, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>6</td><td>web-15</td><td>container</td><td>macOS</td><td>staging</td><td>Engineering</td><td>True</td><td>low</td><td>3/11/2025</td></tr>
+<tr><td>7</td><td>web-15</td><td>server</td><td>macOS</td><td>staging</td><td>HR</td><td>True</td><td>high</td><td>9/21/2025</td></tr>
+<tr><td>18</td><td>web-15</td><td>container</td><td>Windows</td><td>staging</td><td>Engineering</td><td>True</td><td>high</td><td>1/9/2025</td></tr>
+</table>
+</div>
+<div id="case-web-16" class="case"><h3><span>web-16</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>web-16 | NEW | MEDIUM | artifacts=4</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: web-16 — macOS, prod, IT</li>
+<li class="artifact">server: web-16 — Linux, prod, Finance</li>
+<li class="artifact">laptop: web-16 — Linux, prod, Finance</li>
+<li class="artifact">container: web-16 — Windows, staging, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>13</td><td>web-16</td><td>server</td><td>macOS</td><td>prod</td><td>IT</td><td>True</td><td>low</td><td>10/31/2025</td></tr>
+<tr><td>82</td><td>web-16</td><td>server</td><td>Linux</td><td>prod</td><td>Finance</td><td>True</td><td>low</td><td>3/13/2025</td></tr>
+<tr><td>113</td><td>web-16</td><td>laptop</td><td>Linux</td><td>prod</td><td>Finance</td><td>False</td><td>medium</td><td>1/26/2025</td></tr>
+<tr><td>265</td><td>web-16</td><td>container</td><td>Windows</td><td>staging</td><td>IT</td><td>True</td><td>low</td><td>4/2/2025</td></tr>
+</table>
+</div>
+<div id="case-web-19" class="case"><h3><span>web-19</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>web-19 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: web-19 — macOS, dev, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>32</td><td>web-19</td><td>firewall</td><td>macOS</td><td>dev</td><td>IT</td><td>False</td><td>low</td><td>7/19/2025</td></tr>
+</table>
+</div>
+<div id="case-web-2" class="case"><h3><span>web-2</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>web-2 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: web-2 — Linux, staging, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>101</td><td>web-2</td><td>firewall</td><td>Linux</td><td>staging</td><td>Security</td><td>False</td><td>medium</td><td>3/31/2025</td></tr>
+</table>
+</div>
+<div id="case-web-20" class="case"><h3><span>web-20</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>web-20 | NEW | LOW | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: web-20 — macOS, staging, Executive Administration</li>
+<li class="artifact">server: web-20 — macOS, staging, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>136</td><td>web-20</td><td>firewall</td><td>macOS</td><td>staging</td><td>Executive Administration</td><td>False</td><td>low</td><td>9/4/2025</td></tr>
+<tr><td>214</td><td>web-20</td><td>server</td><td>macOS</td><td>staging</td><td>HR</td><td>False</td><td>medium</td><td>3/26/2025</td></tr>
+</table>
+</div>
+<div id="case-web-22" class="case"><h3><span>web-22</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>web-22 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: web-22 — Linux, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>203</td><td>web-22</td><td>container</td><td>Linux</td><td>prod</td><td>Finance</td><td>False</td><td>medium</td><td>1/12/2025</td></tr>
+</table>
+</div>
+<div id="case-web-23" class="case"><h3><span>web-23</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>web-23 | NEW | LOW | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: web-23 — Linux, prod, Executive Administration</li>
+<li class="artifact">server: web-23 — Linux, prod, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>132</td><td>web-23</td><td>container</td><td>Linux</td><td>prod</td><td>Executive Administration</td><td>False</td><td>low</td><td>10/20/2025</td></tr>
+<tr><td>219</td><td>web-23</td><td>server</td><td>Linux</td><td>prod</td><td>Security</td><td>False</td><td>medium</td><td>9/6/2025</td></tr>
+</table>
+</div>
+<div id="case-web-25" class="case"><h3><span>web-25</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>web-25 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: web-25 — Windows, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>131</td><td>web-25</td><td>container</td><td>Windows</td><td>dev</td><td>Executive Administration</td><td>False</td><td>high</td><td>3/1/2025</td></tr>
+</table>
+</div>
+<div id="case-web-26" class="case"><h3><span>web-26</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>web-26 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: web-26 — Linux, prod, Finance</li>
+<li class="artifact">container: web-26 — Linux, dev, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>19</td><td>web-26</td><td>laptop</td><td>Linux</td><td>prod</td><td>Finance</td><td>True</td><td>medium</td><td>11/9/2025</td></tr>
+<tr><td>95</td><td>web-26</td><td>container</td><td>Linux</td><td>dev</td><td>Engineering</td><td>True</td><td>high</td><td>8/25/2025</td></tr>
+</table>
+</div>
+<div id="case-web-28" class="case"><h3><span>web-28</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>web-28 | NEW | MEDIUM | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: web-28 — Linux, prod, Executive Administration</li>
+<li class="artifact">container: web-28 — Windows, dev, Executive Administration</li>
+<li class="artifact">laptop: web-28 — Windows, dev, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>89</td><td>web-28</td><td>container</td><td>Linux</td><td>prod</td><td>Executive Administration</td><td>True</td><td>low</td><td>5/22/2025</td></tr>
+<tr><td>114</td><td>web-28</td><td>container</td><td>Windows</td><td>dev</td><td>Executive Administration</td><td>True</td><td>low</td><td>2/15/2025</td></tr>
+<tr><td>200</td><td>web-28</td><td>laptop</td><td>Windows</td><td>dev</td><td>Executive Administration</td><td>False</td><td>medium</td><td>8/31/2025</td></tr>
+</table>
+</div>
+<div id="case-web-29" class="case"><h3><span>web-29</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>web-29 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: web-29 — Linux, staging, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>278</td><td>web-29</td><td>firewall</td><td>Linux</td><td>staging</td><td>Finance</td><td>False</td><td>medium</td><td>12/26/2025</td></tr>
+</table>
+</div>
+<div id="case-web-31" class="case"><h3><span>web-31</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>web-31 | NEW | MEDIUM | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: web-31 — Linux, prod, Finance</li>
+<li class="artifact">firewall: web-31 — macOS, dev, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>26</td><td>web-31</td><td>firewall</td><td>Linux</td><td>prod</td><td>Finance</td><td>False</td><td>low</td><td>8/21/2025</td></tr>
+<tr><td>240</td><td>web-31</td><td>firewall</td><td>macOS</td><td>dev</td><td>Engineering</td><td>True</td><td>medium</td><td>5/20/2025</td></tr>
+</table>
+</div>
+<div id="case-web-32" class="case"><h3><span>web-32</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>web-32 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: web-32 — Linux, staging, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>262</td><td>web-32</td><td>firewall</td><td>Linux</td><td>staging</td><td>Finance</td><td>True</td><td>medium</td><td>10/17/2025</td></tr>
+</table>
+</div>
+<div id="case-web-33" class="case"><h3><span>web-33</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>web-33 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: web-33 — Linux, staging, IT</li>
+<li class="artifact">firewall: web-33 — macOS, dev, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>20</td><td>web-33</td><td>container</td><td>Linux</td><td>staging</td><td>IT</td><td>False</td><td>medium</td><td>1/17/2025</td></tr>
+<tr><td>257</td><td>web-33</td><td>firewall</td><td>macOS</td><td>dev</td><td>IT</td><td>False</td><td>high</td><td>4/11/2025</td></tr>
+</table>
+</div>
+<div id="case-web-35" class="case"><h3><span>web-35</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>web-35 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: web-35 — Linux, dev, Executive Administration</li>
+<li class="artifact">laptop: web-35 — macOS, dev, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>78</td><td>web-35</td><td>laptop</td><td>Linux</td><td>dev</td><td>Executive Administration</td><td>False</td><td>low</td><td>8/23/2025</td></tr>
+<tr><td>99</td><td>web-35</td><td>laptop</td><td>macOS</td><td>dev</td><td>IT</td><td>False</td><td>high</td><td>3/8/2025</td></tr>
+</table>
+</div>
+<div id="case-web-36" class="case"><h3><span>web-36</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>web-36 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: web-36 — macOS, dev, IT</li>
+<li class="artifact">laptop: web-36 — Linux, prod, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>43</td><td>web-36</td><td>server</td><td>macOS</td><td>dev</td><td>IT</td><td>True</td><td>medium</td><td>11/29/2025</td></tr>
+<tr><td>76</td><td>web-36</td><td>laptop</td><td>Linux</td><td>prod</td><td>Finance</td><td>True</td><td>high</td><td>1/16/2025</td></tr>
+</table>
+</div>
+<div id="case-web-38" class="case"><h3><span>web-38</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>web-38 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: web-38 — Linux, staging, Engineering</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>31</td><td>web-38</td><td>server</td><td>Linux</td><td>staging</td><td>Engineering</td><td>False</td><td>high</td><td>5/5/2025</td></tr>
+</table>
+</div>
+<div id="case-web-39" class="case"><h3><span>web-39</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>web-39 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: web-39 — macOS, dev, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>50</td><td>web-39</td><td>laptop</td><td>macOS</td><td>dev</td><td>Security</td><td>True</td><td>low</td><td>9/18/2025</td></tr>
+</table>
+</div>
+<div id="case-web-4" class="case"><h3><span>web-4</span><span><span class="badge badge-low">LOW</span></span></h3>
+<div class="meta"><small>web-4 | NEW | LOW | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: web-4 — Windows, prod, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>223</td><td>web-4</td><td>container</td><td>Windows</td><td>prod</td><td>HR</td><td>False</td><td>medium</td><td>8/8/2025</td></tr>
+</table>
+</div>
+<div id="case-web-42" class="case"><h3><span>web-42</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>web-42 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: web-42 — Windows, dev, HR</li>
+<li class="artifact">firewall: web-42 — macOS, prod, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>250</td><td>web-42</td><td>laptop</td><td>Windows</td><td>dev</td><td>HR</td><td>False</td><td>low</td><td>4/3/2025</td></tr>
+<tr><td>277</td><td>web-42</td><td>firewall</td><td>macOS</td><td>prod</td><td>Security</td><td>False</td><td>high</td><td>10/25/2025</td></tr>
+</table>
+</div>
+<div id="case-web-46" class="case"><h3><span>web-46</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>web-46 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: web-46 — Linux, staging, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>263</td><td>web-46</td><td>firewall</td><td>Linux</td><td>staging</td><td>IT</td><td>True</td><td>high</td><td>5/28/2025</td></tr>
+</table>
+</div>
+<div id="case-web-47" class="case"><h3><span>web-47</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>web-47 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">server: web-47 — macOS, staging, IT</li>
+<li class="artifact">laptop: web-47 — macOS, prod, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>69</td><td>web-47</td><td>server</td><td>macOS</td><td>staging</td><td>IT</td><td>True</td><td>low</td><td>3/20/2025</td></tr>
+<tr><td>74</td><td>web-47</td><td>laptop</td><td>macOS</td><td>prod</td><td>IT</td><td>False</td><td>high</td><td>9/4/2025</td></tr>
+</table>
+</div>
+<div id="case-web-48" class="case"><h3><span>web-48</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>web-48 | NEW | MEDIUM | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: web-48 — macOS, staging, IT</li>
+<li class="artifact">laptop: web-48 — Windows, prod, IT</li>
+<li class="artifact">laptop: web-48 — Windows, staging, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>36</td><td>web-48</td><td>laptop</td><td>macOS</td><td>staging</td><td>IT</td><td>True</td><td>low</td><td>3/24/2025</td></tr>
+<tr><td>269</td><td>web-48</td><td>laptop</td><td>Windows</td><td>prod</td><td>IT</td><td>False</td><td>low</td><td>5/11/2025</td></tr>
+<tr><td>289</td><td>web-48</td><td>laptop</td><td>Windows</td><td>staging</td><td>HR</td><td>True</td><td>medium</td><td>9/2/2025</td></tr>
+</table>
+</div>
+<div id="case-web-49" class="case"><h3><span>web-49</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>web-49 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: web-49 — Linux, staging, Finance</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>145</td><td>web-49</td><td>container</td><td>Linux</td><td>staging</td><td>Finance</td><td>True</td><td>low</td><td>8/23/2025</td></tr>
+</table>
+</div>
+<div id="case-web-5" class="case"><h3><span>web-5</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>web-5 | NEW | HIGH | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: web-5 — macOS, staging, HR</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>153</td><td>web-5</td><td>laptop</td><td>macOS</td><td>staging</td><td>HR</td><td>True</td><td>high</td><td>10/22/2025</td></tr>
+</table>
+</div>
+<div id="case-web-50" class="case"><h3><span>web-50</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>web-50 | NEW | HIGH | artifacts=2</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">laptop: web-50 — Linux, dev, Engineering</li>
+<li class="artifact">container: web-50 — Linux, staging, IT</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>135</td><td>web-50</td><td>laptop</td><td>Linux</td><td>dev</td><td>Engineering</td><td>False</td><td>high</td><td>4/27/2025</td></tr>
+<tr><td>179</td><td>web-50</td><td>container</td><td>Linux</td><td>staging</td><td>IT</td><td>True</td><td>high</td><td>4/22/2025</td></tr>
+</table>
+</div>
+<div id="case-web-7" class="case"><h3><span>web-7</span><span><span class="badge badge-medium">MEDIUM</span></span></h3>
+<div class="meta"><small>web-7 | NEW | MEDIUM | artifacts=1</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">container: web-7 — Windows, prod, Executive Administration</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>284</td><td>web-7</td><td>container</td><td>Windows</td><td>prod</td><td>Executive Administration</td><td>True</td><td>low</td><td>6/13/2025</td></tr>
+</table>
+</div>
+<div id="case-web-9" class="case"><h3><span>web-9</span><span><span class="badge badge-high">HIGH</span></span></h3>
+<div class="meta"><small>web-9 | NEW | HIGH | artifacts=3</small></div>
+<div class="artifacts"><h4>Artifacts</h4><ul>
+<li class="artifact">firewall: web-9 — Windows, prod, Finance</li>
+<li class="artifact">firewall: web-9 — Linux, prod, Executive Administration</li>
+<li class="artifact">server: web-9 — macOS, staging, Security</li>
+</ul></div>
+<h4>Raw records (compact)</h4>
+<table>
+<tr><th>asset_id</th><th>hostname</th><th>asset_type</th><th>os</th><th>environment</th><th>owner_team</th><th>internet_exposed</th><th>criticality</th><th>last_seen</th></tr>
+<tr><td>161</td><td>web-9</td><td>firewall</td><td>Windows</td><td>prod</td><td>Finance</td><td>True</td><td>high</td><td>3/25/2025</td></tr>
+<tr><td>213</td><td>web-9</td><td>firewall</td><td>Linux</td><td>prod</td><td>Executive Administration</td><td>True</td><td>low</td><td>3/27/2025</td></tr>
+<tr><td>295</td><td>web-9</td><td>server</td><td>macOS</td><td>staging</td><td>Security</td><td>True</td><td>high</td><td>1/3/2026</td></tr>
+</table>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,2317 @@
+
+                               SECOPS CASE REPORT                               
+                               ==================                               
+
+                             Author: Lenny Coulter                              
+                         Generated: 2026-02-08 15:34:00                         
+                                Total cases: 189                                
+
+================================================================================
+
+SUMMARY OF DETECTED INDICATORS:
+Domains:
+ - None
+Hashes:
+ - None
+
+Case 1: compute-10
+compute-10 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:compute-10 (Windows, staging, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+175 | compute-10 | container | Windows | staging | HR | True | low | 2/25/2025
+
+
+Case 2: compute-12
+compute-12 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:compute-12 (Windows, staging, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+54 | compute-12 | server | Windows | staging | Executive Administration | True | high | 11/22/2025
+
+
+Case 3: compute-13
+compute-13 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:compute-13 (macOS, prod, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+44 | compute-13 | laptop | macOS | prod | IT | False | high | 12/4/2025
+
+
+Case 4: compute-14
+compute-14 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - container:compute-14 (Linux, dev, HR)
+  - firewall:compute-14 (Windows, prod, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+62 | compute-14 | container | Linux | dev | HR | True | low | 11/6/2025
+237 | compute-14 | firewall | Windows | prod | Engineering | True | high | 4/8/2025
+
+
+Case 5: compute-15
+compute-15 | NEW | MEDIUM | artifacts=3
+------------------------------------------------
+Artifacts:
+  - firewall:compute-15 (Linux, staging, IT)
+  - firewall:compute-15 (Linux, dev, Executive Administration)
+  - firewall:compute-15 (Linux, prod, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+63 | compute-15 | firewall | Linux | staging | IT | False | medium | 1/4/2025
+141 | compute-15 | firewall | Linux | dev | Executive Administration | False | medium | 10/3/2025
+292 | compute-15 | firewall | Linux | prod | Security | True | medium | 8/11/2025
+
+
+Case 6: compute-16
+compute-16 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:compute-16 (Linux, dev, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+291 | compute-16 | server | Linux | dev | IT | False | low | 5/6/2025
+
+
+Case 7: compute-18
+compute-18 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:compute-18 (macOS, prod, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+222 | compute-18 | firewall | macOS | prod | Engineering | False | medium | 5/15/2025
+
+
+Case 8: compute-2
+compute-2 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:compute-2 (Linux, staging, Executive Administration)
+  - laptop:compute-2 (macOS, staging, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+25 | compute-2 | laptop | Linux | staging | Executive Administration | False | medium | 2/25/2025
+157 | compute-2 | laptop | macOS | staging | IT | False | high | 4/3/2025
+
+
+Case 9: compute-21
+compute-21 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:compute-21 (Linux, prod, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+267 | compute-21 | server | Linux | prod | HR | True | low | 4/19/2025
+
+
+Case 10: compute-22
+compute-22 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:compute-22 (Windows, dev, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+195 | compute-22 | container | Windows | dev | Engineering | False | high | 9/22/2025
+
+
+Case 11: compute-24
+compute-24 | NEW | MEDIUM | artifacts=3
+------------------------------------------------
+Artifacts:
+  - container:compute-24 (macOS, staging, Security)
+  - laptop:compute-24 (Linux, staging, Executive Administration)
+  - firewall:compute-24 (Linux, dev, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+111 | compute-24 | container | macOS | staging | Security | False | medium | 6/30/2025
+255 | compute-24 | laptop | Linux | staging | Executive Administration | True | low | 5/5/2025
+279 | compute-24 | firewall | Linux | dev | IT | False | medium | 10/30/2025
+
+
+Case 12: compute-26
+compute-26 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:compute-26 (Windows, dev, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+174 | compute-26 | server | Windows | dev | Security | False | high | 9/12/2025
+
+
+Case 13: compute-28
+compute-28 | NEW | MEDIUM | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:compute-28 (Linux, staging, IT)
+  - firewall:compute-28 (Windows, staging, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+49 | compute-28 | server | Linux | staging | IT | True | low | 2/28/2025
+205 | compute-28 | firewall | Windows | staging | Finance | True | low | 1/12/2025
+
+
+Case 14: compute-29
+compute-29 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:compute-29 (macOS, dev, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+261 | compute-29 | firewall | macOS | dev | IT | False | medium | 2/27/2025
+
+
+Case 15: compute-3
+compute-3 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:compute-3 (Linux, prod, Executive Administration)
+  - container:compute-3 (Linux, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+154 | compute-3 | laptop | Linux | prod | Executive Administration | True | low | 10/2/2025
+216 | compute-3 | container | Linux | prod | Finance | True | high | 3/17/2025
+
+
+Case 16: compute-30
+compute-30 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:compute-30 (Linux, prod, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+33 | compute-30 | container | Linux | prod | HR | False | medium | 5/26/2025
+
+
+Case 17: compute-31
+compute-31 | NEW | LOW | artifacts=2
+------------------------------------------------
+Artifacts:
+  - firewall:compute-31 (macOS, dev, HR)
+  - laptop:compute-31 (Linux, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+9 | compute-31 | firewall | macOS | dev | HR | False | medium | 6/15/2025
+173 | compute-31 | laptop | Linux | dev | Executive Administration | False | medium | 12/5/2025
+
+
+Case 18: compute-32
+compute-32 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:compute-32 (Windows, prod, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+85 | compute-32 | firewall | Windows | prod | Engineering | True | high | 7/4/2025
+
+
+Case 19: compute-33
+compute-33 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:compute-33 (Linux, dev, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+5 | compute-33 | container | Linux | dev | Engineering | True | high | 5/24/2025
+
+
+Case 20: compute-34
+compute-34 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:compute-34 (macOS, prod, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+67 | compute-34 | firewall | macOS | prod | Engineering | False | high | 7/26/2025
+
+
+Case 21: compute-36
+compute-36 | NEW | MEDIUM | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:compute-36 (macOS, staging, Executive Administration)
+  - laptop:compute-36 (Windows, staging, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+92 | compute-36 | laptop | macOS | staging | Executive Administration | True | medium | 3/19/2025
+230 | compute-36 | laptop | Windows | staging | Engineering | False | low | 1/18/2025
+
+
+Case 22: compute-4
+compute-4 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - firewall:compute-4 (macOS, staging, Executive Administration)
+  - firewall:compute-4 (macOS, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+138 | compute-4 | firewall | macOS | staging | Executive Administration | False | high | 6/17/2025
+224 | compute-4 | firewall | macOS | prod | Finance | True | medium | 5/17/2025
+
+
+Case 23: compute-43
+compute-43 | NEW | MEDIUM | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:compute-43 (Windows, staging, Security)
+  - container:compute-43 (Windows, staging, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+47 | compute-43 | server | Windows | staging | Security | True | medium | 1/11/2025
+121 | compute-43 | container | Windows | staging | Finance | False | medium | 5/18/2025
+
+
+Case 24: compute-44
+compute-44 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:compute-44 (Linux, dev, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+207 | compute-44 | firewall | Linux | dev | Finance | True | high | 10/23/2025
+
+
+Case 25: compute-45
+compute-45 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:compute-45 (macOS, staging, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+220 | compute-45 | firewall | macOS | staging | Finance | True | low | 7/12/2025
+
+
+Case 26: compute-46
+compute-46 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:compute-46 (macOS, staging, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+56 | compute-46 | server | macOS | staging | IT | False | high | 8/2/2025
+
+
+Case 27: compute-47
+compute-47 | NEW | LOW | artifacts=2
+------------------------------------------------
+Artifacts:
+  - container:compute-47 (Windows, dev, Executive Administration)
+  - server:compute-47 (macOS, prod, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+83 | compute-47 | container | Windows | dev | Executive Administration | False | low | 9/17/2025
+166 | compute-47 | server | macOS | prod | IT | False | medium | 10/22/2025
+
+
+Case 28: compute-48
+compute-48 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:compute-48 (macOS, staging, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+185 | compute-48 | firewall | macOS | staging | HR | False | medium | 3/7/2025
+
+
+Case 29: compute-49
+compute-49 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:compute-49 (Linux, staging, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+244 | compute-49 | firewall | Linux | staging | Executive Administration | True | medium | 5/21/2025
+
+
+Case 30: compute-5
+compute-5 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:compute-5 (Windows, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+225 | compute-5 | firewall | Windows | prod | Finance | True | medium | 12/7/2025
+
+
+Case 31: compute-50
+compute-50 | NEW | MEDIUM | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:compute-50 (Linux, staging, Finance)
+  - server:compute-50 (macOS, dev, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+38 | compute-50 | server | Linux | staging | Finance | True | medium | 5/29/2025
+142 | compute-50 | server | macOS | dev | Security | False | low | 3/10/2025
+
+
+Case 32: compute-7
+compute-7 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:compute-7 (Linux, dev, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+296 | compute-7 | server | Linux | dev | Engineering | True | high | 12/4/2025
+
+
+Case 33: compute-9
+compute-9 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:compute-9 (Linux, staging, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+8 | compute-9 | laptop | Linux | staging | Engineering | True | medium | 11/29/2025
+
+
+Case 34: db-10
+db-10 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:db-10 (Windows, staging, Executive Administration)
+  - container:db-10 (Linux, prod, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+184 | db-10 | server | Windows | staging | Executive Administration | False | high | 11/25/2025
+227 | db-10 | container | Linux | prod | HR | True | medium | 4/29/2025
+
+
+Case 35: db-11
+db-11 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:db-11 (macOS, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+192 | db-11 | firewall | macOS | dev | Executive Administration | True | medium | 6/15/2025
+
+
+Case 36: db-12
+db-12 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - firewall:db-12 (macOS, staging, Security)
+  - laptop:db-12 (Windows, staging, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+75 | db-12 | firewall | macOS | staging | Security | True | high | 8/15/2025
+177 | db-12 | laptop | Windows | staging | IT | False | medium | 7/15/2025
+
+
+Case 37: db-13
+db-13 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - firewall:db-13 (macOS, prod, Engineering)
+  - laptop:db-13 (Linux, staging, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+2 | db-13 | firewall | macOS | prod | Engineering | False | low | 1/2/2026
+97 | db-13 | laptop | Linux | staging | Security | True | high | 11/15/2025
+
+
+Case 38: db-15
+db-15 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:db-15 (Linux, staging, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+239 | db-15 | laptop | Linux | staging | Finance | False | high | 10/31/2025
+
+
+Case 39: db-16
+db-16 | NEW | LOW | artifacts=2
+------------------------------------------------
+Artifacts:
+  - firewall:db-16 (macOS, dev, Finance)
+  - container:db-16 (Linux, prod, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+34 | db-16 | firewall | macOS | dev | Finance | False | low | 9/10/2025
+163 | db-16 | container | Linux | prod | Engineering | False | low | 11/29/2025
+
+
+Case 40: db-17
+db-17 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:db-17 (Linux, staging, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+40 | db-17 | container | Linux | staging | Engineering | True | medium | 8/26/2025
+
+
+Case 41: db-19
+db-19 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:db-19 (Windows, prod, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+285 | db-19 | laptop | Windows | prod | Engineering | False | medium | 8/3/2025
+
+
+Case 42: db-2
+db-2 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:db-2 (Windows, staging, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+105 | db-2 | firewall | Windows | staging | IT | True | medium | 2/2/2025
+
+
+Case 43: db-23
+db-23 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - container:db-23 (Linux, dev, Executive Administration)
+  - container:db-23 (Linux, dev, Executive Administration)
+  - container:db-23 (macOS, staging, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+115 | db-23 | container | Linux | dev | Executive Administration | False | medium | 7/26/2025
+218 | db-23 | container | Linux | dev | Executive Administration | True | high | 4/17/2025
+294 | db-23 | container | macOS | staging | IT | False | high | 8/7/2025
+
+
+Case 44: db-24
+db-24 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:db-24 (Linux, prod, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+178 | db-24 | container | Linux | prod | Engineering | False | medium | 10/7/2025
+
+
+Case 45: db-29
+db-29 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - container:db-29 (Linux, staging, Security)
+  - container:db-29 (Linux, dev, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+253 | db-29 | container | Linux | staging | Security | False | medium | 3/23/2025
+256 | db-29 | container | Linux | dev | HR | True | high | 10/6/2025
+
+
+Case 46: db-3
+db-3 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:db-3 (Windows, staging, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+1 | db-3 | server | Windows | staging | HR | True | low | 1/19/2025
+
+
+Case 47: db-30
+db-30 | NEW | MEDIUM | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:db-30 (macOS, prod, Finance)
+  - laptop:db-30 (Linux, staging, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+204 | db-30 | laptop | macOS | prod | Finance | True | low | 11/12/2025
+274 | db-30 | laptop | Linux | staging | Security | False | medium | 7/24/2025
+
+
+Case 48: db-31
+db-31 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:db-31 (Linux, staging, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+30 | db-31 | firewall | Linux | staging | Engineering | True | high | 10/26/2025
+
+
+Case 49: db-34
+db-34 | NEW | LOW | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:db-34 (Linux, prod, IT)
+  - container:db-34 (macOS, staging, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+107 | db-34 | server | Linux | prod | IT | False | low | 3/5/2025
+198 | db-34 | container | macOS | staging | Executive Administration | False | low | 4/1/2025
+
+
+Case 50: db-35
+db-35 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:db-35 (Windows, dev, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+241 | db-35 | container | Windows | dev | HR | True | high | 9/9/2025
+
+
+Case 51: db-37
+db-37 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:db-37 (Linux, dev, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+180 | db-37 | firewall | Linux | dev | Security | True | medium | 1/16/2025
+
+
+Case 52: db-38
+db-38 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:db-38 (Windows, prod, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+152 | db-38 | server | Windows | prod | Security | False | high | 1/10/2025
+
+
+Case 53: db-39
+db-39 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:db-39 (macOS, staging, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+228 | db-39 | firewall | macOS | staging | IT | False | low | 11/4/2025
+
+
+Case 54: db-4
+db-4 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - container:db-4 (Windows, dev, Engineering)
+  - server:db-4 (macOS, prod, Finance)
+  - container:db-4 (Linux, dev, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+181 | db-4 | container | Windows | dev | Engineering | True | low | 12/19/2025
+183 | db-4 | server | macOS | prod | Finance | True | high | 1/20/2025
+259 | db-4 | container | Linux | dev | Security | False | high | 12/15/2025
+
+
+Case 55: db-41
+db-41 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - container:db-41 (Linux, staging, Finance)
+  - server:db-41 (Windows, staging, Finance)
+  - container:db-41 (macOS, prod, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+24 | db-41 | container | Linux | staging | Finance | False | high | 12/24/2025
+125 | db-41 | server | Windows | staging | Finance | False | medium | 5/10/2025
+134 | db-41 | container | macOS | prod | Executive Administration | True | high | 9/26/2025
+
+
+Case 56: db-42
+db-42 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:db-42 (macOS, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+281 | db-42 | server | macOS | dev | Executive Administration | False | medium | 10/4/2025
+
+
+Case 57: db-43
+db-43 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:db-43 (Linux, dev, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+231 | db-43 | server | Linux | dev | HR | False | high | 8/14/2025
+
+
+Case 58: db-46
+db-46 | NEW | MEDIUM | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:db-46 (Windows, prod, Security)
+  - firewall:db-46 (Windows, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+127 | db-46 | server | Windows | prod | Security | True | medium | 4/29/2025
+287 | db-46 | firewall | Windows | dev | Executive Administration | False | low | 12/5/2025
+
+
+Case 59: db-47
+db-47 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:db-47 (macOS, prod, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+248 | db-47 | server | macOS | prod | Security | True | medium | 9/10/2025
+
+
+Case 60: db-50
+db-50 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:db-50 (macOS, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+133 | db-50 | container | macOS | prod | Finance | True | low | 3/8/2025
+
+
+Case 61: db-6
+db-6 | NEW | MEDIUM | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:db-6 (macOS, prod, HR)
+  - server:db-6 (macOS, staging, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+137 | db-6 | server | macOS | prod | HR | False | medium | 7/27/2025
+272 | db-6 | server | macOS | staging | Executive Administration | True | medium | 5/28/2025
+
+
+Case 62: db-7
+db-7 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:db-7 (Linux, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+186 | db-7 | firewall | Linux | dev | Executive Administration | True | high | 12/18/2025
+
+
+Case 63: eng-1
+eng-1 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:eng-1 (Windows, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+162 | eng-1 | laptop | Windows | dev | Executive Administration | False | low | 11/6/2025
+
+
+Case 64: eng-10
+eng-10 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:eng-10 (macOS, staging, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+41 | eng-10 | laptop | macOS | staging | HR | False | medium | 3/13/2025
+
+
+Case 65: eng-11
+eng-11 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:eng-11 (macOS, prod, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+229 | eng-11 | firewall | macOS | prod | IT | True | high | 2/11/2025
+
+
+Case 66: eng-13
+eng-13 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:eng-13 (Linux, dev, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+149 | eng-13 | laptop | Linux | dev | Engineering | True | low | 9/14/2025
+
+
+Case 67: eng-14
+eng-14 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:eng-14 (macOS, prod, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+72 | eng-14 | firewall | macOS | prod | Executive Administration | True | low | 12/6/2025
+
+
+Case 68: eng-15
+eng-15 | NEW | MEDIUM | artifacts=2
+------------------------------------------------
+Artifacts:
+  - container:eng-15 (macOS, staging, Engineering)
+  - firewall:eng-15 (Linux, staging, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+55 | eng-15 | container | macOS | staging | Engineering | True | low | 8/27/2025
+104 | eng-15 | firewall | Linux | staging | IT | False | low | 4/23/2025
+
+
+Case 69: eng-16
+eng-16 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:eng-16 (macOS, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+22 | eng-16 | firewall | macOS | dev | Executive Administration | True | low | 12/27/2025
+
+
+Case 70: eng-17
+eng-17 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:eng-17 (macOS, staging, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+81 | eng-17 | laptop | macOS | staging | Finance | True | low | 8/13/2025
+
+
+Case 71: eng-19
+eng-19 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:eng-19 (Linux, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+251 | eng-19 | server | Linux | dev | Executive Administration | False | high | 12/3/2025
+
+
+Case 72: eng-21
+eng-21 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - container:eng-21 (Windows, dev, Executive Administration)
+  - laptop:eng-21 (macOS, dev, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+57 | eng-21 | container | Windows | dev | Executive Administration | False | high | 9/8/2025
+268 | eng-21 | laptop | macOS | dev | Security | True | low | 2/7/2025
+
+
+Case 73: eng-22
+eng-22 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:eng-22 (Windows, prod, HR)
+  - firewall:eng-22 (Linux, dev, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+37 | eng-22 | server | Windows | prod | HR | True | high | 1/1/2026
+235 | eng-22 | firewall | Linux | dev | Engineering | True | medium | 3/19/2025
+
+
+Case 74: eng-24
+eng-24 | NEW | MEDIUM | artifacts=2
+------------------------------------------------
+Artifacts:
+  - firewall:eng-24 (Windows, prod, Executive Administration)
+  - firewall:eng-24 (Windows, prod, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+10 | eng-24 | firewall | Windows | prod | Executive Administration | True | low | 10/6/2025
+282 | eng-24 | firewall | Windows | prod | HR | True | low | 3/7/2025
+
+
+Case 75: eng-25
+eng-25 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:eng-25 (macOS, prod, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+80 | eng-25 | server | macOS | prod | Engineering | False | low | 3/11/2025
+
+
+Case 76: eng-28
+eng-28 | NEW | MEDIUM | artifacts=3
+------------------------------------------------
+Artifacts:
+  - server:eng-28 (Windows, staging, Security)
+  - server:eng-28 (Linux, prod, IT)
+  - container:eng-28 (Linux, dev, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+29 | eng-28 | server | Windows | staging | Security | True | medium | 5/8/2025
+112 | eng-28 | server | Linux | prod | IT | False | low | 1/25/2025
+188 | eng-28 | container | Linux | dev | IT | False | medium | 6/1/2025
+
+
+Case 77: eng-29
+eng-29 | NEW | MEDIUM | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:eng-29 (Linux, prod, Executive Administration)
+  - laptop:eng-29 (Windows, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+61 | eng-29 | server | Linux | prod | Executive Administration | False | medium | 6/24/2025
+271 | eng-29 | laptop | Windows | prod | Finance | True | low | 3/13/2025
+
+
+Case 78: eng-30
+eng-30 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - container:eng-30 (macOS, prod, Finance)
+  - server:eng-30 (macOS, staging, HR)
+  - server:eng-30 (macOS, dev, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+120 | eng-30 | container | macOS | prod | Finance | False | high | 1/12/2025
+159 | eng-30 | server | macOS | staging | HR | False | high | 4/28/2025
+167 | eng-30 | server | macOS | dev | Security | False | low | 9/16/2025
+
+
+Case 79: eng-31
+eng-31 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:eng-31 (macOS, staging, Engineering)
+  - container:eng-31 (Windows, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+172 | eng-31 | laptop | macOS | staging | Engineering | True | high | 6/10/2025
+201 | eng-31 | container | Windows | prod | Finance | False | low | 3/12/2025
+
+
+Case 80: eng-32
+eng-32 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:eng-32 (Windows, staging, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+65 | eng-32 | container | Windows | staging | Security | True | high | 7/8/2025
+
+
+Case 81: eng-33
+eng-33 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:eng-33 (macOS, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+42 | eng-33 | server | macOS | dev | Executive Administration | True | high | 1/3/2026
+
+
+Case 82: eng-34
+eng-34 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:eng-34 (macOS, staging, HR)
+  - container:eng-34 (Windows, dev, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+11 | eng-34 | laptop | macOS | staging | HR | False | high | 4/23/2025
+106 | eng-34 | container | Windows | dev | IT | True | medium | 4/4/2025
+
+
+Case 83: eng-35
+eng-35 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:eng-35 (Windows, prod, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+100 | eng-35 | container | Windows | prod | IT | True | low | 8/31/2025
+
+
+Case 84: eng-36
+eng-36 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:eng-36 (Linux, staging, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+160 | eng-36 | firewall | Linux | staging | IT | True | low | 2/2/2025
+
+
+Case 85: eng-42
+eng-42 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:eng-42 (macOS, staging, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+260 | eng-42 | container | macOS | staging | Security | True | high | 5/16/2025
+
+
+Case 86: eng-46
+eng-46 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:eng-46 (macOS, dev, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+146 | eng-46 | laptop | macOS | dev | Finance | False | medium | 8/23/2025
+
+
+Case 87: eng-48
+eng-48 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:eng-48 (macOS, prod, Executive Administration)
+  - server:eng-48 (macOS, prod, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+79 | eng-48 | server | macOS | prod | Executive Administration | True | high | 7/20/2025
+126 | eng-48 | server | macOS | prod | Security | False | low | 8/10/2025
+
+
+Case 88: eng-49
+eng-49 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:eng-49 (macOS, dev, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+247 | eng-49 | laptop | macOS | dev | Finance | False | high | 3/19/2025
+
+
+Case 89: eng-5
+eng-5 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:eng-5 (Linux, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+209 | eng-5 | container | Linux | prod | Finance | False | low | 7/5/2025
+
+
+Case 90: eng-50
+eng-50 | NEW | MEDIUM | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:eng-50 (Linux, dev, Executive Administration)
+  - container:eng-50 (Windows, staging, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+15 | eng-50 | laptop | Linux | dev | Executive Administration | False | medium | 1/1/2026
+129 | eng-50 | container | Windows | staging | Executive Administration | True | low | 12/1/2025
+
+
+Case 91: eng-6
+eng-6 | NEW | MEDIUM | artifacts=3
+------------------------------------------------
+Artifacts:
+  - firewall:eng-6 (Windows, prod, Engineering)
+  - firewall:eng-6 (Windows, dev, Engineering)
+  - container:eng-6 (macOS, dev, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+169 | eng-6 | firewall | Windows | prod | Engineering | False | medium | 5/16/2025
+232 | eng-6 | firewall | Windows | dev | Engineering | True | low | 8/2/2025
+299 | eng-6 | container | macOS | dev | Finance | True | medium | 11/22/2025
+
+
+Case 92: eng-7
+eng-7 | NEW | LOW | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:eng-7 (macOS, staging, Engineering)
+  - server:eng-7 (macOS, dev, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+86 | eng-7 | server | macOS | staging | Engineering | False | medium | 12/15/2025
+119 | eng-7 | server | macOS | dev | Finance | False | low | 3/8/2025
+
+
+Case 93: eng-8
+eng-8 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - server:eng-8 (macOS, dev, Finance)
+  - laptop:eng-8 (Linux, staging, Engineering)
+  - server:eng-8 (Linux, dev, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+12 | eng-8 | server | macOS | dev | Finance | False | high | 7/16/2025
+236 | eng-8 | laptop | Linux | staging | Engineering | False | high | 9/24/2025
+246 | eng-8 | server | Linux | dev | Security | False | medium | 7/28/2025
+
+
+Case 94: finance-1
+finance-1 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - container:finance-1 (Windows, dev, Engineering)
+  - firewall:finance-1 (Windows, staging, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+130 | finance-1 | container | Windows | dev | Engineering | False | medium | 11/21/2025
+212 | finance-1 | firewall | Windows | staging | Engineering | True | high | 6/5/2025
+
+
+Case 95: finance-10
+finance-10 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:finance-10 (macOS, staging, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+242 | finance-10 | container | macOS | staging | HR | True | low | 2/7/2025
+
+
+Case 96: finance-13
+finance-13 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:finance-13 (Windows, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+273 | finance-13 | container | Windows | prod | Finance | False | high | 11/24/2025
+
+
+Case 97: finance-14
+finance-14 | NEW | HIGH | artifacts=4
+------------------------------------------------
+Artifacts:
+  - container:finance-14 (macOS, dev, Executive Administration)
+  - server:finance-14 (Windows, dev, IT)
+  - server:finance-14 (macOS, staging, IT)
+  - firewall:finance-14 (macOS, staging, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+28 | finance-14 | container | macOS | dev | Executive Administration | False | high | 4/16/2025
+90 | finance-14 | server | Windows | dev | IT | False | medium | 5/27/2025
+147 | finance-14 | server | macOS | staging | IT | True | high | 11/20/2025
+233 | finance-14 | firewall | macOS | staging | HR | False | low | 5/22/2025
+
+
+Case 98: finance-15
+finance-15 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:finance-15 (macOS, staging, Security)
+  - server:finance-15 (macOS, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+288 | finance-15 | laptop | macOS | staging | Security | True | high | 7/31/2025
+297 | finance-15 | server | macOS | dev | Executive Administration | False | high | 12/21/2025
+
+
+Case 99: finance-16
+finance-16 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:finance-16 (Linux, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+189 | finance-16 | container | Linux | prod | Finance | True | medium | 9/16/2025
+
+
+Case 100: finance-18
+finance-18 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:finance-18 (Linux, staging, Executive Administration)
+  - laptop:finance-18 (macOS, staging, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+70 | finance-18 | server | Linux | staging | Executive Administration | False | high | 7/3/2025
+217 | finance-18 | laptop | macOS | staging | Security | False | high | 5/6/2025
+
+
+Case 101: finance-20
+finance-20 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - firewall:finance-20 (Windows, dev, Engineering)
+  - server:finance-20 (Linux, dev, Finance)
+  - container:finance-20 (macOS, prod, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+164 | finance-20 | firewall | Windows | dev | Engineering | True | high | 1/8/2025
+221 | finance-20 | server | Linux | dev | Finance | True | high | 5/23/2025
+243 | finance-20 | container | macOS | prod | Engineering | False | medium | 9/8/2025
+
+
+Case 102: finance-21
+finance-21 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:finance-21 (Linux, prod, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+210 | finance-21 | server | Linux | prod | HR | False | medium | 9/27/2025
+
+
+Case 103: finance-22
+finance-22 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:finance-22 (macOS, prod, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+48 | finance-22 | container | macOS | prod | HR | False | high | 4/8/2025
+
+
+Case 104: finance-24
+finance-24 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:finance-24 (Linux, prod, HR)
+  - server:finance-24 (macOS, staging, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+17 | finance-24 | laptop | Linux | prod | HR | True | high | 11/13/2025
+21 | finance-24 | server | macOS | staging | Finance | False | medium | 4/3/2025
+
+
+Case 105: finance-25
+finance-25 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:finance-25 (Linux, dev, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+91 | finance-25 | laptop | Linux | dev | IT | False | low | 5/23/2025
+
+
+Case 106: finance-28
+finance-28 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:finance-28 (Windows, staging, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+206 | finance-28 | container | Windows | staging | Engineering | True | high | 11/23/2025
+
+
+Case 107: finance-29
+finance-29 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - server:finance-29 (macOS, dev, Security)
+  - firewall:finance-29 (Linux, prod, Finance)
+  - server:finance-29 (Windows, staging, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+46 | finance-29 | server | macOS | dev | Security | False | high | 3/31/2025
+117 | finance-29 | firewall | Linux | prod | Finance | True | medium | 7/29/2025
+215 | finance-29 | server | Windows | staging | Engineering | False | high | 7/26/2025
+
+
+Case 108: finance-3
+finance-3 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:finance-3 (Windows, staging, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+110 | finance-3 | server | Windows | staging | IT | False | low | 5/9/2025
+
+
+Case 109: finance-30
+finance-30 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - firewall:finance-30 (Linux, staging, Finance)
+  - server:finance-30 (macOS, prod, Security)
+  - laptop:finance-30 (Windows, staging, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+60 | finance-30 | firewall | Linux | staging | Finance | False | high | 11/27/2025
+191 | finance-30 | server | macOS | prod | Security | False | medium | 2/24/2025
+197 | finance-30 | laptop | Windows | staging | IT | True | medium | 11/23/2025
+
+
+Case 110: finance-33
+finance-33 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:finance-33 (Windows, staging, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+151 | finance-33 | firewall | Windows | staging | Security | True | high | 12/20/2025
+
+
+Case 111: finance-35
+finance-35 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:finance-35 (macOS, prod, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+23 | finance-35 | laptop | macOS | prod | IT | True | high | 2/9/2025
+
+
+Case 112: finance-37
+finance-37 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - firewall:finance-37 (Linux, staging, HR)
+  - firewall:finance-37 (Linux, staging, Executive Administration)
+  - server:finance-37 (macOS, dev, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+52 | finance-37 | firewall | Linux | staging | HR | False | high | 9/28/2025
+124 | finance-37 | firewall | Linux | staging | Executive Administration | False | medium | 12/12/2025
+258 | finance-37 | server | macOS | dev | Engineering | False | high | 1/6/2025
+
+
+Case 113: finance-38
+finance-38 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:finance-38 (Windows, prod, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+64 | finance-38 | firewall | Windows | prod | Executive Administration | False | medium | 7/2/2025
+
+
+Case 114: finance-39
+finance-39 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - container:finance-39 (Windows, staging, Engineering)
+  - server:finance-39 (macOS, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+58 | finance-39 | container | Windows | staging | Engineering | False | medium | 9/1/2025
+275 | finance-39 | server | macOS | dev | Executive Administration | True | high | 8/17/2025
+
+
+Case 115: finance-4
+finance-4 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - firewall:finance-4 (Windows, staging, Finance)
+  - laptop:finance-4 (Linux, dev, HR)
+  - laptop:finance-4 (Windows, prod, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+45 | finance-4 | firewall | Windows | staging | Finance | False | medium | 10/9/2025
+165 | finance-4 | laptop | Linux | dev | HR | False | medium | 2/4/2025
+300 | finance-4 | laptop | Windows | prod | HR | True | high | 11/22/2025
+
+
+Case 116: finance-40
+finance-40 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - firewall:finance-40 (Linux, prod, Security)
+  - laptop:finance-40 (Linux, staging, Finance)
+  - container:finance-40 (macOS, prod, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+39 | finance-40 | firewall | Linux | prod | Security | False | high | 6/12/2025
+182 | finance-40 | laptop | Linux | staging | Finance | False | high | 11/11/2025
+298 | finance-40 | container | macOS | prod | Executive Administration | False | medium | 7/19/2025
+
+
+Case 117: finance-41
+finance-41 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:finance-41 (macOS, dev, Executive Administration)
+  - firewall:finance-41 (Linux, dev, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+53 | finance-41 | laptop | macOS | dev | Executive Administration | True | high | 10/18/2025
+156 | finance-41 | firewall | Linux | dev | IT | True | low | 5/3/2025
+
+
+Case 118: finance-42
+finance-42 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:finance-42 (Linux, dev, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+51 | finance-42 | firewall | Linux | dev | IT | False | medium | 8/26/2025
+
+
+Case 119: finance-45
+finance-45 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:finance-45 (Linux, dev, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+245 | finance-45 | firewall | Linux | dev | HR | False | medium | 4/7/2025
+
+
+Case 120: finance-46
+finance-46 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - container:finance-46 (Windows, prod, Security)
+  - firewall:finance-46 (macOS, staging, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+73 | finance-46 | container | Windows | prod | Security | False | low | 7/15/2025
+148 | finance-46 | firewall | macOS | staging | Executive Administration | True | high | 6/23/2025
+
+
+Case 121: finance-47
+finance-47 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:finance-47 (Linux, prod, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+87 | finance-47 | laptop | Linux | prod | IT | False | high | 1/27/2025
+
+
+Case 122: finance-48
+finance-48 | NEW | MEDIUM | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:finance-48 (macOS, staging, IT)
+  - container:finance-48 (Windows, prod, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+103 | finance-48 | laptop | macOS | staging | IT | True | medium | 9/1/2025
+249 | finance-48 | container | Windows | prod | Engineering | False | low | 2/12/2025
+
+
+Case 123: finance-49
+finance-49 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:finance-49 (macOS, staging, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+196 | finance-49 | firewall | macOS | staging | Executive Administration | False | low | 6/14/2025
+
+
+Case 124: finance-5
+finance-5 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:finance-5 (macOS, dev, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+194 | finance-5 | firewall | macOS | dev | Engineering | False | medium | 6/8/2025
+
+
+Case 125: finance-6
+finance-6 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:finance-6 (macOS, dev, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+234 | finance-6 | firewall | macOS | dev | IT | True | low | 6/18/2025
+
+
+Case 126: finance-8
+finance-8 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:finance-8 (Windows, dev, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+211 | finance-8 | container | Windows | dev | HR | False | high | 12/30/2025
+
+
+Case 127: hr-1
+hr-1 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:hr-1 (macOS, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+88 | hr-1 | laptop | macOS | prod | Finance | False | low | 3/13/2025
+
+
+Case 128: hr-10
+hr-10 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:hr-10 (Linux, prod, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+208 | hr-10 | laptop | Linux | prod | Security | False | high | 11/5/2025
+
+
+Case 129: hr-11
+hr-11 | NEW | LOW | artifacts=3
+------------------------------------------------
+Artifacts:
+  - firewall:hr-11 (macOS, prod, IT)
+  - server:hr-11 (macOS, prod, HR)
+  - laptop:hr-11 (macOS, staging, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+59 | hr-11 | firewall | macOS | prod | IT | False | low | 6/1/2025
+93 | hr-11 | server | macOS | prod | HR | False | low | 4/21/2025
+176 | hr-11 | laptop | macOS | staging | HR | False | low | 8/10/2025
+
+
+Case 130: hr-12
+hr-12 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:hr-12 (Linux, staging, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+102 | hr-12 | firewall | Linux | staging | HR | False | high | 4/17/2025
+
+
+Case 131: hr-14
+hr-14 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:hr-14 (Linux, prod, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+128 | hr-14 | server | Linux | prod | Security | False | medium | 5/15/2025
+
+
+Case 132: hr-16
+hr-16 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:hr-16 (Linux, staging, HR)
+  - container:hr-16 (Windows, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+4 | hr-16 | laptop | Linux | staging | HR | False | low | 10/12/2025
+150 | hr-16 | container | Windows | dev | Executive Administration | True | high | 4/13/2025
+
+
+Case 133: hr-17
+hr-17 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:hr-17 (Linux, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+171 | hr-17 | container | Linux | dev | Executive Administration | False | medium | 12/13/2025
+
+
+Case 134: hr-18
+hr-18 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:hr-18 (Linux, prod, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+98 | hr-18 | server | Linux | prod | HR | False | low | 11/14/2025
+
+
+Case 135: hr-19
+hr-19 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:hr-19 (Windows, prod, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+118 | hr-19 | container | Windows | prod | Security | False | high | 10/14/2025
+
+
+Case 136: hr-21
+hr-21 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:hr-21 (Windows, prod, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+77 | hr-21 | server | Windows | prod | Security | False | low | 3/14/2025
+
+
+Case 137: hr-22
+hr-22 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:hr-22 (Windows, staging, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+226 | hr-22 | server | Windows | staging | Executive Administration | False | medium | 11/7/2025
+
+
+Case 138: hr-23
+hr-23 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:hr-23 (Windows, prod, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+283 | hr-23 | firewall | Windows | prod | Engineering | False | high | 11/10/2025
+
+
+Case 139: hr-24
+hr-24 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:hr-24 (Windows, prod, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+168 | hr-24 | server | Windows | prod | HR | False | medium | 4/19/2025
+
+
+Case 140: hr-25
+hr-25 | NEW | MEDIUM | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:hr-25 (Linux, prod, Security)
+  - server:hr-25 (Windows, staging, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+71 | hr-25 | server | Linux | prod | Security | True | medium | 12/8/2025
+187 | hr-25 | server | Windows | staging | Security | False | medium | 12/6/2025
+
+
+Case 141: hr-26
+hr-26 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - container:hr-26 (macOS, prod, Finance)
+  - server:hr-26 (Windows, prod, Security)
+  - server:hr-26 (Linux, staging, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+96 | hr-26 | container | macOS | prod | Finance | True | medium | 9/26/2025
+143 | hr-26 | server | Windows | prod | Security | True | high | 11/4/2025
+264 | hr-26 | server | Linux | staging | Finance | False | high | 8/26/2025
+
+
+Case 142: hr-27
+hr-27 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - firewall:hr-27 (Windows, dev, IT)
+  - container:hr-27 (Linux, staging, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+252 | hr-27 | firewall | Windows | dev | IT | True | high | 5/1/2025
+266 | hr-27 | container | Linux | staging | Finance | False | medium | 2/26/2025
+
+
+Case 143: hr-28
+hr-28 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:hr-28 (macOS, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+254 | hr-28 | firewall | macOS | prod | Finance | False | medium | 2/18/2025
+
+
+Case 144: hr-30
+hr-30 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:hr-30 (Linux, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+108 | hr-30 | laptop | Linux | prod | Finance | True | low | 2/26/2025
+
+
+Case 145: hr-33
+hr-33 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - server:hr-33 (macOS, staging, Finance)
+  - firewall:hr-33 (macOS, dev, IT)
+  - server:hr-33 (Linux, prod, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+68 | hr-33 | server | macOS | staging | Finance | True | high | 7/9/2025
+199 | hr-33 | firewall | macOS | dev | IT | True | medium | 5/11/2025
+238 | hr-33 | server | Linux | prod | Engineering | True | low | 2/2/2025
+
+
+Case 146: hr-34
+hr-34 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - container:hr-34 (macOS, staging, Finance)
+  - container:hr-34 (Windows, dev, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+109 | hr-34 | container | macOS | staging | Finance | True | medium | 6/29/2025
+116 | hr-34 | container | Windows | dev | Engineering | False | high | 8/13/2025
+
+
+Case 147: hr-37
+hr-37 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:hr-37 (Linux, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+190 | hr-37 | laptop | Linux | prod | Finance | True | high | 10/10/2025
+
+
+Case 148: hr-38
+hr-38 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:hr-38 (Windows, staging, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+276 | hr-38 | container | Windows | staging | Finance | True | high | 12/18/2025
+
+
+Case 149: hr-39
+hr-39 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - server:hr-39 (macOS, dev, Security)
+  - server:hr-39 (macOS, staging, Executive Administration)
+  - server:hr-39 (Linux, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+66 | hr-39 | server | macOS | dev | Security | False | low | 9/24/2025
+140 | hr-39 | server | macOS | staging | Executive Administration | False | low | 12/24/2025
+155 | hr-39 | server | Linux | dev | Executive Administration | True | high | 11/7/2025
+
+
+Case 150: hr-4
+hr-4 | NEW | MEDIUM | artifacts=3
+------------------------------------------------
+Artifacts:
+  - laptop:hr-4 (macOS, dev, IT)
+  - container:hr-4 (macOS, prod, Engineering)
+  - container:hr-4 (macOS, staging, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+84 | hr-4 | laptop | macOS | dev | IT | True | low | 10/14/2025
+144 | hr-4 | container | macOS | prod | Engineering | True | low | 1/12/2025
+293 | hr-4 | container | macOS | staging | Finance | False | medium | 6/29/2025
+
+
+Case 151: hr-40
+hr-40 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:hr-40 (Linux, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+193 | hr-40 | laptop | Linux | prod | Finance | False | high | 6/9/2025
+
+
+Case 152: hr-42
+hr-42 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:hr-42 (Linux, prod, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+170 | hr-42 | firewall | Linux | prod | HR | False | high | 5/16/2025
+
+
+Case 153: hr-44
+hr-44 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:hr-44 (Linux, prod, Engineering)
+  - laptop:hr-44 (macOS, staging, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+122 | hr-44 | server | Linux | prod | Engineering | True | low | 3/1/2025
+202 | hr-44 | laptop | macOS | staging | HR | False | high | 5/21/2025
+
+
+Case 154: hr-45
+hr-45 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:hr-45 (Windows, prod, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+3 | hr-45 | firewall | Windows | prod | Security | False | medium | 9/22/2025
+
+
+Case 155: hr-46
+hr-46 | NEW | LOW | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:hr-46 (macOS, dev, Executive Administration)
+  - laptop:hr-46 (macOS, dev, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+35 | hr-46 | server | macOS | dev | Executive Administration | False | low | 12/23/2025
+94 | hr-46 | laptop | macOS | dev | Engineering | False | low | 7/20/2025
+
+
+Case 156: hr-48
+hr-48 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:hr-48 (macOS, prod, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+290 | hr-48 | firewall | macOS | prod | Engineering | False | low | 12/12/2025
+
+
+Case 157: hr-49
+hr-49 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:hr-49 (Linux, staging, HR)
+  - server:hr-49 (Linux, dev, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+139 | hr-49 | server | Linux | staging | HR | True | high | 2/17/2025
+270 | hr-49 | server | Linux | dev | HR | False | medium | 9/6/2025
+
+
+Case 158: hr-5
+hr-5 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:hr-5 (Linux, dev, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+286 | hr-5 | server | Linux | dev | Security | False | low | 11/20/2025
+
+
+Case 159: web-1
+web-1 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:web-1 (Windows, staging, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+123 | web-1 | container | Windows | staging | Executive Administration | False | medium | 10/7/2025
+
+
+Case 160: web-10
+web-10 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - firewall:web-10 (Linux, dev, Finance)
+  - container:web-10 (Windows, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+14 | web-10 | firewall | Linux | dev | Finance | True | low | 4/11/2025
+16 | web-10 | container | Windows | dev | Executive Administration | True | high | 7/31/2025
+
+
+Case 161: web-12
+web-12 | NEW | MEDIUM | artifacts=3
+------------------------------------------------
+Artifacts:
+  - laptop:web-12 (Windows, prod, IT)
+  - container:web-12 (Windows, staging, Executive Administration)
+  - laptop:web-12 (Linux, prod, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+27 | web-12 | laptop | Windows | prod | IT | False | medium | 8/4/2025
+158 | web-12 | container | Windows | staging | Executive Administration | False | medium | 9/20/2025
+280 | web-12 | laptop | Linux | prod | IT | True | low | 12/18/2025
+
+
+Case 162: web-15
+web-15 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - container:web-15 (macOS, staging, Engineering)
+  - server:web-15 (macOS, staging, HR)
+  - container:web-15 (Windows, staging, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+6 | web-15 | container | macOS | staging | Engineering | True | low | 3/11/2025
+7 | web-15 | server | macOS | staging | HR | True | high | 9/21/2025
+18 | web-15 | container | Windows | staging | Engineering | True | high | 1/9/2025
+
+
+Case 163: web-16
+web-16 | NEW | MEDIUM | artifacts=4
+------------------------------------------------
+Artifacts:
+  - server:web-16 (macOS, prod, IT)
+  - server:web-16 (Linux, prod, Finance)
+  - laptop:web-16 (Linux, prod, Finance)
+  - container:web-16 (Windows, staging, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+13 | web-16 | server | macOS | prod | IT | True | low | 10/31/2025
+82 | web-16 | server | Linux | prod | Finance | True | low | 3/13/2025
+113 | web-16 | laptop | Linux | prod | Finance | False | medium | 1/26/2025
+265 | web-16 | container | Windows | staging | IT | True | low | 4/2/2025
+
+
+Case 164: web-19
+web-19 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:web-19 (macOS, dev, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+32 | web-19 | firewall | macOS | dev | IT | False | low | 7/19/2025
+
+
+Case 165: web-2
+web-2 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:web-2 (Linux, staging, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+101 | web-2 | firewall | Linux | staging | Security | False | medium | 3/31/2025
+
+
+Case 166: web-20
+web-20 | NEW | LOW | artifacts=2
+------------------------------------------------
+Artifacts:
+  - firewall:web-20 (macOS, staging, Executive Administration)
+  - server:web-20 (macOS, staging, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+136 | web-20 | firewall | macOS | staging | Executive Administration | False | low | 9/4/2025
+214 | web-20 | server | macOS | staging | HR | False | medium | 3/26/2025
+
+
+Case 167: web-22
+web-22 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:web-22 (Linux, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+203 | web-22 | container | Linux | prod | Finance | False | medium | 1/12/2025
+
+
+Case 168: web-23
+web-23 | NEW | LOW | artifacts=2
+------------------------------------------------
+Artifacts:
+  - container:web-23 (Linux, prod, Executive Administration)
+  - server:web-23 (Linux, prod, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+132 | web-23 | container | Linux | prod | Executive Administration | False | low | 10/20/2025
+219 | web-23 | server | Linux | prod | Security | False | medium | 9/6/2025
+
+
+Case 169: web-25
+web-25 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:web-25 (Windows, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+131 | web-25 | container | Windows | dev | Executive Administration | False | high | 3/1/2025
+
+
+Case 170: web-26
+web-26 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:web-26 (Linux, prod, Finance)
+  - container:web-26 (Linux, dev, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+19 | web-26 | laptop | Linux | prod | Finance | True | medium | 11/9/2025
+95 | web-26 | container | Linux | dev | Engineering | True | high | 8/25/2025
+
+
+Case 171: web-28
+web-28 | NEW | MEDIUM | artifacts=3
+------------------------------------------------
+Artifacts:
+  - container:web-28 (Linux, prod, Executive Administration)
+  - container:web-28 (Windows, dev, Executive Administration)
+  - laptop:web-28 (Windows, dev, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+89 | web-28 | container | Linux | prod | Executive Administration | True | low | 5/22/2025
+114 | web-28 | container | Windows | dev | Executive Administration | True | low | 2/15/2025
+200 | web-28 | laptop | Windows | dev | Executive Administration | False | medium | 8/31/2025
+
+
+Case 172: web-29
+web-29 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:web-29 (Linux, staging, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+278 | web-29 | firewall | Linux | staging | Finance | False | medium | 12/26/2025
+
+
+Case 173: web-31
+web-31 | NEW | MEDIUM | artifacts=2
+------------------------------------------------
+Artifacts:
+  - firewall:web-31 (Linux, prod, Finance)
+  - firewall:web-31 (macOS, dev, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+26 | web-31 | firewall | Linux | prod | Finance | False | low | 8/21/2025
+240 | web-31 | firewall | macOS | dev | Engineering | True | medium | 5/20/2025
+
+
+Case 174: web-32
+web-32 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:web-32 (Linux, staging, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+262 | web-32 | firewall | Linux | staging | Finance | True | medium | 10/17/2025
+
+
+Case 175: web-33
+web-33 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - container:web-33 (Linux, staging, IT)
+  - firewall:web-33 (macOS, dev, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+20 | web-33 | container | Linux | staging | IT | False | medium | 1/17/2025
+257 | web-33 | firewall | macOS | dev | IT | False | high | 4/11/2025
+
+
+Case 176: web-35
+web-35 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:web-35 (Linux, dev, Executive Administration)
+  - laptop:web-35 (macOS, dev, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+78 | web-35 | laptop | Linux | dev | Executive Administration | False | low | 8/23/2025
+99 | web-35 | laptop | macOS | dev | IT | False | high | 3/8/2025
+
+
+Case 177: web-36
+web-36 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:web-36 (macOS, dev, IT)
+  - laptop:web-36 (Linux, prod, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+43 | web-36 | server | macOS | dev | IT | True | medium | 11/29/2025
+76 | web-36 | laptop | Linux | prod | Finance | True | high | 1/16/2025
+
+
+Case 178: web-38
+web-38 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - server:web-38 (Linux, staging, Engineering)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+31 | web-38 | server | Linux | staging | Engineering | False | high | 5/5/2025
+
+
+Case 179: web-39
+web-39 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:web-39 (macOS, dev, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+50 | web-39 | laptop | macOS | dev | Security | True | low | 9/18/2025
+
+
+Case 180: web-4
+web-4 | NEW | LOW | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:web-4 (Windows, prod, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+223 | web-4 | container | Windows | prod | HR | False | medium | 8/8/2025
+
+
+Case 181: web-42
+web-42 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:web-42 (Windows, dev, HR)
+  - firewall:web-42 (macOS, prod, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+250 | web-42 | laptop | Windows | dev | HR | False | low | 4/3/2025
+277 | web-42 | firewall | macOS | prod | Security | False | high | 10/25/2025
+
+
+Case 182: web-46
+web-46 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - firewall:web-46 (Linux, staging, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+263 | web-46 | firewall | Linux | staging | IT | True | high | 5/28/2025
+
+
+Case 183: web-47
+web-47 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - server:web-47 (macOS, staging, IT)
+  - laptop:web-47 (macOS, prod, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+69 | web-47 | server | macOS | staging | IT | True | low | 3/20/2025
+74 | web-47 | laptop | macOS | prod | IT | False | high | 9/4/2025
+
+
+Case 184: web-48
+web-48 | NEW | MEDIUM | artifacts=3
+------------------------------------------------
+Artifacts:
+  - laptop:web-48 (macOS, staging, IT)
+  - laptop:web-48 (Windows, prod, IT)
+  - laptop:web-48 (Windows, staging, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+36 | web-48 | laptop | macOS | staging | IT | True | low | 3/24/2025
+269 | web-48 | laptop | Windows | prod | IT | False | low | 5/11/2025
+289 | web-48 | laptop | Windows | staging | HR | True | medium | 9/2/2025
+
+
+Case 185: web-49
+web-49 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:web-49 (Linux, staging, Finance)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+145 | web-49 | container | Linux | staging | Finance | True | low | 8/23/2025
+
+
+Case 186: web-5
+web-5 | NEW | HIGH | artifacts=1
+------------------------------------------------
+Artifacts:
+  - laptop:web-5 (macOS, staging, HR)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+153 | web-5 | laptop | macOS | staging | HR | True | high | 10/22/2025
+
+
+Case 187: web-50
+web-50 | NEW | HIGH | artifacts=2
+------------------------------------------------
+Artifacts:
+  - laptop:web-50 (Linux, dev, Engineering)
+  - container:web-50 (Linux, staging, IT)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+135 | web-50 | laptop | Linux | dev | Engineering | False | high | 4/27/2025
+179 | web-50 | container | Linux | staging | IT | True | high | 4/22/2025
+
+
+Case 188: web-7
+web-7 | NEW | MEDIUM | artifacts=1
+------------------------------------------------
+Artifacts:
+  - container:web-7 (Windows, prod, Executive Administration)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+284 | web-7 | container | Windows | prod | Executive Administration | True | low | 6/13/2025
+
+
+Case 189: web-9
+web-9 | NEW | HIGH | artifacts=3
+------------------------------------------------
+Artifacts:
+  - firewall:web-9 (Windows, prod, Finance)
+  - firewall:web-9 (Linux, prod, Executive Administration)
+  - server:web-9 (macOS, staging, Security)
+Raw records (compact):
+asset_id | hostname | asset_type | os | environment | owner_team | internet_exposed | criticality | last_seen
+--------------------------------------------------------------------------------
+161 | web-9 | firewall | Windows | prod | Finance | True | high | 3/25/2025
+213 | web-9 | firewall | Linux | prod | Executive Administration | True | low | 3/27/2025
+295 | web-9 | server | macOS | staging | Security | True | high | 1/3/2026
+
+
