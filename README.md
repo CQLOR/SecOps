@@ -67,3 +67,17 @@ Project layout
 - `case_report.*` — generated artifacts
 
 If you want a different default page size, a table view, or additional export formats, open an issue or request the change.
+
+Quick Start
+
+Anyone can clone and run the project with:
+
+```bash
+git clone https://github.com/CQLOR/SecOps.git
+cd SecOps
+npm install
+python3 soc_case_builder.py
+npm start
+```
+
+Then open http://localhost:3000 in your browser.
